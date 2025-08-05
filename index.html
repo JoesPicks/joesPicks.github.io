@@ -402,8 +402,21 @@
 <body>
   <div id="preloader">
     <div id="preloader-text">PICK<br>6
-      <img loading="lazy" id="football" src="https://raw.githubusercontent.com/joespick6/joespick6.github.io/refs/heads/main/FootballNew.gif" alt="Football" />
+<!--       <img loading="lazy" id="football" src="https://raw.githubusercontent.com/joespick6/joespick6.github.io/refs/heads/main/FootballNew.gif" alt="Football" /> -->
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+              <defs>
+                <clipPath id="fillClip">
+                  <rect id="fillRect" x="0" y="24" width="24" height="24" />
+                </clipPath>
+              </defs>
+              <g clip-path="url(#fillClip)">
+                <path d="M21.9127 5.93144c-0.159 -2.07975 -1.7644 -3.68517 -3.8441 -3.84419 -1.067 -0.08157 -2.312 -0.12112 -3.6237 -0.05102l7.5189 7.51892c0.0701 -1.3117 0.0305 -2.55678 -0.0511 -3.62371Z" fill="#4181c9" stroke-width="1"></path>
+                <path d="M2.08725 18.0686c0.15902 2.0797 1.76444 3.6851 3.84419 3.8441 1.06718 0.0816 2.31259 0.1212 3.62463 0.051l-7.51979 -7.5198c-0.07017 1.3121 -0.03062 2.5575 0.05097 3.6247Z" fill="#4181c9" stroke-width="1"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M2.22237 12.5087c0.36847 -2.59228 1.26167 -5.23146 3.15827 -7.12806 1.89681 -1.89681 4.53636 -2.79 7.12886 -3.15839l9.2682 9.26825c-0.3683 2.5925 -1.2615 5.232 -3.1583 7.1289 -1.8966 1.8966 -4.5358 2.7898 -7.1281 3.1582l-9.26893 -9.2689Zm9.72023 -4.3486c0.2929 -0.29289 0.7678 -0.29289 1.0606 0l0.8882 0.8881 0.8881 -0.8881c0.2928 -0.29289 0.7677 -0.29289 1.0606 0 0.2929 0.29289 0.2929 0.76777 0 1.06066l-0.8881 0.88814 0.8881 0.8881c0.2929 0.2929 0.2929 0.7677 0 1.0606 -0.2929 0.2929 -0.7678 0.2929 -1.0606 0l-0.8881 -0.8881 -0.8306 0.8306 0.8881 0.8881c0.2929 0.2929 0.2929 0.7678 0 1.0607 -0.2929 0.2929 -0.7678 0.2929 -1.0607 0l-0.8881 -0.8881 -0.8306 0.8306 0.8881 0.8881c0.2929 0.2928 0.2929 0.7677 0 1.0606 -0.2929 0.2929 -0.7677 0.2929 -1.0606 0l-0.8881 -0.8881 -0.88814 0.8881c-0.29289 0.2929 -0.76777 0.2929 -1.06066 0s-0.29289 -0.7678 0 -1.0606l0.8881 -0.8881 -0.8881 -0.8882c-0.29289 -0.2928 -0.29289 -0.7677 0 -1.0606 0.29289 -0.2929 0.76777 -0.2929 1.06066 0l0.88814 0.8881 0.8305 -0.8306 -0.8881 -0.8881c-0.29285 -0.2929 -0.29285 -0.7678 0 -1.0607 0.2929 -0.29285 0.7678 -0.29285 1.0607 0l0.8881 0.8881 0.8306 -0.8305 -0.8881 -0.88814c-0.2929 -0.29289 -0.2929 -0.76777 0 -1.06066Z" fill="#4181c9" stroke-width="1"></path>
+              </g>
+        </svg>
     </div>
+    
     <button id="resetBtn" onclick="resetNotifications()" style="
                     display: none;
                     position: fixed;
@@ -1097,6 +1110,17 @@ function setupInstallPrompt() {
         installBanner.style.display = 'none';
     });
 }
+
+    const fillRect = document.getElementById('fillRect');
+let progress = 0;
+function animate() {
+  progress += 0.4; // fills over ~6s at 60fps
+  if (progress > 24) progress = 24;
+  fillRect.setAttribute('y', 24 - progress);
+  fillRect.setAttribute('height', progress);
+  if (progress < 24) requestAnimationFrame(animate);
+}
+animate();
 
 document.addEventListener('DOMContentLoaded', () => {
     setupInstallPrompt();
