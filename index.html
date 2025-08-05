@@ -278,7 +278,7 @@
         background-clip: text;
         color: transparent;
         font-size: 8rem;
-        animation: reveal 3000ms ease-in-out forwards, glow 3000ms ease-in-out forwards;
+/*         animation: reveal 3000ms ease-in-out forwards, glow 3000ms ease-in-out forwards; */
         font-weight: 900;
         white-space: nowrap;
         line-height: 1;
@@ -292,6 +292,25 @@
         line-height: .75;
         -webkit-text-stroke: 7px #478fdf;
         transition: all 1s ease-in-out;
+      }
+      span{
+        opacity: 0;
+        transition: opacity 1400ms;
+      }
+      #preloader-text span: nth-child(1){
+        transition-delay: 6000ms;
+      }
+      #preloader-text span: nth-child(2){
+        transition-delay: 7000ms;
+      }
+      #preloader-text span: nth-child(3){
+        transition-delay: 7000ms;
+      }
+      #preloader-text span: nth-child(4){
+        transition-delay: 7000ms;
+      }
+      #preloader-text span: nth-child(6){
+        transition-delay: 6000ms;
       }
 
       #preloader-text::after {
@@ -316,7 +335,7 @@
         pointer-events: none;
       }
 
-      @keyframes reveal {
+/*       @keyframes reveal {
             0% {
                 opacity: 0; 
                 letter-spacing: 0px;
@@ -369,7 +388,7 @@
               text-shadow: none;
               opacity: 1;
             }
-          }
+          } */
 
       @keyframes smoke-rise {
         0% {
@@ -397,7 +416,13 @@
 
 <body>
   <div id="preloader">
-    <div id="preloader-text">PICK<br>6
+    <div id="preloader-text">
+      <span>P</span>
+      <span>I</span>
+      <span>C</span>
+      <span>K</span>
+      <span><br></span>
+      <span>6</span>
       <!--       <img loading="lazy" id="football" src="https://raw.githubusercontent.com/joespick6/joespick6.github.io/refs/heads/main/FootballNew.gif" alt="Football" /> -->
     </div>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="100" height="100">
