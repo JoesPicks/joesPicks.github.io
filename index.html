@@ -288,17 +288,13 @@
         letter-spacing: 1px;
       }
       #preloader-text span {
-    display: inline-block;
+      display: inline-block;
+  opacity: 0;
+  animation: fadeIn 2s ease forwards; /* slow fade */
 }
 #preloader-text span.break {
     display: block;
 }
-      
-span {
-  opacity: 0;
-  animation: fadeIn 0.5s forwards;
-}
-
 #preloader-text span:nth-child(1) {
   animation-delay: 2.5s;
 }
@@ -316,8 +312,13 @@ span {
 }
 
 @keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px); /* optional: slide up slightly */
+  }
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
