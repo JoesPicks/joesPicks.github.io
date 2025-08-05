@@ -277,7 +277,7 @@
         background-clip: text;
         color: transparent;
         font-size: 7rem;
-        animation: reveal 3500ms ease-in-out forwards 5200ms, glow 3500ms linear infinite 5200ms;
+        animation: reveal 6000ms ease-in-out forwards 300ms, glow 6000ms linear infinite 300ms
         font-weight: 900;
         white-space: nowrap;
         line-height: 1;
@@ -289,7 +289,7 @@
         flex-direction: column;
         align-items: center;
         line-height: .75;
-        -webkit-text-stroke: 5px #478fdf;
+/*         -webkit-text-stroke: 5px #478fdf; */
       }
 
       #preloader-text::after {
@@ -314,10 +314,12 @@
       }
 
       @keyframes reveal {
+        0%{
+          -webkit-text-stroke: 0px;
+        }
         80% {
           letter-spacing: 8px;
         }
-
         100% {
           background-size: 300% 300%;
         }
@@ -342,6 +344,10 @@
         80% {
           text-shadow: 0 0 8px rgb(71, 143, 223, .9);
           -webkit-text-stroke: 1px rgb(71, 143, 223, .9);
+        }
+         100% {
+          text-shadow: 0 0 8px rgb(71, 143, 223, 1);
+          -webkit-text-stroke: 1px rgb(71, 143, 223, 1);
         }
       }
 
