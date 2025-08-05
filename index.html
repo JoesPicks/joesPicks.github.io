@@ -1111,16 +1111,19 @@ function setupInstallPrompt() {
     });
 }
 
-    const fillRect = document.getElementById('fillRect');
+const fillRect = document.getElementById('fillRect');
 let progress = 0;
-function animate() {
-  progress += 0.4; // fills over ~6s at 60fps
-  if (progress > 24) progress = 24;
+const duration = 6000; // 6 seconds
+const startTime = performance.now();
+
+function animate(time) {
+  const elapsed = time - startTime;
+  progress = Math.min(elapsed / duration, 1) * 24;
   fillRect.setAttribute('y', 24 - progress);
   fillRect.setAttribute('height', progress);
-  if (progress < 24) requestAnimationFrame(animate);
+  if (elapsed < duration) requestAnimationFrame(animate);
 }
-animate();
+requestAnimationFrame(animate);
 
 document.addEventListener('DOMContentLoaded', () => {
     setupInstallPrompt();
