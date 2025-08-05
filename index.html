@@ -258,6 +258,8 @@
       background-attachment: fixed;
       background-repeat: round;
       background-size: cover;
+      display: flex;
+      flex-direction: column;
     }
 
     #preloader-text {
@@ -267,7 +269,7 @@
     color: transparent;
     font-size: 7rem;
     /* font-family: "Source Sans Pro", sans-serif; */
-    animation: reveal 3000ms ease-in-out forwards 200ms, glow 2500ms linear infinite 2000ms;
+    animation: reveal 4000ms ease-in-out forwards 400ms, glow 3500ms linear infinite 4000ms;
     font-weight: 900;
     white-space: nowrap;
     line-height: 1;
@@ -327,6 +329,10 @@
       60% {
         text-shadow: 0 0 8px rgb(71, 143, 223,.7);
         -webkit-text-stroke: 1px rgb(71, 143, 223, .7);
+      }
+           80% {
+        text-shadow: 0 0 8px rgb(71, 143, 223,.9);
+        -webkit-text-stroke: 1px rgb(71, 143, 223, .9);
       }
     }
     @keyframes smoke-rise {
@@ -401,9 +407,7 @@
 
 <body>
   <div id="preloader">
-    <div id="preloader-text">PICK<br>6
-<!--       <img loading="lazy" id="football" src="https://raw.githubusercontent.com/joespick6/joespick6.github.io/refs/heads/main/FootballNew.gif" alt="Football" /> -->
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="100" height="100">
               <defs>
                 <clipPath id="fillClip">
                   <rect id="fillRect" x="0" y="24" width="24" height="24" />
@@ -415,6 +419,8 @@
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M2.22237 12.5087c0.36847 -2.59228 1.26167 -5.23146 3.15827 -7.12806 1.89681 -1.89681 4.53636 -2.79 7.12886 -3.15839l9.2682 9.26825c-0.3683 2.5925 -1.2615 5.232 -3.1583 7.1289 -1.8966 1.8966 -4.5358 2.7898 -7.1281 3.1582l-9.26893 -9.2689Zm9.72023 -4.3486c0.2929 -0.29289 0.7678 -0.29289 1.0606 0l0.8882 0.8881 0.8881 -0.8881c0.2928 -0.29289 0.7677 -0.29289 1.0606 0 0.2929 0.29289 0.2929 0.76777 0 1.06066l-0.8881 0.88814 0.8881 0.8881c0.2929 0.2929 0.2929 0.7677 0 1.0606 -0.2929 0.2929 -0.7678 0.2929 -1.0606 0l-0.8881 -0.8881 -0.8306 0.8306 0.8881 0.8881c0.2929 0.2929 0.2929 0.7678 0 1.0607 -0.2929 0.2929 -0.7678 0.2929 -1.0607 0l-0.8881 -0.8881 -0.8306 0.8306 0.8881 0.8881c0.2929 0.2928 0.2929 0.7677 0 1.0606 -0.2929 0.2929 -0.7677 0.2929 -1.0606 0l-0.8881 -0.8881 -0.88814 0.8881c-0.29289 0.2929 -0.76777 0.2929 -1.06066 0s-0.29289 -0.7678 0 -1.0606l0.8881 -0.8881 -0.8881 -0.8882c-0.29289 -0.2928 -0.29289 -0.7677 0 -1.0606 0.29289 -0.2929 0.76777 -0.2929 1.06066 0l0.88814 0.8881 0.8305 -0.8306 -0.8881 -0.8881c-0.29285 -0.2929 -0.29285 -0.7678 0 -1.0607 0.2929 -0.29285 0.7678 -0.29285 1.0607 0l0.8881 0.8881 0.8306 -0.8305 -0.8881 -0.88814c-0.2929 -0.29289 -0.2929 -0.76777 0 -1.06066Z" fill="#4181c9" stroke-width="1"></path>
               </g>
         </svg>
+    <div id="preloader-text">PICK<br>6
+<!--       <img loading="lazy" id="football" src="https://raw.githubusercontent.com/joespick6/joespick6.github.io/refs/heads/main/FootballNew.gif" alt="Football" /> -->
     </div>
     
     <button id="resetBtn" onclick="resetNotifications()" style="
