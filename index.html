@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1.5, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Pick 6">
+  <meta name="application-name" content="Pick 6">
+  <meta name="theme-color" content="#333">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="Pick6Logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="Pick6Logo.png">
+
+  <link rel="apple-touch-icon" href="Pick6Logo.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="Pick6Logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="Pick6Logo.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="Pick6Logo.png">
+
+  <link rel="shortcut icon" href="Pick6Logo.png">
+
+  <link rel="manifest" href="manifest.json">
+
+  <title>Pick 6</title>
+  <style>
+    html,
+    body {
+      background-color: #000 !important;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;      
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      overscroll-behavior: none;
+    }
+
+    * {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-text-size-adjust: none;
+      text-size-adjust: none;
+      overscroll-behavior: none;
+    }
+
+    input,
+    textarea {
+      font-size: 16px !important;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      overflow: auto;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #121315;
+      overscroll-behavior: none;
+    }
+
+    #install-banner {
+    display: none;
+    text-align: center;
+    width: 95%;
+    margin: 5px;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    right: 0;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 4px 1px 4px 4px;
+    border: 4px solid rgb(71, 143, 223);
+    border-radius: 10px;
+    box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9) 0px 10px 13px;
+    z-index: 1001;
+    width: 95%;
+    min-width: 95%;
+    max-width: 95%;
+    }
+
+    #install-banner button {
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    background-color: rgba(0, 0, 0, .9);
+    color: #478fdf;
+    padding: 3px 0;
+    font-weight: 900;
+    cursor: pointer;
+    width: 83px;
+    border: 3px solid;
+    border-radius: 9px;
+    box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9) 0px 3px 4px;
+    }
+        #install-banner button:hover{
+    background-color: #478fdf;
+    color: white;
+    border: none;
+    }
+
+    #ios-install-banner {
+    display: none;
+    margin: 5px;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    right: 0;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 4px 1px 4px 4px;
+    border: 4px solid rgb(71, 143, 223);
+    border-radius: 10px;
+    box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9) 0px 10px 13px;
+    z-index: 1001;
+    text-align: left;
+    width: 95%;
+    min-width: 95%;
+    max-width: 95%;
+/*     font-family: Arial, sans-serif; */
+    }
+   
+    h3 {
+      margin: 0 0 10px 0;
+      font-size: 20px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+
+    #ios-install-banner button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255,255,255,.1);
+    border: 2px solid #478fdf;
+    width: 28px;
+    height: 28px;
+    font-size: 20px;
+    color: #478fdf;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    line-height: 1;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.3), 3px 3px 7px -2px rgba(0, 0, 0, 0.9);
+    }
+    
+        .install-icon-header{
+    padding: 0;
+    width: 34px;
+    height: 34px;
+    margin-right: 8px;
+    vertical-align: middle;
+    border: 2px solid #478fdf;
+    border-radius: 8px;
+    box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.3), 3px 3px 7px -2px rgba(0, 0, 0, 0.9);
+    }
+    .install-details-header{
+      margin: 0 0 7px 0;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+/*       justify-content: flex-start; */
+      display: block;
+    }
+
+        .install-details {
+    font-size: 15px;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 0 0 13px;
+    align-content: center;
+    line-height: 23px;
+    margin: 0px;
+    display: block;
+    }
+
+    strong { 
+  font-size: 17px;
+  }
+
+    .install-icon {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    vertical-align: text-bottom;
+    padding: 0 4px;
+    }
+
+    .notification {
+      margin: 0 0 15px 0;
+      font-size: 18px;
+/*       font-weight: 700; */
+      width: 350px;
+    }
+
+    .notification-button{
+    background-color: rgba(0, 0, 0, .9);
+    color: #478fdf;
+    padding: 6px 0;
+    font-weight: 900;
+    cursor: pointer;
+    flex: 1;
+    width: 83px;
+    margin: 0 auto;
+    border: 4px solid;
+    border-radius: 9px;
+    box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9) 0px 3px 4px;
+    }
+    .notification-button:hover{
+    background-color: #478fdf;
+    color: white;
+    border: none;
+    }
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      overflow: hidden;
+/*       background: linear-gradient(to top, #000 3%, rgba(0, 0, 0, 0.8) 5%, rgba(0, 0, 0, 0) 28%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.8) 95%, #000 100%),
+        url(https://img.freepik.com/premium-photo/3d-rendering-empty-Americans-football-field-with-stadium_493806-8391.jpg?semt=ais_hybrid); */
+      background: rgb(0, 0, 0, .9);
+      color: white;
+      padding: 0px;
+      background-attachment: fixed;
+      background-repeat: round;
+      background-size: cover;
+    }
+
+    #preloader-text {
+    /* background: 50% 100% / 50% 50% no-repeat radial-gradient(ellipse at bottom, #478fdf, transparent, transparent); */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 7rem;
+    /* font-family: "Source Sans Pro", sans-serif; */
+    animation: reveal 3000ms ease-in-out forwards 200ms, glow 2500ms linear infinite 2000ms;
+    font-weight: 900;
+    white-space: nowrap;
+    line-height: 1;
+    text-align: center;
+    position: relative;
+    display: flex
+;
+    flex-direction: column;
+    align-items: center;
+    border: 15px solid #478fdf;
+    height: 220px;
+    flex-direction: column;
+    align-items: center;
+    line-height: .75;
+    -webkit-text-stroke: 5px #478fdf;
+    }
+    
+    #preloader-text::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 10px;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(200, 200, 200, 0.6) 10%, rgba(200, 200, 200, 0.2) 50%, transparent);
+      filter: blur(16px);
+      opacity: 0.9;
+      transform: translateX(-50%) scale(1);
+      animation: smoke-rise 5s infinite ease-in-out;
+      pointer-events: none;
+}
+    .pre-load-fade-out {
+      opacity: 0;
+      transition: opacity 7s ease-out;
+      pointer-events: none;
+    }
+
+    @keyframes reveal {
+      80% {
+        letter-spacing: 8px;
+      }
+
+      100% {
+        background-size: 300% 300%;
+      }
+    }
+
+    @keyframes glow {
+            20% {
+        text-shadow: 0 0 8px rgb(71, 143, 223,.1);
+        -webkit-text-stroke: 1px rgb(71, 143, 223, .1);
+      }
+            40% {
+        text-shadow: 0 0 8px rgb(71, 143, 223,.4);
+              -webkit-text-stroke: 1px rgb(71, 143, 223, .4);
+      }
+      60% {
+        text-shadow: 0 0 8px rgb(71, 143, 223,.7);
+        -webkit-text-stroke: 1px rgb(71, 143, 223, .7);
+      }
+    }
+    @keyframes smoke-rise {
+  0% {
+    transform: translateX(-50%) translateY(0) scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(-50%) translateY(-80px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+    #football {
+    width: 83px;
+    height: auto;
+    position: fixed;
+    top: 56%;
+/*     animation: bounce-roll 2s infinite ease-in-out; */
+    opacity: .9;
+}
+
+/* @keyframes bounce-roll {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-30px) rotate(90deg);
+  }
+  50% {
+    transform: translateY(0) rotate(180deg);
+  }
+  75% {
+    transform: translateY(-15px) rotate(270deg);
+  }
+  100% {
+    transform: translateY(0) rotate(360deg);
+  }
+} */
+
+    @media (max-width: 1100px) {
+      .notification {
+        width: -webkit-fill-available;
+      }
+          #preloader {
+              background: linear-gradient(to top, #000 3%, rgba(0, 0, 0, 0.8) 5%, rgba(0, 0, 0, 0) 7%, rgba(18, 19, 21) 50%, rgba(0, 0, 0, 0.8) 90%, #000 101%), 
+                url(https://www.shutterstock.com/image-illustration/3d-render-soccer-empty-stadium-600nw-2472453011.jpg);
+        background-attachment: fixed;
+        background-repeat: round;
+        background-size: cover;
+    }
+      #preloader-text{
+        padding-bottom: 10%;
+                border: none;
+      }
+    }
+/*     @media (orientation: portrait) {
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    box-sizing: border-box;
+}
+} */
+
+  </style>
+</head>
+
+<body>
+  <div id="preloader">
+    <div id="preloader-text">PICK<br>6
+      <img id="football" src="https://raw.githubusercontent.com/joespick6/joespick6.github.io/refs/heads/main/FootballNew.gif" alt="Football" />
+    </div>
+    <button id="resetBtn" onclick="resetNotifications()" style="
+                    display: none;
+                    position: fixed;
+                    bottom: 20px;
+                    right: 12px;
+                    background-color: transparent;
+                    color: #478fdf;
+                    border: 1px solid #478fdf;
+                    padding: 7px 7px;
+                    border-radius: 4px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                    z-index: 1001;
+                    transition: all 0.3s ease;">Reset Notifications</button>
+  </div>
+
+  <div id="install-banner">
+    <p style="margin: 5px;">Add to Home Screen for the best experience</p>
+    <button id="install-button">Add</button>
+    <button id="dismiss-button">Dismiss</button>
+  </div>
+
+<!--   <div id="ios-install-banner"
+    style="display: none; position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(0, 0, 0, 0.85); color: white; padding: 10px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); z-index: 1001; text-align: left; max-width: 90%; font-family: Arial, sans-serif;">
+    <button id="ios-install-close" style="position: absolute; top: 5px; right: 5px; background: #478fdf; border: 1px solid black; width: 24px; height: 24px; font-size: 20px; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; line-height: 1; border-radius: 5px;">✕</button>
+    <h3 style="margin: 0 0 10px 0; font-size: 18px; font-weight: bold; display: flex; align-items: center;">
+      <img src="https://raw.githubusercontent.com/joespick6/joespick6.github.io/refs/heads/main/Pick6Logo.png" alt="Pick 6 Logo" style="width: 30px; height: 30px; margin-right: 8px; vertical-align: middle;border: 1px solid white; border-radius: 8px;">Install 'Pick 6' on Your Device.
+    </h3>
+    <p style="margin: 0 0 10px 0; font-size: 14px;">To install this as an app on your device, follow the below
+      instructions.</p>
+    <p style="margin: 5px 0; font-size: 14px;">1. Tap on share <img src="https://static-00.iconduck.com/assets.00/ios-share-icon-1490x2048-h3vjhu9m.png" alt="Share icon" style="width: 16px; height: 16px; object-fit: contain; vertical-align: middle;filter: invert(100%);">
+    </p>
+    <p style="margin: 5px 0; font-size: 14px;">2. Select 'Add to Home Screen' <img src="https://static-00.iconduck.com/assets.00/plus-square-icon-2048x2048-h144q2yx.png" alt="Share icon" style="width: 16px; height: 16px; object-fit: contain; vertical-align: middle;filter: invert(100%);">
+    </p>
+    <p style="margin: 5px 0; font-size: 14px;">3. Click 'Add'</p>
+  </div> -->
+
+<div id="ios-install-banner">
+  <button id="ios-install-close">✕</button>
+  <h3><img src="Pick6Logo.png" class="install-icon-header">Install 'Pick 6' on Your Device</h3>
+<!--   <p class="install-details-header">Add <strong>Pick 6</strong> as a Web App to your home screen</p> -->
+  <p class="install-details">1. Tap the <strong>Share</strong> icon.<img src="https://raw.githubusercontent.com/BobcatPGAMajors/BobcatPGAMajors.github.io/refs/heads/main/shareIcon.png" alt="Share icon" class="install-icon"></p>
+  <p class="install-details">2. Select <strong>Add to Home Screen</strong>.<img src="https://raw.githubusercontent.com/joespick6/joespick6.github.io/refs/heads/main/HomeScreenIcon.png" alt="Home Screen icon" class="install-icon"></p>
+  <p class="install-details" style="margin-bottom: 8px;" >3. Tap <strong>Add</strong>.</p>
+</div>
+
+<!--   <iframe frameborder="0" scrolling="yes" allowfullscreen="yes"
+    src="https://script.google.com/macros/s/AKfycbwuZM7KGKnS7jnpM2YN9W_AgTMqA0qJGw99K3MIUNxzI1tnh3YK76AhgeCfh2Wc7pTd/exec"></iframe> -->
+
+  <iframe src="https://script.google.com/macros/s/AKfycbwuZM7KGKnS7jnpM2YN9W_AgTMqA0qJGw99K3MIUNxzI1tnh3YK76AhgeCfh2Wc7pTd/exec"
+          frameborder="0"
+          scrolling="yes"
+          allow="fullscreen; clipboard-write; autoplay; camera; encrypted-media; geolocation; microphone; midi; payment; usb; accelerometer; gyroscope; magnetometer; screen-wake-lock; clipboard-read; web-share; autoplay; camera; encrypted-media; geolocation; microphone; midi; payment; usb; accelerometer; gyroscope; magnetometer; screen-wake-lock; clipboard-read; web-share"
+          sandbox="allow-scripts allow-same-origin allow-forms">
+  </iframe>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J8ZSHET5RJ"></script>
+  
+  <script>
+    let messaging;
+    let db;
+
+async function resetNotifications() {
+    const button = document.getElementById('resetBtn');
+
+    button.style.backgroundColor = '#478fdf';
+    button.style.color = 'white';
+    button.textContent = 'Resetting...';
+
+    if (!checkStorageAvailability()) {
+        showSuccessMessage('Storage unavailable. Please check browser settings.');
+
+        button.style.backgroundColor = '#ff4d4d';
+        button.textContent = 'Reset Failed';
+        return;
+    }
+
+    console.log('Resetting notifications...');
+    try {
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        for (let registration of registrations) {
+            await registration.unregister();
+            console.log('Service worker unregistered');
+        }
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        if (messaging) {
+            try {
+                const token = await messaging.getToken().catch(err => {
+                    console.log('No current token found:', err);
+                    return null;
+                });
+                if (token) {
+                    await messaging.deleteToken().catch(err => {
+                        console.warn('Token deletion failed:', err);
+                    });
+                    console.log('Token deleted from FCM');
+                } else {
+                    console.log('No token to delete');
+                }
+                const deviceId = localStorage.getItem('deviceId');
+                if (deviceId) {
+                    const snapshot = await db.collection('devices')
+                        .where('deviceId', '==', deviceId)
+                        .get();
+                    if (!snapshot.empty) {
+                        const batch = db.batch();
+                        snapshot.forEach(doc => {
+                            const data = doc.data();
+                            const updates = {};
+                            if (data.activeTokens) {
+                                Object.keys(data.activeTokens).forEach(t => {
+                                    updates[`activeTokens.${t}`] = false;
+                                });
+                                batch.update(doc.ref, updates);
+                            }
+                        });
+                        await batch.commit();
+                        console.log('All tokens marked inactive in Firestore');
+                    }
+                }
+            } catch (err) {
+                console.error('Error processing token:', err);
+            }
+        }
+        localStorage.removeItem('fcmToken');
+        localStorage.removeItem('notificationPromptDismissed');
+        localStorage.removeItem('notificationPermissionDenied');
+
+        button.style.backgroundColor = '#478fdf';
+        button.textContent = 'Reset Complete';
+
+        if (Notification.permission === 'denied') {
+            showSuccessMessage('Notifications blocked. Enable in browser settings.');
+        } else if (Notification.permission === 'granted') {
+            showSuccessMessage('Notifications reset. Please reauthorize.');
+            setTimeout(() => {
+                console.log('Forcing reauthorization...');
+                forceNotificationRePrompt();
+            }, 1500);
+        } else {
+            showSuccessMessage('Notifications reset. You will be prompted again.');
+            setTimeout(() => {
+                console.log('Reinitializing Firebase...');
+                setupFirebaseAndNotifications();
+            }, 1500);
+        }
+
+        setTimeout(function() {
+            button.style.opacity = '0';
+            setTimeout(function() {
+                button.style.display = 'none';
+            }, 300);
+        }, 2500);
+
+    } catch (err) {
+        console.error('Reset failed:', err);
+        showSuccessMessage('Failed to reset notifications. Try again.');
+
+        button.style.backgroundColor = '#ff4d4d';
+        button.textContent = 'Reset Failed';
+    }
+}
+
+function forceNotificationRePrompt() {
+    setupFirebaseAndNotifications();
+}
+
+function checkStorageAvailability() {
+    return !!(navigator.storage && window.indexedDB);
+}
+
+function setupFirebaseAndNotifications() {
+    const firebaseConfig = {
+        apiKey: "AIzaSyB5r_KL2eKVFd66VQU_5pznKrVHa9xzCfc",
+        authDomain: "joespick5push.firebaseapp.com",
+        projectId: "joespick5push",
+        storageBucket: "joespick5push.firebasestorage.app",
+        messagingSenderId: "783669343677",
+        appId: "1:783669343677:web:d3a43a1a58b920ba9a4ed4",
+        measurementId: "G-HNPLN4XZ44"
+    };
+
+    if (!firebase.apps || !firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+
+    messaging = firebase.messaging();
+    db = firebase.firestore();
+
+if ('serviceWorker' in navigator) {
+    const swPath = '/firebase-messaging-sw.js';
+    console.log('Service worker path:', swPath);
+
+    console.log('Attempting to register service worker at:', swPath);
+
+    navigator.serviceWorker.register(swPath)
+        .then(registration => {
+            console.log('Service Worker registered with scope:', registration.scope);
+            initializeNotifications(registration);
+        })
+        .catch(error => {
+            console.error('Service Worker registration failed:', error.message);
+        });
+} else {
+    console.log('Service workers not supported');
+}
+
+    function initializeNotifications(registration) {
+        navigator.serviceWorker.addEventListener('message', event => {
+            if (event.data && event.data.type === 'tokenRefresh') {
+                console.log('Token refresh detected');
+                refreshToken();
+            }
+        });
+
+        function requestPermission() {
+            return new Promise((resolve, reject) => {
+                Notification.requestPermission()
+                    .then(permission => {
+                        if (permission === 'granted') {
+                            console.log('Notification permission granted.');
+                            messaging.getToken({
+                                vapidKey: 'BOM3KFfemC5lGnsF28N-_UGA7H9esoOm5gp0_Eg45HMqaMqviLx_bcAonVaZe-c0GwSFwfwe7-fJVP1n8h1iAAU',
+                                serviceWorkerRegistration: registration
+                            })
+                            .then(token => {
+                                console.log('Device token:', token);
+                                saveTokenToFirestore(token);
+                                resolve(token);
+                            })
+                            .catch(error => {
+                                console.error('Error getting token:', error);
+                                reject(error);
+                            });
+                        } else {
+                            console.log('Notification permission denied.');
+                            localStorage.setItem('notificationPermissionDenied', 'true');
+                            reject(new Error('Permission denied'));
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error requesting permission:', error);
+                        reject(error);
+                    });
+            });
+        }
+
+        function refreshToken() {
+            messaging.getToken({
+                vapidKey: 'BOM3KFfemC5lGnsF28N-_UGA7H9esoOm5gp0_Eg45HMqaMqviLx_bcAonVaZe-c0GwSFwfwe7-fJVP1n8h1iAAU',
+                serviceWorkerRegistration: registration
+            }).then(refreshedToken => {
+                console.log('Token refreshed:', refreshedToken);
+                saveTokenToFirestore(refreshedToken);
+            }).catch(err => {
+                console.error('Unable to refresh token:', err);
+            });
+        }
+
+        function createNotificationPrompt() {
+            if (document.getElementById('notification-prompt')) {
+                return;
+            }
+
+            const promptDiv = document.createElement('div');
+            promptDiv.id = 'notification-prompt';
+            promptDiv.style.cssText = `
+                position: fixed;
+                bottom: 50%;
+                left: 50%;
+                transform: translate(-50%, 50%);
+                background: rgba(0, 0, 0, 0.85);
+                color: white;
+                padding: 8px 1px;
+                border-radius: 10px;
+                box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9) 0px 10px 13px;
+                text-align: center;
+                z-index: 1001;
+                font-family: Arial, sans-serif;
+                max-width: 95%;
+                width: max-content;
+                border: 4px solid #478fdf;
+                animation: fade-in 0.3s ease-in-out;
+            `;
+
+            promptDiv.innerHTML = `
+                <p class="notification">You’ll get weekly push alerts when picks and entry forms are available.</p>
+                <div style="display: flex; justify-content: space-between; gap: 10px;width: 104px;margin: 0 auto;">
+                    <button id="enable-notifications" class="notification-button">OKAY</button>
+                    <button id="decline-notifications" style="display: none;">Not Now</button>
+                </div>
+            `;
+
+            document.body.appendChild(promptDiv);
+
+document.getElementById('enable-notifications').addEventListener('click', () => {
+    promptDiv.remove();
+    requestPermission()
+        .then(() => {
+            showSuccessMessage('Notifications enabled successfully!');
+        })
+        .catch(error => {
+            console.error('Error enabling notifications:', error);
+        });
+});
+
+            document.getElementById('decline-notifications').addEventListener('click', () => {
+                promptDiv.remove();
+                localStorage.setItem('notificationPromptDismissed', Date.now());
+            });
+        }
+
+async function saveTokenToFirestore(token, retries = 3) {
+    if (!token) {
+        console.error('No token provided to saveTokenToFirestore');
+        return;
+    }
+
+    const deviceId = localStorage.getItem('deviceId') || generateDeviceId();
+    localStorage.setItem('deviceId', deviceId);
+
+    const browserInfo = {
+        name: /Chrome/i.test(navigator.userAgent) ? 'Chrome' : 
+            /Safari/i.test(navigator.userAgent) ? 'Safari' : 
+            /Firefox/i.test(navigator.userAgent) ? 'Firefox' : 
+            /Edge/i.test(navigator.userAgent) ? 'Edge' : 'Other',
+        userAgent: navigator.userAgent,
+    };
+
+const attemptSave = async (attempt) => {
+    try {
+        const deviceQuery = await db.collection('devices')
+            .where('deviceId', '==', deviceId)
+            .get();
+
+        if (!deviceQuery.empty) {
+            const deviceDoc = deviceQuery.docs[0];
+            const oldData = deviceDoc.data();
+
+            let updateData = {
+                lastActive: firebase.firestore.FieldValue.serverTimestamp(),
+                userAgent: browserInfo.userAgent,
+                forceUpdate: Date.now()
+            };
+
+            if (oldData.tokens) {
+                Object.keys(oldData.tokens).forEach(oldTokenKey => {
+                    updateData[`tokens.${oldTokenKey}`] = firebase.firestore.FieldValue.delete();
+                });
+            }
+            if (oldData.activeTokens) {
+                Object.keys(oldData.activeTokens).forEach(oldToken => {
+                    updateData[`activeTokens.${oldToken}`] = firebase.firestore.FieldValue.delete();
+                });
+            }
+
+            updateData[`tokens.${browserInfo.name}`] = token;
+            updateData[`activeTokens.${token}`] = true;
+
+            console.log('Updating document:', deviceDoc.id);
+            console.log('Update data:', updateData);
+
+            await db.collection('devices').doc(deviceDoc.id).update(updateData);
+            console.log('Device token updated successfully, old tokens deleted');
+
+            const updatedDoc = await db.collection('devices').doc(deviceDoc.id).get({ source: 'server' });
+            console.log('Updated lastActive:', updatedDoc.data().lastActive);
+
+        } else {
+            await db.collection('devices').add({
+                deviceId: deviceId,
+                platform: navigator.platform,
+                tokens: { [browserInfo.name]: token },
+                activeTokens: { [token]: true },
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                lastActive: firebase.firestore.FieldValue.serverTimestamp(),
+                userAgent: browserInfo.userAgent
+            });
+            console.log('New device record created successfully');
+        }
+
+        localStorage.setItem('fcmToken', token);
+        await cleanupDuplicateTokens(token, deviceId);
+
+    } catch (error) {
+        console.error(`Attempt ${attempt} failed:`, error.message);
+        if (attempt < retries) {
+            console.log(`Retrying... (${attempt + 1}/${retries})`);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            await attemptSave(attempt + 1);
+        } else {
+            console.error('Max retries reached. Device save failed.');
+        }
+    }
+};
+    await attemptSave(1);
+}
+
+async function cleanupDuplicateTokens(currentToken, deviceId) {
+    try {
+        const deviceQuery = await db.collection('devices')
+            .where('deviceId', '==', deviceId)
+            .get();
+
+        if (deviceQuery.size > 1) {
+            const sortedDocs = deviceQuery.docs.sort((a, b) => {
+                const timeA = a.data().lastActive ? a.data().lastActive.toMillis() : 0;
+                const timeB = b.data().lastActive ? b.data().lastActive.toMillis() : 0;
+                return timeB - timeA;
+            });
+
+            const batch = db.batch();
+            for (let i = 1; i < sortedDocs.length; i++) {
+                batch.delete(sortedDocs[i].ref);
+            }
+            await batch.commit();
+            console.log(`Cleaned up ${sortedDocs.length - 1} duplicate device records`);
+        }
+
+        const allDevicesWithToken = await db.collection('devices')
+            .where(`activeTokens.${currentToken}`, '==', true)
+            .get();
+
+        if (!allDevicesWithToken.empty) {
+            const batch = db.batch();
+            let updateCount = 0;
+
+            allDevicesWithToken.forEach(doc => {
+                const data = doc.data();
+                if (data.deviceId !== deviceId) {
+                    batch.update(doc.ref, {
+                        [`activeTokens.${currentToken}`]: firebase.firestore.FieldValue.delete(),
+                        [`tokens.${Object.keys(data.tokens).find(key => data.tokens[key] === currentToken)}`]: firebase.firestore.FieldValue.delete()
+                    });
+                    updateCount++;
+                }
+            });
+
+            if (updateCount > 0) {
+                await batch.commit();
+                console.log(`Deleted current token from ${updateCount} other devices`);
+            }
+        }
+    } catch (error) {
+        console.error('Error cleaning up tokens:', error);
+    }
+}
+
+        function generateDeviceId() {
+            const deviceData = [
+                navigator.userAgent,
+                navigator.language,
+                screen.width,
+                screen.height,
+                new Date().getTimezoneOffset()
+            ].join('|');
+
+            let hash = 0;
+            for (let i = 0; i < deviceData.length; i++) {
+                const char = deviceData.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return 'device_' + Math.abs(hash);
+        }
+
+        function checkAndShowNotifications() {
+    console.log('Checking notification state...');
+    console.log('Current permission:', Notification.permission);
+if (isDesktop()) {
+        console.log('Desktop detected, skipping notification setup.');
+        return;
+    }
+                  
+    const wasReset = !localStorage.getItem('fcmToken') && !localStorage.getItem('notificationPromptDismissed');
+
+    if (Notification.permission === 'granted' && !wasReset) {
+        const storedToken = localStorage.getItem('fcmToken');
+        const storedDeviceId = localStorage.getItem('deviceId');
+
+        if (storedToken) {
+            messaging.getToken().then(currentToken => {
+                if (currentToken !== storedToken) {
+                    console.log('Token has changed, updating...');
+                    saveTokenToFirestore(currentToken);
+                } else {
+                    console.log('Token still valid');
+                    if (storedDeviceId) {
+                        db.collection('devices')
+                            .where('deviceId', '==', storedDeviceId)
+                            .get()
+                            .then(snapshot => {
+                                if (!snapshot.empty) {
+                                    const doc = snapshot.docs[0];
+                                    const data = doc.data();
+                                    if (!data.activeTokens || !data.activeTokens[currentToken]) {
+                                        console.log('Token exists but not active, reactivating...');
+                                        saveTokenToFirestore(currentToken);
+                                    }
+                                }
+                            })
+                            .catch(err => console.error('Error checking token status:', err));
+                    }
+                }
+            }).catch(error => {
+                requestPermission();
+            });
+        } else {
+            requestPermission();
+        }
+    } else {
+        promptForPermission();
+    }
+}
+
+function promptForPermission() {
+    console.log('Prompting for permission...');
+  if (isDesktop()) {
+        console.log('Desktop detected, skipping notification prompt.');
+        return;
+    }
+  
+    if (Notification.permission === 'denied') {
+        console.log('Notifications already denied');
+    } else {
+        const lastDismissed = localStorage.getItem('notificationPromptDismissed');
+        const ONE_WEEK = 7 * 24 * 60 * 60 * 1000;
+
+        if (!lastDismissed || (Date.now() - parseInt(lastDismissed)) > ONE_WEEK || !localStorage.getItem('fcmToken')) {
+            const triggerPrompt = () => {
+                clearTimeout(promptTimeout);
+                document.removeEventListener('click', userInteracted);
+                setTimeout(createNotificationPrompt, 1000);
+            };
+
+            const userInteracted = () => {
+                console.log('User clicked, triggering prompt early');
+                triggerPrompt();
+            };
+
+            document.addEventListener('click', userInteracted, { once: true });
+            const promptTimeout = setTimeout(() => {
+                console.log('10 seconds elapsed, triggering prompt');
+                document.removeEventListener('click', userInteracted);
+                triggerPrompt();
+            }, 6000);
+
+            setTimeout(() => {
+                console.log('Starting prompt wait period (click or 10 seconds)');
+            }, 2000);
+        }
+    }
+}
+
+        const styleSheet = document.createElement("style");
+        styleSheet.textContent = `
+            @keyframes fade-in {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            @keyframes fade-out {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+            @keyframes slide-in {
+                from { transform: translateX(100%); }
+                to { transform: translateX(0); }
+            }
+            @keyframes slide-out {
+                from { transform: translateX(0); }
+                to { transform: translateX(100%); }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+
+        checkAndShowNotifications();
+    }
+}
+
+function showSuccessMessage(message) {
+    const successDiv = document.createElement('div');
+    successDiv.style.cssText = `
+        position: fixed;
+        bottom: 50%;
+        left: 50%;
+        transform: translate(-50%, 50%);
+        width: fit-content;
+        min-width: 200px;
+        white-space: nowrap;
+        z-index: 1010;
+        background: rgba(0, 0, 0, 0.85);
+        color: white;
+        padding: 8px 8px;
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.9) 0px 10px 13px;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        max-width: 90%;
+        width: max-content;
+        border: 2px solid rgb(71, 143, 223);
+        animation: fade-in 0.5s ease-in-out;
+    `;
+    successDiv.textContent = message;
+    document.body.appendChild(successDiv);
+    setTimeout(() => {
+        successDiv.style.animation = 'fade-out 0.3s ease-in-out';
+        setTimeout(() => successDiv.remove(), 500);
+    }, 5000);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const preloader = document.getElementById('preloader');
+    const resetButton = document.getElementById('resetBtn');
+    // Show reset button only in standalone mode
+    if (!isStandalone()) {
+        resetButton.style.display = 'none';
+    }
+    setTimeout(() => {
+        preloader.style.display = 'none';
+      // preloader.style.transition = '2s ease-in-out';
+        setupFirebaseAndNotifications();
+    }, 7000);
+});
+
+let deferredPrompt;
+
+function isDesktop() {
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isDesktopUA = /windows nt|macintosh|linux/i.test(userAgent) && !/mobile|android|iphone|ipad|ipod/i.test(userAgent);
+    const isLargeScreen = window.innerWidth > 1024;
+    return isDesktopUA && isLargeScreen;
+}
+
+function isAndroid() {
+    return /Android/i.test(navigator.userAgent);
+}
+
+function setupInstallPrompt() {
+    const installBanner = document.getElementById('install-banner');
+    const iosInstallBanner = document.getElementById('ios-install-banner');
+    const installButton = document.getElementById('install-button');
+    const dismissButton = document.getElementById('dismiss-button');
+    const iosCloseButton = document.getElementById('ios-install-close');
+
+    if (isDesktop()) {
+        installBanner.style.display = 'none';
+        iosInstallBanner.style.display = 'none';
+        return;
+    }
+
+    if (isStandalone()) {
+        installBanner.style.display = 'none';
+        iosInstallBanner.style.display = 'none';
+        return;
+    }
+
+    if (isIOS()) {
+        iosInstallBanner.style.display = 'block';
+        iosCloseButton.addEventListener('click', () => {
+            iosInstallBanner.style.display = 'none';
+        });
+    } else {
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBanner.style.display = 'block';
+        });
+    }
+
+    installButton.addEventListener('click', () => {
+        if (deferredPrompt) {
+            installBanner.style.display = 'none';
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the install prompt');
+                } else {
+                    console.log('User dismissed the install prompt');
+                }
+                deferredPrompt = null;
+            });
+        }
+    });
+
+    dismissButton.addEventListener('click', () => {
+        installBanner.style.display = 'none';
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    setupInstallPrompt();
+  gtag('event', 'app_mode', {
+        'event_category': 'User Engagement',
+        'event_label': isStandalone() ? 'Standalone App' : 'Browser',
+        'value': isStandalone() ? 1 : 0
+    });
+});
+
+function isIOS() {
+    return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+function isStandalone() {
+    return window.matchMedia('(display-mode: standalone)').matches;
+}
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-J8ZSHET5RJ');
+   
+  </script>
+</body>
+
+</html>
