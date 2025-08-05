@@ -277,7 +277,7 @@
         background-clip: text;
         color: transparent;
         font-size: 7rem;
-        animation: reveal 6000ms ease-in-out forwards 300ms, glow 6000ms linear infinite 300ms
+        animation: reveal 6000ms ease-in-out forwards 300ms, glow 6000ms linear infinite 300ms;
         font-weight: 900;
         white-space: nowrap;
         line-height: 1;
@@ -315,7 +315,9 @@
 
       @keyframes reveal {
         0%{
-          -webkit-text-stroke: 0px;
+        }
+        60%{
+          letter-spacing: 10px;
         }
         80% {
           letter-spacing: 8px;
