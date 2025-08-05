@@ -315,17 +315,22 @@
 
       @keyframes reveal {
             0% {
-                opacity: 0; /* Start invisible */
+                opacity: 0; 
                 letter-spacing: 0px;
               }
               60% {
                 opacity: 0.6;
-                letter-spacing: 11px;
+                letter-spacing: 10px;
                 -webkit-text-stroke: 5px rgba(71, 143, 223, 0.6);
               }
               80% {
                 opacity: 0.8;
-                letter-spacing: 8px;
+                letter-spacing: 5px;
+                -webkit-text-stroke: 6px rgba(71, 143, 223, 0.8);
+              }
+              90% {
+                opacity: 0.8;
+                letter-spacing: 2px;
                 -webkit-text-stroke: 6px rgba(71, 143, 223, 0.8);
               }
               100% {
@@ -338,32 +343,26 @@
       @keyframes glow {
           0% {
               text-shadow: none;
-/*               -webkit-text-stroke: 0px transparent; */
               opacity: 0; /* Start invisible */
             }
             20% {
               text-shadow: 0 0 8px rgba(71, 143, 223, 0.4);
-/*               -webkit-text-stroke: 5px rgba(71, 143, 223, 0.2); */
               opacity: 0.2;
             }
             40% {
               text-shadow: 0 0 8px rgba(71, 143, 223, 0.3);
-/*               -webkit-text-stroke: 5px rgba(71, 143, 223, 0.4); */
               opacity: 0.4;
             }
             60% {
               text-shadow: 0 0 8px rgba(71, 143, 223, 0.2);
-/*               -webkit-text-stroke: 5px rgba(71, 143, 223, 0.7); */
               opacity: 0.6;
             }
             80% {
               text-shadow: 0 0 8px rgba(71, 143, 223, 0.1);
-/*               -webkit-text-stroke: 5px rgba(71, 143, 223, 0.8); */
               opacity: 0.8;
             }
             100% {
               text-shadow: none;
-/*               -webkit-text-stroke: 5px rgba(71, 143, 223, 1); */
               opacity: 1;
             }
           }
