@@ -284,13 +284,19 @@
         line-height: 1;
         text-align: center;
         position: relative;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
+        display: inline-block;
+        text-align: center;
         line-height: .75;
         -webkit-text-stroke: 7px #478fdf;
         transition: all 1s ease-in-out;
       }
+      #preloader-text span {
+    display: inline-block;
+}
+#preloader-text span.break {
+    display: block;
+}
+      
 span {
   opacity: 0;
   animation: fadeIn 0.5s forwards;
@@ -306,9 +312,9 @@ span {
   animation-delay: 3.5s;
 }
 #preloader-text span:nth-child(4) {
-  animation-delay: 3s;
+  animation-delay: 2.75s;
 }
-#preloader-text span:nth-child(5) {
+#preloader-text span:nth-child(6) {
   animation-delay: 2.5s;
 }
 
@@ -422,12 +428,12 @@ span {
 <body>
   <div id="preloader">
     <div id="preloader-text">
-      <span>P</span>
-      <span>I</span>
-      <span>C</span>
-      <span>K</span>
-      <span><br></span>
-      <span>6</span>
+        <span>P</span>
+        <span>I</span>
+        <span>C</span>
+        <span>K</span>
+        <span class="break"></span>
+        <span>6</span>
       <!--       <img loading="lazy" id="football" src="https://raw.githubusercontent.com/joespick6/joespick6.github.io/refs/heads/main/FootballNew.gif" alt="Football" /> -->
     </div>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="100" height="100">
