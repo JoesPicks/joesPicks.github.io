@@ -3,8 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-    content="width=device-width, initial-scale=1, maximum-scale=1.5, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.5, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Pick 6">
@@ -32,7 +31,7 @@
       background-color: #000 !important;
       margin: 0;
       padding: 0;
-      overflow: hidden;      
+      overflow: hidden;
       left: 0;
       right: 0;
       width: 100%;
@@ -51,7 +50,6 @@
       user-select: none;
       -webkit-text-size-adjust: none;
       text-size-adjust: none;
-/*       overscroll-behavior: none; */
     }
 
     input,
@@ -75,71 +73,71 @@
     }
 
     #install-banner {
-    display: none;
-    text-align: center;
-    width: 95%;
-    margin: 5px;
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    right: 0;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.85);
-    color: white;
-    padding: 4px 1px 4px 4px;
-    border: 4px solid rgb(71, 143, 223);
-    border-radius: 10px;
-    box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9) 0px 10px 13px;
-    z-index: 1001;
-    width: 95%;
-    min-width: 95%;
-    max-width: 95%;
+      display: none;
+      text-align: center;
+      width: 95%;
+      margin: 5px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      right: 0;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      padding: 4px 1px 4px 4px;
+      border: 4px solid rgb(71, 143, 223);
+      border-radius: 10px;
+      box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9) 0px 10px 13px;
+      z-index: 1001;
+      width: 95%;
+      min-width: 95%;
+      max-width: 95%;
     }
 
     #install-banner button {
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    background-color: rgba(0, 0, 0, .9);
-    color: #478fdf;
-    padding: 3px 0;
-    font-weight: 900;
-    cursor: pointer;
-    width: 83px;
-    border: 3px solid;
-    border-radius: 9px;
-    box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9) 0px 3px 4px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      background-color: rgba(0, 0, 0, .9);
+      color: #478fdf;
+      padding: 3px 0;
+      font-weight: 900;
+      cursor: pointer;
+      width: 83px;
+      border: 3px solid;
+      border-radius: 9px;
+      box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9) 0px 3px 4px;
     }
-        #install-banner button:hover{
-    background-color: #478fdf;
-    color: white;
-    border: none;
+
+    #install-banner button:hover {
+      background-color: #478fdf;
+      color: white;
+      border: none;
     }
 
     #ios-install-banner {
-    display: none;
-    margin: 5px;
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    right: 0;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.85);
-    color: white;
-    padding: 4px 1px 4px 4px;
-    border: 4px solid rgb(71, 143, 223);
-    border-radius: 10px;
-    box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9) 0px 10px 13px;
-    z-index: 1001;
-    text-align: left;
-    width: 95%;
-    min-width: 95%;
-    max-width: 95%;
-/*     font-family: Arial, sans-serif; */
+      display: none;
+      margin: 5px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      right: 0;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      padding: 4px 1px 4px 4px;
+      border: 4px solid rgb(71, 143, 223);
+      border-radius: 10px;
+      box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9) 0px 10px 13px;
+      z-index: 1001;
+      text-align: left;
+      width: 95%;
+      min-width: 95%;
+      max-width: 95%;
     }
-   
+
     h3 {
       margin: 0 0 10px 0;
       font-size: 20px;
@@ -149,289 +147,260 @@
     }
 
     #ios-install-banner button {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: rgba(255,255,255,.1);
-    border: 2px solid #478fdf;
-    width: 28px;
-    height: 28px;
-    font-size: 20px;
-    color: #478fdf;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    line-height: 1;
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.3), 3px 3px 7px -2px rgba(0, 0, 0, 0.9);
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(255, 255, 255, .1);
+      border: 2px solid #478fdf;
+      width: 28px;
+      height: 28px;
+      font-size: 20px;
+      color: #478fdf;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      line-height: 1;
+      border-radius: 5px;
+      text-align: center;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.3), 3px 3px 7px -2px rgba(0, 0, 0, 0.9);
     }
-    
-        .install-icon-header{
-    padding: 0;
-    width: 34px;
-    height: 34px;
-    margin-right: 8px;
-    vertical-align: middle;
-    border: 2px solid #478fdf;
-    border-radius: 8px;
-    box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.3), 3px 3px 7px -2px rgba(0, 0, 0, 0.9);
+
+    .install-icon-header {
+      padding: 0;
+      width: 34px;
+      height: 34px;
+      margin-right: 8px;
+      vertical-align: middle;
+      border: 2px solid #478fdf;
+      border-radius: 8px;
+      box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.3), 3px 3px 7px -2px rgba(0, 0, 0, 0.9);
     }
-    .install-details-header{
+
+    .install-details-header {
       margin: 0 0 7px 0;
       font-size: 16px;
       display: flex;
       align-items: center;
-/*       justify-content: flex-start; */
       display: block;
     }
 
-        .install-details {
-    font-size: 15px;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 0 0 0 13px;
-    align-content: center;
-    line-height: 23px;
-    margin: 0px;
-    display: block;
+    .install-details {
+      font-size: 15px;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0 0 0 13px;
+      align-content: center;
+      line-height: 23px;
+      margin: 0px;
+      display: block;
     }
 
-    strong { 
-  font-size: 17px;
-  }
+    strong {
+      font-size: 17px;
+    }
 
     .install-icon {
-    width: 22px;
-    height: 22px;
-    object-fit: contain;
-    vertical-align: text-bottom;
-    padding: 0 4px;
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+      vertical-align: text-bottom;
+      padding: 0 4px;
     }
 
     .notification {
       margin: 0 0 15px 0;
       font-size: 18px;
-/*       font-weight: 700; */
       width: 350px;
     }
 
-    .notification-button{
-    background-color: rgba(0, 0, 0, .9);
-    color: #478fdf;
-    padding: 6px 0;
-    font-weight: 900;
-    cursor: pointer;
-    flex: 1;
-    width: 83px;
-    margin: 0 auto;
-    border: 4px solid;
-    border-radius: 9px;
-    box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9) 0px 3px 4px;
+    .notification-button {
+      background-color: rgba(0, 0, 0, .9);
+      color: #478fdf;
+      padding: 6px 0;
+      font-weight: 900;
+      cursor: pointer;
+      flex: 1;
+      width: 83px;
+      margin: 0 auto;
+      border: 4px solid;
+      border-radius: 9px;
+      box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9) 0px 3px 4px;
     }
-    .notification-button:hover{
-    background-color: #478fdf;
-    color: white;
-    border: none;
+
+    .notification-button:hover {
+      background-color: #478fdf;
+      color: white;
+      border: none;
     }
+
     #preloader {
       display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #333;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      overflow: hidden;
-/*       background: linear-gradient(to top, #000 3%, rgba(0, 0, 0, 0.8) 5%, rgba(0, 0, 0, 0) 28%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.8) 95%, #000 100%),
-        url(https://img.freepik.com/premium-photo/3d-rendering-empty-Americans-football-field-with-stadium_493806-8391.jpg?semt=ais_hybrid); */
-      background: rgb(0, 0, 0, .9);
-      color: white;
-      padding: 0px;
-      background-attachment: fixed;
-      background-repeat: round;
-      background-size: cover;
-      display: flex;
-      flex-direction: column;
     }
 
-    #preloader-text {
-    /* background: 50% 100% / 50% 50% no-repeat radial-gradient(ellipse at bottom, #478fdf, transparent, transparent); */
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    font-size: 7rem;
-    /* font-family: "Source Sans Pro", sans-serif; */
-    animation: reveal 4000ms ease-in-out forwards 400ms, glow 3500ms linear infinite 4000ms;
-    font-weight: 900;
-    white-space: nowrap;
-    line-height: 1;
-    text-align: center;
-    position: relative;
-    display: flex
-;
-    flex-direction: column;
-    align-items: center;
-    border: 15px solid #478fdf;
-    height: 220px;
-    flex-direction: column;
-    align-items: center;
-    line-height: .75;
-    -webkit-text-stroke: 5px #478fdf;
-    }
-    
-    #preloader-text::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      bottom: 10px;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle, rgba(200, 200, 200, 0.6) 10%, rgba(200, 200, 200, 0.2) 50%, transparent);
-      filter: blur(16px);
-      opacity: 0.9;
-      transform: translateX(-50%) scale(1);
-      animation: smoke-rise 4s infinite ease-in-out;
-      pointer-events: none;
-}
-    .pre-load-fade-out {
-      opacity: 0;
-      transition: opacity 7s ease-out;
-      pointer-events: none;
-    }
-
-    @keyframes reveal {
-      80% {
-        letter-spacing: 8px;
-      }
-
-      100% {
-        background-size: 300% 300%;
-      }
-    }
-
-    @keyframes glow {
-            20% {
-        text-shadow: 0 0 8px rgb(71, 143, 223,.1);
-        -webkit-text-stroke: 1px rgb(71, 143, 223, .1);
-      }
-            40% {
-        text-shadow: 0 0 8px rgb(71, 143, 223,.4);
-              -webkit-text-stroke: 1px rgb(71, 143, 223, .4);
-      }
-      60% {
-        text-shadow: 0 0 8px rgb(71, 143, 223,.7);
-        -webkit-text-stroke: 1px rgb(71, 143, 223, .7);
-      }
-           80% {
-        text-shadow: 0 0 8px rgb(71, 143, 223,.9);
-        -webkit-text-stroke: 1px rgb(71, 143, 223, .9);
-      }
-    }
-    @keyframes smoke-rise {
-  0% {
-    transform: translateX(-50%) translateY(0) scale(1);
-    opacity: 1;
-  }
-  25% {
-    opacity: 0.8;
-  }
-  50% {
-    transform: translateX(-50%) translateY(-80px) scale(1.2);
-    opacity: 0.65;
-  }
-  75% {
-    opacity: 0.40;
-  }
-  100% {
-    transform: translateX(-50%) translateY(-80px) scale(1.2);
-    opacity: 0.2;
-  }
-}
-
-/*     #football {
-    width: 83px;
-    height: auto;
-    position: fixed;
-    top: 56%;
-    opacity: .9;
-} */
-
-/* @keyframes bounce-roll {
-  0% {
-    transform: translateY(0) rotate(0deg);
-  }
-  25% {
-    transform: translateY(-30px) rotate(90deg);
-  }
-  50% {
-    transform: translateY(0) rotate(180deg);
-  }
-  75% {
-    transform: translateY(-15px) rotate(270deg);
-  }
-  100% {
-    transform: translateY(0) rotate(360deg);
-  }
-} */
 
     @media (max-width: 1100px) {
       .notification {
         width: -webkit-fill-available;
       }
-        #preloader {
-          display: inline-flex;
-              background: linear-gradient(to top, #000 3%, rgba(0, 0, 0, 0.8) 5%, rgba(0, 0, 0, 0) 7%, rgba(18, 19, 21) 50%, rgba(0, 0, 0, 0.8) 90%, #000 101%), 
-                url(https://www.shutterstock.com/image-illustration/3d-render-soccer-empty-stadium-600nw-2472453011.jpg);
+
+      #preloader {
+        background: linear-gradient(to top, #000 3%, rgba(0, 0, 0, 0.8) 5%, rgba(0, 0, 0, 0) 7%, rgba(18, 19, 21) 50%, rgba(0, 0, 0, 0.8) 90%, #000 101%),
+          url(https://www.shutterstock.com/image-illustration/3d-render-soccer-empty-stadium-600nw-2472453011.jpg);
         background-attachment: fixed;
         background-repeat: round;
         background-size: cover;
-    }
-      #preloader-text{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        overflow: hidden;
+        /*       background: linear-gradient(to top, #000 3%, rgba(0, 0, 0, 0.8) 5%, rgba(0, 0, 0, 0) 28%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.8) 95%, #000 100%),
+          url(https://img.freepik.com/premium-photo/3d-rendering-empty-Americans-football-field-with-stadium_493806-8391.jpg?semt=ais_hybrid); */
+        background: rgb(0, 0, 0, .9);
+        color: white;
+        padding: 0px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #preloader-text {
         padding-bottom: 10%;
         border: none;
         height: 132px;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-size: 7rem;
+        animation: reveal 4000ms ease-in-out forwards 400ms, glow 3500ms linear infinite 4000ms;
+        font-weight: 900;
+        white-space: nowrap;
+        line-height: 1;
+        text-align: center;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-direction: column;
+        align-items: center;
+        line-height: .75;
+        -webkit-text-stroke: 5px #478fdf;
+      }
+
+      #preloader-text::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 10px;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, rgba(200, 200, 200, 0.6) 10%, rgba(200, 200, 200, 0.2) 50%, transparent);
+        filter: blur(16px);
+        opacity: 0.9;
+        transform: translateX(-50%) scale(1);
+        animation: smoke-rise 4s infinite ease-in-out;
+        pointer-events: none;
+      }
+
+      .pre-load-fade-out {
+        opacity: 0;
+        transition: opacity 7s ease-out;
+        pointer-events: none;
+      }
+
+      @keyframes reveal {
+        80% {
+          letter-spacing: 8px;
+        }
+
+        100% {
+          background-size: 300% 300%;
+        }
+      }
+
+      @keyframes glow {
+        20% {
+          text-shadow: 0 0 8px rgb(71, 143, 223, .1);
+          -webkit-text-stroke: 1px rgb(71, 143, 223, .1);
+        }
+
+        40% {
+          text-shadow: 0 0 8px rgb(71, 143, 223, .4);
+          -webkit-text-stroke: 1px rgb(71, 143, 223, .4);
+        }
+
+        60% {
+          text-shadow: 0 0 8px rgb(71, 143, 223, .7);
+          -webkit-text-stroke: 1px rgb(71, 143, 223, .7);
+        }
+
+        80% {
+          text-shadow: 0 0 8px rgb(71, 143, 223, .9);
+          -webkit-text-stroke: 1px rgb(71, 143, 223, .9);
+        }
+      }
+
+      @keyframes smoke-rise {
+        0% {
+          transform: translateX(-50%) translateY(0) scale(1);
+          opacity: 1;
+        }
+
+        25% {
+          opacity: 0.8;
+        }
+
+        50% {
+          transform: translateX(-50%) translateY(-80px) scale(1.2);
+          opacity: 0.65;
+        }
+
+        75% {
+          opacity: 0.40;
+        }
+
+        100% {
+          transform: translateX(-50%) translateY(-80px) scale(1.2);
+          opacity: 0.2;
+        }
       }
     }
-/*     @media (orientation: portrait) {
-  body {
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
-    padding-left: env(safe-area-inset-left);
-    padding-right: env(safe-area-inset-right);
-    box-sizing: border-box;
-}
-} */
-
   </style>
 </head>
 
 <body>
   <div id="preloader">
     <div id="preloader-text">PICK<br>6
-<!--       <img loading="lazy" id="football" src="https://raw.githubusercontent.com/joespick6/joespick6.github.io/refs/heads/main/FootballNew.gif" alt="Football" /> -->
+      <!--       <img loading="lazy" id="football" src="https://raw.githubusercontent.com/joespick6/joespick6.github.io/refs/heads/main/FootballNew.gif" alt="Football" /> -->
     </div>
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="100" height="100">
-            <defs>
-                <clipPath id="fillClip">
-                  <rect id="fillRect" x="0" y="24" width="24" height="24" />
-                </clipPath>
-              </defs>
-              <g clip-path="url(#fillClip)">
-                <path d="M21.9127 5.93144c-0.159 -2.07975 -1.7644 -3.68517 -3.8441 -3.84419 -1.067 -0.08157 -2.312 -0.12112 -3.6237 -0.05102l7.5189 7.51892c0.0701 -1.3117 0.0305 -2.55678 -0.0511 -3.62371Z" fill="#4181c9" stroke-width="1"></path>
-                <path d="M2.08725 18.0686c0.15902 2.0797 1.76444 3.6851 3.84419 3.8441 1.06718 0.0816 2.31259 0.1212 3.62463 0.051l-7.51979 -7.5198c-0.07017 1.3121 -0.03062 2.5575 0.05097 3.6247Z" fill="#4181c9" stroke-width="1"></path>
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M2.22237 12.5087c0.36847 -2.59228 1.26167 -5.23146 3.15827 -7.12806 1.89681 -1.89681 4.53636 -2.79 7.12886 -3.15839l9.2682 9.26825c-0.3683 2.5925 -1.2615 5.232 -3.1583 7.1289 -1.8966 1.8966 -4.5358 2.7898 -7.1281 3.1582l-9.26893 -9.2689Zm9.72023 -4.3486c0.2929 -0.29289 0.7678 -0.29289 1.0606 0l0.8882 0.8881 0.8881 -0.8881c0.2928 -0.29289 0.7677 -0.29289 1.0606 0 0.2929 0.29289 0.2929 0.76777 0 1.06066l-0.8881 0.88814 0.8881 0.8881c0.2929 0.2929 0.2929 0.7677 0 1.0606 -0.2929 0.2929 -0.7678 0.2929 -1.0606 0l-0.8881 -0.8881 -0.8306 0.8306 0.8881 0.8881c0.2929 0.2929 0.2929 0.7678 0 1.0607 -0.2929 0.2929 -0.7678 0.2929 -1.0607 0l-0.8881 -0.8881 -0.8306 0.8306 0.8881 0.8881c0.2929 0.2928 0.2929 0.7677 0 1.0606 -0.2929 0.2929 -0.7677 0.2929 -1.0606 0l-0.8881 -0.8881 -0.88814 0.8881c-0.29289 0.2929 -0.76777 0.2929 -1.06066 0s-0.29289 -0.7678 0 -1.0606l0.8881 -0.8881 -0.8881 -0.8882c-0.29289 -0.2928 -0.29289 -0.7677 0 -1.0606 0.29289 -0.2929 0.76777 -0.2929 1.06066 0l0.88814 0.8881 0.8305 -0.8306 -0.8881 -0.8881c-0.29285 -0.2929 -0.29285 -0.7678 0 -1.0607 0.2929 -0.29285 0.7678 -0.29285 1.0607 0l0.8881 0.8881 0.8306 -0.8305 -0.8881 -0.88814c-0.2929 -0.29289 -0.2929 -0.76777 0 -1.06066Z" fill="#4181c9" stroke-width="1"></path>
-              </g>
-        </svg>
-    
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+      <defs>
+        <clipPath id="fillClip">
+          <rect id="fillRect" x="0" y="24" width="24" height="24" />
+        </clipPath>
+      </defs>
+      <g clip-path="url(#fillClip)">
+        <path
+          d="M21.9127 5.93144c-0.159 -2.07975 -1.7644 -3.68517 -3.8441 -3.84419 -1.067 -0.08157 -2.312 -0.12112 -3.6237 -0.05102l7.5189 7.51892c0.0701 -1.3117 0.0305 -2.55678 -0.0511 -3.62371Z"
+          fill="#4181c9" stroke-width="1"></path>
+        <path
+          d="M2.08725 18.0686c0.15902 2.0797 1.76444 3.6851 3.84419 3.8441 1.06718 0.0816 2.31259 0.1212 3.62463 0.051l-7.51979 -7.5198c-0.07017 1.3121 -0.03062 2.5575 0.05097 3.6247Z"
+          fill="#4181c9" stroke-width="1"></path>
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M2.22237 12.5087c0.36847 -2.59228 1.26167 -5.23146 3.15827 -7.12806 1.89681 -1.89681 4.53636 -2.79 7.12886 -3.15839l9.2682 9.26825c-0.3683 2.5925 -1.2615 5.232 -3.1583 7.1289 -1.8966 1.8966 -4.5358 2.7898 -7.1281 3.1582l-9.26893 -9.2689Zm9.72023 -4.3486c0.2929 -0.29289 0.7678 -0.29289 1.0606 0l0.8882 0.8881 0.8881 -0.8881c0.2928 -0.29289 0.7677 -0.29289 1.0606 0 0.2929 0.29289 0.2929 0.76777 0 1.06066l-0.8881 0.88814 0.8881 0.8881c0.2929 0.2929 0.2929 0.7677 0 1.0606 -0.2929 0.2929 -0.7678 0.2929 -1.0606 0l-0.8881 -0.8881 -0.8306 0.8306 0.8881 0.8881c0.2929 0.2929 0.2929 0.7678 0 1.0607 -0.2929 0.2929 -0.7678 0.2929 -1.0607 0l-0.8881 -0.8881 -0.8306 0.8306 0.8881 0.8881c0.2929 0.2928 0.2929 0.7677 0 1.0606 -0.2929 0.2929 -0.7677 0.2929 -1.0606 0l-0.8881 -0.8881 -0.88814 0.8881c-0.29289 0.2929 -0.76777 0.2929 -1.06066 0s-0.29289 -0.7678 0 -1.0606l0.8881 -0.8881 -0.8881 -0.8882c-0.29289 -0.2928 -0.29289 -0.7677 0 -1.0606 0.29289 -0.2929 0.76777 -0.2929 1.06066 0l0.88814 0.8881 0.8305 -0.8306 -0.8881 -0.8881c-0.29285 -0.2929 -0.29285 -0.7678 0 -1.0607 0.2929 -0.29285 0.7678 -0.29285 1.0607 0l0.8881 0.8881 0.8306 -0.8305 -0.8881 -0.88814c-0.2929 -0.29289 -0.2929 -0.76777 0 -1.06066Z"
+          fill="#4181c9" stroke-width="1"></path>
+      </g>
+    </svg>
+
     <button id="resetBtn" onclick="resetNotifications()" style="
                     display: none;
                     position: fixed;
@@ -455,27 +424,28 @@
     <button id="dismiss-button">Dismiss</button>
   </div>
 
-<div id="ios-install-banner">
-  <button id="ios-install-close">✕</button>
-  <h3><img src="Pick6Logo.png" class="install-icon-header">Install 'Pick 6' on Your Device</h3>
-    <p class="install-details">1. Tap the <strong>Share</strong> icon.<img src="https://raw.githubusercontent.com/BobcatPGAMajors/BobcatPGAMajors.github.io/refs/heads/main/shareIcon.png" alt="Share icon" class="install-icon"></p>
-    <p class="install-details">2. Select <strong>Add to Home Screen</strong>.<img src="https://raw.githubusercontent.com/joespick6/joespick6.github.io/refs/heads/main/HomeScreenIcon.png" alt="Home Screen icon" class="install-icon"></p>
-    <p class="install-details" style="margin-bottom: 8px;" >3. Tap <strong>Add</strong>.</p>
-</div>
+  <div id="ios-install-banner">
+    <button id="ios-install-close">✕</button>
+    <h3><img src="Pick6Logo.png" class="install-icon-header">Install 'Pick 6' on Your Device</h3>
+    <p class="install-details">1. Tap the <strong>Share</strong> icon.<img src="https://raw.githubusercontent.com/BobcatPGAMajors/BobcatPGAMajors.github.io/refs/heads/main/shareIcon.png" alt="Share icon" class="install-icon">
+    </p>
+    <p class="install-details">2. Select <strong>Add to Home Screen</strong>.<img src="https://raw.githubusercontent.com/joespick6/joespick6.github.io/refs/heads/main/HomeScreenIcon.png" alt="Home Screen icon" class="install-icon">
+    </p>
+    <p class="install-details" style="margin-bottom: 8px;">3. Tap <strong>Add</strong>.</p>
+  </div>
 
-  <iframe src="https://script.google.com/macros/s/AKfycbwuZM7KGKnS7jnpM2YN9W_AgTMqA0qJGw99K3MIUNxzI1tnh3YK76AhgeCfh2Wc7pTd/exec"
-          frameborder="0"
-          scrolling="yes"
-          loading="lazy"
-          allow="fullscreen; clipboard-write; autoplay; camera; encrypted-media; geolocation; microphone; midi; payment; usb; accelerometer; gyroscope; magnetometer; screen-wake-lock; clipboard-read; web-share; autoplay; camera; encrypted-media; geolocation; microphone; midi; payment; usb; accelerometer; gyroscope; magnetometer; screen-wake-lock; clipboard-read; web-share"
-          sandbox="allow-scripts allow-same-origin allow-forms">
+  <iframe
+    src="https://script.google.com/macros/s/AKfycbwuZM7KGKnS7jnpM2YN9W_AgTMqA0qJGw99K3MIUNxzI1tnh3YK76AhgeCfh2Wc7pTd/exec"
+    frameborder="0" scrolling="yes" loading="lazy"
+    allow="fullscreen; clipboard-write; autoplay; camera; encrypted-media; geolocation; microphone; midi; payment; usb; accelerometer; gyroscope; magnetometer; screen-wake-lock; clipboard-read; web-share; autoplay; camera; encrypted-media; geolocation; microphone; midi; payment; usb; accelerometer; gyroscope; magnetometer; screen-wake-lock; clipboard-read; web-share"
+    sandbox="allow-scripts allow-same-origin allow-forms">
   </iframe>
 
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J8ZSHET5RJ"></script>
-  
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-J8ZSHET5RJ"></script>
+
   <script>
     let messaging;
     let db;
