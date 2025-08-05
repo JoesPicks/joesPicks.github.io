@@ -272,11 +272,11 @@
       #preloader-text {
         padding-bottom: 10%;
         border: none;
-        height: 132px;
+        height: 153px;
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
-        font-size: 7rem;
+        font-size: 8rem;
         animation: reveal 3000ms ease-in-out forwards, glow 3000ms ease-in-out forwards;
         font-weight: 900;
         white-space: nowrap;
@@ -317,16 +317,17 @@
             0% {
                 opacity: 0; 
                 letter-spacing: 0px;
+              -webkit-text-stroke: 0px transparent;
               }
               60% {
                 opacity: 0.6;
                 letter-spacing: 10px;
-                -webkit-text-stroke: 5px rgba(71, 143, 223, 0.6);
+                -webkit-text-stroke: 5px rgba(71, 143, 223, 0.5);
               }
               80% {
                 opacity: 0.8;
                 letter-spacing: 5px;
-                -webkit-text-stroke: 6px rgba(71, 143, 223, 0.8);
+                -webkit-text-stroke: 6px rgba(71, 143, 223, 0.6);
               }
               90% {
                 opacity: 0.8;
@@ -343,7 +344,7 @@
       @keyframes glow {
           0% {
               text-shadow: none;
-              opacity: 0; /* Start invisible */
+              opacity: 0;
             }
             20% {
               text-shadow: 0 0 8px rgba(71, 143, 223, 0.4);
