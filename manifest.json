@@ -9,13 +9,13 @@
     "orientation": "portrait",
     "icons": [
         {
-            "src": "Pick6Logo.png",
+            "src": "Pick6LogoNew.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any maskable"
         },
         {
-            "src": "Pick6Logo.png",
+            "src": "Pick6LogoNew.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any maskable"
