@@ -28,8 +28,11 @@
       margin: 0;
       padding: 0;
       overflow: hidden;
+      position: fixed;
+      top: 0;
       left: 0;
       right: 0;
+      bottom: 0;
       width: 100%;
       height: 100%;
       font-family: Arial, sans-serif;
@@ -50,6 +53,11 @@
 
     input,
     textarea {
+      font-size: 16px !important;
+    }
+
+    input,
+    textarea {
       font-size: 16px;
     }
 
@@ -64,8 +72,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: #101010;
-      overscroll-behavior: none;
+      background-color: black;
     }
 
     #install-banner {
@@ -474,9 +481,10 @@
 
   <iframe
     src="https://script.google.com/macros/s/AKfycby7UN-7obHiawQ5CZa2DYx6MuRMzaxRvgOjhNLB3NMFroHBd5HoSlDM1l0w27eoU1Je/exec?v=1"
-    frameborder="0" scrolling="yes" loading="lazy"
+    frameborder="0" 
+    scrolling="yes"
     allow="fullscreen; clipboard-write; autoplay; camera; encrypted-media; geolocation; microphone; midi; payment; usb; accelerometer; gyroscope; magnetometer; screen-wake-lock; clipboard-read; web-share; autoplay; camera; encrypted-media; geolocation; microphone; midi; payment; usb; accelerometer; gyroscope; magnetometer; screen-wake-lock; clipboard-read; web-share"
-    sandbox="allow-scripts allow-same-origin allow-forms">
+    sandbox="allow-scripts allow-same-origin allow-forms"
   </iframe>
 
 
