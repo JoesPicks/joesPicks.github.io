@@ -11,17 +11,13 @@
   <meta name="theme-color" content="#333">
   <meta name="description" content="Pick 6">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
   <link rel="icon" type="image/png" sizes="32x32" href="Pick6LogoNew.png">
   <link rel="icon" type="image/png" sizes="16x16" href="Pick6LogoNew.png">
-
   <link rel="apple-touch-icon" href="Pick6LogoNew.png">
   <link rel="apple-touch-icon" sizes="152x152" href="Pick6LogoNew.png">
   <link rel="apple-touch-icon" sizes="180x180" href="Pick6LogoNew.png">
   <link rel="apple-touch-icon" sizes="167x167" href="Pick6LogoNew.png">
-
   <link rel="shortcut icon" href="Pick6LogoNew.png">
-
   <link rel="manifest" href="manifest.json">
 
   <title>Pick 6</title>
@@ -281,7 +277,6 @@
         position: relative;
         display: inline-table;
         text-align: center;
-/*         line-height: .8; */
         line-height: 94px;
         -webkit-text-stroke: 7px #478fdf;
         transition: all 1s ease-in-out;
@@ -292,7 +287,6 @@
         display: inline-block;
         opacity: 0;
         animation: fadeIn 2s ease forwards;
-        /* slow fade */
       }
 
       #preloader-text span.break {
@@ -353,6 +347,7 @@
         transition: opacity 7s ease-out;
         pointer-events: none;
       }
+
       #preloader-week {
         font-size: 65px;
         font-weight: bold;
@@ -363,68 +358,13 @@
         animation: fadeIn 2s ease forwards;
         animation-delay: 1.5s;
         line-height: 65px;
-}
+      }
 
-#week-number {
+      #week-number {
         -webkit-text-stroke: 3px #478fdf;
         color: transparent;
         letter-spacing: 2px;
-}
-
-      /*       @keyframes reveal {
-            0% {
-                opacity: 0; 
-                letter-spacing: 0px;
-              -webkit-text-stroke: 0px transparent;
-              }
-              60% {
-                opacity: 0.6;
-                letter-spacing: 10px;
-                -webkit-text-stroke: 5px rgba(71, 143, 223, 0.5);
-              }
-              80% {
-                opacity: 0.8;
-                letter-spacing: 5px;
-                -webkit-text-stroke: 6px rgba(71, 143, 223, 0.6);
-              }
-              90% {
-                opacity: 0.8;
-                letter-spacing: 2px;
-                -webkit-text-stroke: 6px rgba(71, 143, 223, 0.8);
-              }
-              100% {
-                opacity: 1; 
-                background-size: 300% 300%;
-                -webkit-text-stroke: 7px rgba(71, 143, 223, 1);
-              }
-            }
-
-      @keyframes glow {
-          0% {
-              text-shadow: none;
-              opacity: 0;
-            }
-            20% {
-              text-shadow: 0 0 8px rgba(71, 143, 223, 0.4);
-              opacity: 0.2;
-            }
-            40% {
-              text-shadow: 0 0 8px rgba(71, 143, 223, 0.3);
-              opacity: 0.4;
-            }
-            60% {
-              text-shadow: 0 0 8px rgba(71, 143, 223, 0.2);
-              opacity: 0.6;
-            }
-            80% {
-              text-shadow: 0 0 8px rgba(71, 143, 223, 0.1);
-              opacity: 0.8;
-            }
-            100% {
-              text-shadow: none;
-              opacity: 1;
-            }
-          } */
+      }
 
       @keyframes smoke-rise {
         0% {
@@ -456,18 +396,18 @@
 </head>
 
 <body>
-<div id="preloader">
-  <div id="preloader-text">
-    <span>P</span>
-    <span>I</span>
-    <span>C</span>
-    <span>K</span>
-    <span class="break"></span>
-    <span>6</span>
-  </div>
-  <div id="preloader-week">
-    <span id="week-number"></span>
-  </div>
+  <div id="preloader">
+    <div id="preloader-text">
+      <span>P</span>
+      <span>I</span>
+      <span>C</span>
+      <span>K</span>
+      <span class="break"></span>
+      <span>6</span>
+    </div>
+    <div id="preloader-week">
+      <span id="week-number"></span>
+    </div>
     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="100" height="100" style="margin-top: -8px;">
       <defs>
         <clipPath id="fillClip">
@@ -501,7 +441,8 @@
                     cursor: pointer;
                     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
                     z-index: 1001;
-                    transition: all 0.3s ease;">Reset Notifications</button>
+                    transition: all 0.3s ease;">Reset Notifications
+    </button>
   </div>
 
   <div id="install-banner">
@@ -520,20 +461,20 @@
     <p class="install-details" style="margin-bottom: 8px;">3. Tap <strong>Add</strong>.</p>
   </div>
 
-<!--   <iframe
+  <!--   <iframe
     src="https://script.google.com/macros/s/AKfycbwuZM7KGKnS7jnpM2YN9W_AgTMqA0qJGw99K3MIUNxzI1tnh3YK76AhgeCfh2Wc7pTd/exec"
     frameborder="0" scrolling="yes" loading="lazy"
     allow="fullscreen; clipboard-write; autoplay; camera; encrypted-media; geolocation; microphone; midi; payment; usb; accelerometer; gyroscope; magnetometer; screen-wake-lock; clipboard-read; web-share; autoplay; camera; encrypted-media; geolocation; microphone; midi; payment; usb; accelerometer; gyroscope; magnetometer; screen-wake-lock; clipboard-read; web-share"
     sandbox="allow-scripts allow-same-origin allow-forms">
   </iframe> -->
 
-    <iframe
+  <iframe
     src="https://script.google.com/macros/s/AKfycby7UN-7obHiawQ5CZa2DYx6MuRMzaxRvgOjhNLB3NMFroHBd5HoSlDM1l0w27eoU1Je/exec"
     frameborder="0" scrolling="yes" loading="lazy"
     allow="fullscreen; clipboard-write; autoplay; camera; encrypted-media; geolocation; microphone; midi; payment; usb; accelerometer; gyroscope; magnetometer; screen-wake-lock; clipboard-read; web-share; autoplay; camera; encrypted-media; geolocation; microphone; midi; payment; usb; accelerometer; gyroscope; magnetometer; screen-wake-lock; clipboard-read; web-share"
     sandbox="allow-scripts allow-same-origin allow-forms">
   </iframe>
-  
+
 
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"></script>
@@ -748,24 +689,23 @@ if ('serviceWorker' in navigator) {
 
             const promptDiv = document.createElement('div');
             promptDiv.id = 'notification-prompt';
-            promptDiv.style.cssText = `
-                position: fixed;
-                bottom: 50%;
-                left: 50%;
-                transform: translate(-50%, 50%);
-                background: rgba(0, 0, 0, 0.85);
-                color: white;
-                padding: 8px 1px;
-                border-radius: 10px;
-                box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9) 0px 10px 13px;
-                text-align: center;
-                z-index: 1001;
-                font-family: Arial, sans-serif;
-                max-width: 95%;
-                width: max-content;
-                border: 4px solid #478fdf;
-                animation: fade-in 0.3s ease-in-out;
-            `;
+            promptDiv.style.cssText =  `position: fixed;
+                                        bottom: 50%;
+                                        left: 50%;
+                                        transform: translate(-50%, 50%);
+                                        background: rgba(0, 0, 0, 0.85);
+                                        color: white;
+                                        padding: 8px 1px;
+                                        border-radius: 10px;
+                                        box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9) 0px 10px 13px;
+                                        text-align: center;
+                                        z-index: 1001;
+                                        font-family: Arial, sans-serif;
+                                        max-width: 95%;
+                                        width: max-content;
+                                        border: 4px solid #478fdf;
+                                        animation: fade-in 0.3s ease-in-out;
+                                      `;
 
             promptDiv.innerHTML = `
                 <p class="notification">You’ll get weekly push alerts when picks and entry forms are available.</p>
@@ -774,7 +714,6 @@ if ('serviceWorker' in navigator) {
                     <button id="decline-notifications" style="display: none;">Not Now</button>
                 </div>
             `;
-
             document.body.appendChild(promptDiv);
 
 document.getElementById('enable-notifications').addEventListener('click', () => {
@@ -1173,7 +1112,7 @@ function setupInstallPrompt() {
 
 const fillRect = document.getElementById('fillRect');
 let progress = 0;
-const duration = 5000; // 6 seconds
+const duration = 3750; // 6 seconds
 const startTime = performance.now();
 
 function animate(time) {
