@@ -1027,7 +1027,7 @@ function promptForPermission() {
                 console.log('10 seconds elapsed, triggering prompt');
                 document.removeEventListener('click', userInteracted);
                 triggerPrompt();
-            }, 6000);
+            }, 4500);
 
             setTimeout(() => {
                 console.log('Starting prompt wait period (click or 10 seconds)');
@@ -1103,7 +1103,7 @@ document.addEventListener('DOMContentLoaded', function() {
         preloader.style.display = 'none';
       // preloader.style.transition = '2s ease-in-out';
         setupFirebaseAndNotifications();
-    }, 7000);
+    }, 4500);
 });
 
 let deferredPrompt;
@@ -1173,7 +1173,7 @@ function setupInstallPrompt() {
 
 const fillRect = document.getElementById('fillRect');
 let progress = 0;
-const duration = 6000; // 6 seconds
+const duration = 5000; // 6 seconds
 const startTime = performance.now();
 
 function animate(time) {
