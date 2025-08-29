@@ -408,7 +408,7 @@
     <div id="preloader-week">
       <span id="week-number"></span>
     </div>
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="100" height="100" style="margin-top: -8px;">
+<!--     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="100" height="100" style="margin-top: -8px;">
       <defs>
         <clipPath id="fillClip">
           <rect id="fillRect" x="0" y="24" width="24" height="24" />
@@ -425,7 +425,7 @@
           d="M2.22237 12.5087c0.36847 -2.59228 1.26167 -5.23146 3.15827 -7.12806 1.89681 -1.89681 4.53636 -2.79 7.12886 -3.15839l9.2682 9.26825c-0.3683 2.5925 -1.2615 5.232 -3.1583 7.1289 -1.8966 1.8966 -4.5358 2.7898 -7.1281 3.1582l-9.26893 -9.2689Zm9.72023 -4.3486c0.2929 -0.29289 0.7678 -0.29289 1.0606 0l0.8882 0.8881 0.8881 -0.8881c0.2928 -0.29289 0.7677 -0.29289 1.0606 0 0.2929 0.29289 0.2929 0.76777 0 1.06066l-0.8881 0.88814 0.8881 0.8881c0.2929 0.2929 0.2929 0.7677 0 1.0606 -0.2929 0.2929 -0.7678 0.2929 -1.0606 0l-0.8881 -0.8881 -0.8306 0.8306 0.8881 0.8881c0.2929 0.2929 0.2929 0.7678 0 1.0607 -0.2929 0.2929 -0.7678 0.2929 -1.0607 0l-0.8881 -0.8881 -0.8306 0.8306 0.8881 0.8881c0.2929 0.2928 0.2929 0.7677 0 1.0606 -0.2929 0.2929 -0.7677 0.2929 -1.0606 0l-0.8881 -0.8881 -0.88814 0.8881c-0.29289 0.2929 -0.76777 0.2929 -1.06066 0s-0.29289 -0.7678 0 -1.0606l0.8881 -0.8881 -0.8881 -0.8882c-0.29289 -0.2928 -0.29289 -0.7677 0 -1.0606 0.29289 -0.2929 0.76777 -0.2929 1.06066 0l0.88814 0.8881 0.8305 -0.8306 -0.8881 -0.8881c-0.29285 -0.2929 -0.29285 -0.7678 0 -1.0607 0.2929 -0.29285 0.7678 -0.29285 1.0607 0l0.8881 0.8881 0.8306 -0.8305 -0.8881 -0.88814c-0.2929 -0.29289 -0.2929 -0.76777 0 -1.06066Z"
           fill="#4181c9" stroke-width="1"></path>
       </g>
-    </svg>
+    </svg> -->
 
     <button id="resetBtn" onclick="resetNotifications()" style="
                     display: none;
@@ -1110,27 +1110,27 @@ function setupInstallPrompt() {
     });
 }
 
-const fillRect = document.getElementById('fillRect');
-let progress = 0;
-const duration = 2750; // 6 seconds
-const startTime = performance.now();
+// const fillRect = document.getElementById('fillRect');
+// let progress = 0;
+// const duration = 2750; // 6 seconds
+// const startTime = performance.now();
 
-function animate(time) {
-  const elapsed = time - startTime;
-  progress = Math.min(elapsed / duration, 1) * 24;
-  fillRect.setAttribute('y', 24 - progress);
-  fillRect.setAttribute('height', progress);
-  if (elapsed < duration) requestAnimationFrame(animate);
-}
-requestAnimationFrame(animate);
+// function animate(time) {
+//   const elapsed = time - startTime;
+//   progress = Math.min(elapsed / duration, 1) * 24;
+//   fillRect.setAttribute('y', 24 - progress);
+//   fillRect.setAttribute('height', progress);
+//   if (elapsed < duration) requestAnimationFrame(animate);
+// }
+// requestAnimationFrame(animate);
 
-    window.addEventListener("load", () => {
-  document.querySelectorAll("#preloader-text span").forEach((span, index) => {
-    setTimeout(() => {
-      span.style.opacity = "1";
-    }, 2500 + index * 500); // stagger timing
-  });
-});
+//     window.addEventListener("load", () => {
+//   document.querySelectorAll("#preloader-text span").forEach((span, index) => {
+//     setTimeout(() => {
+//       span.style.opacity = "1";
+//     }, 2500 + index * 500); // stagger timing
+//   });
+// });
 
 document.addEventListener('DOMContentLoaded', () => {
     setupInstallPrompt();
