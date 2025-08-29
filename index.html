@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.5, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Pick 6">
@@ -24,7 +24,7 @@
   <style>
     html,
     body {
-      background-color: #000 !important;
+      background-color: #000;
       margin: 0;
       padding: 0;
       overflow: hidden;
@@ -50,7 +50,7 @@
 
     input,
     textarea {
-      font-size: 16px !important;
+      font-size: 16px;
     }
 
     iframe {
@@ -64,7 +64,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: #121315;
+      background-color: #101010;
       overscroll-behavior: none;
     }
 
@@ -97,7 +97,7 @@
       font-size: 16px;
       margin: 4px 2px;
       background-color: rgba(0, 0, 0, .9);
-      color: #478fdf;
+      color: #3d79df;
       padding: 3px 0;
       font-weight: 900;
       cursor: pointer;
@@ -108,7 +108,7 @@
     }
 
     #install-banner button:hover {
-      background-color: #478fdf;
+      background-color: #3d79df;
       color: white;
       border: none;
     }
@@ -147,11 +147,11 @@
       top: 8px;
       right: 8px;
       background: rgba(255, 255, 255, .1);
-      border: 2px solid #478fdf;
+      border: 2px solid #3d79df;
       width: 28px;
       height: 28px;
       font-size: 20px;
-      color: #478fdf;
+      color: #3d79df;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -171,7 +171,7 @@
       height: 34px;
       margin-right: 8px;
       vertical-align: middle;
-      border: 2px solid #478fdf;
+      border: 2px solid #3d79df;
       border-radius: 8px;
       box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.3), 3px 3px 7px -2px rgba(0, 0, 0, 0.9);
     }
@@ -215,7 +215,7 @@
 
     .notification-button {
       background-color: rgba(0, 0, 0, .9);
-      color: #478fdf;
+      color: #3d79df;
       padding: 6px 0;
       font-weight: 900;
       cursor: pointer;
@@ -228,7 +228,7 @@
     }
 
     .notification-button:hover {
-      background-color: #478fdf;
+      background-color: #3d79df;
       color: white;
       border: none;
     }
@@ -278,7 +278,7 @@
         display: inline-table;
         text-align: center;
         line-height: 94px;
-        -webkit-text-stroke: 7px #478fdf;
+        -webkit-text-stroke: 7px #3d79df;
         transition: all 1s ease-in-out;
         letter-spacing: 4px;
       }
@@ -351,7 +351,7 @@
       #preloader-week {
         font-size: 65px;
         font-weight: bold;
-        color: #478fdf;
+        color: #3d79df;
         text-align: center;
         margin-top: -2px;
         opacity: 0;
@@ -361,7 +361,7 @@
       }
 
       #week-number {
-        -webkit-text-stroke: 3px #478fdf;
+        -webkit-text-stroke: 3px #3d79df;
         color: transparent;
         letter-spacing: 2px;
       }
@@ -433,8 +433,8 @@
                     bottom: 20px;
                     right: 12px;
                     background-color: transparent;
-                    color: #478fdf;
-                    border: 1px solid #478fdf;
+                    color: #3d79df;
+                    border: 1px solid #3d79df;
                     padding: 7px 7px;
                     border-radius: 4px;
                     font-weight: bold;
@@ -488,7 +488,7 @@
 async function resetNotifications() {
     const button = document.getElementById('resetBtn');
 
-    button.style.backgroundColor = '#478fdf';
+    button.style.backgroundColor = '#3d79df';
     button.style.color = 'white';
     button.textContent = 'Resetting...';
 
@@ -551,7 +551,7 @@ async function resetNotifications() {
         localStorage.removeItem('notificationPromptDismissed');
         localStorage.removeItem('notificationPermissionDenied');
 
-        button.style.backgroundColor = '#478fdf';
+        button.style.backgroundColor = '#3d79df';
         button.textContent = 'Reset Complete';
 
         if (Notification.permission === 'denied') {
@@ -703,7 +703,7 @@ if ('serviceWorker' in navigator) {
                                         font-family: Arial, sans-serif;
                                         max-width: 95%;
                                         width: max-content;
-                                        border: 4px solid #478fdf;
+                                        border: 4px solid #3d79df;
                                         animation: fade-in 0.3s ease-in-out;
                                       `;
 
