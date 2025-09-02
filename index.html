@@ -1018,16 +1018,13 @@ document.addEventListener('DOMContentLoaded', function() {
         resetButton.style.display = 'none';
     }
 
-    // Listen for a message from the iframe
-    window.addEventListener('message', (event) => {
-        // Check if the message is from our iframe and is the signal we expect
-        if (event.data && event.data.type === 'iframe-loaded') {
-            console.log('Iframe content is ready to be displayed.');
-            // Now it's safe to hide the preloader
-            preloader.style.display = 'none';
-            setupFirebaseAndNotifications();
-        }
-    });
+    // New code to handle iframe loading
+    const iframe = document.querySelector('iframe');
+    iframe.onload = function() {
+        console.log('Iframe has finished loading.');
+        preloader.style.display = 'none';
+        setupFirebaseAndNotifications();
+    };
 });
 
 let deferredPrompt;
