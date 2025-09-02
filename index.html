@@ -265,7 +265,7 @@
         color: white;
         padding: 0px;
 /*         transition: all 1s ease-in-out; */
-        transition: opacity .9s ease-out, transform .7s ease-out;
+        transition: opacity .9s ease-out, transform 2s ease-out;
       }
       
       .preloader-fade-out {
@@ -1037,7 +1037,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Set display to 'none' after the transition is complete (e.g., 1000ms)
             setTimeout(() => {
                 preloader.style.display = 'none';
-            }, 1000); // This delay should match your CSS transition duration
+            }, 2000); // This delay should match your CSS transition duration
         }, 1500); // 1.5 seconds delay to allow for rendering
     };
 });
