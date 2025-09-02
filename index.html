@@ -1025,17 +1025,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Hide preloader when the iframe has fully loaded and its content is rendered.
-    iframe.onload = function() {
+ iframe.onload = function() {
         console.log('Iframe has finished loading.');
 
-        // Add the fade-out class to start the transition
-        preloader.classList.add('preloader-fade-out');
-
-        // Set display to none after the transition (e.g., 1000ms)
+        // Add a delay (e.g., 1000ms or 1.5s) to allow the iframe content to render.
         setTimeout(() => {
-            preloader.style.display = 'none';
-            setupFirebaseAndNotifications(); // Call your setup function after the preloader is hidden
-        }, 1500); // This delay should match your CSS transition duration
+            // Add the fade-out class to start the transition
+            preloader.classList.add('preloader-fade-out');
+
+            // Set display to 'none' after the transition is complete (e.g., 1000ms)
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 1000); // This delay should match your CSS transition duration
+        }, 1500); // 1.5 seconds delay to allow for rendering
     };
 });
 
