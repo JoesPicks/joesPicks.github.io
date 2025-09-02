@@ -452,7 +452,7 @@
   src="https://script.google.com/macros/s/AKfycby7UN-7obHiawQ5CZa2DYx6MuRMzaxRvgOjhNLB3NMFroHBd5HoSlDM1l0w27eoU1Je/exec?v=1"
   frameborder="0"
   scrolling="yes"
-  allow="..."
+  allow="fullscreen; clipboard-write; autoplay; camera; encrypted-media; geolocation; microphone; midi; payment; usb; accelerometer; gyroscope; magnetometer; screen-wake-lock; clipboard-read; web-share; autoplay; camera; encrypted-media; geolocation; microphone; midi; payment; usb; accelerometer; gyroscope; magnetometer; screen-wake-lock; clipboard-read; web-share"
   sandbox="allow-scripts allow-same-origin allow-forms"
   loading="eager">
 </iframe>
@@ -1015,15 +1015,19 @@ function showSuccessMessage(message) {
 document.addEventListener('DOMContentLoaded', function() {
     const preloader = document.getElementById('preloader');
     const resetButton = document.getElementById('resetBtn');
-    // Show reset button only in standalone mode
+
     if (!isStandalone()) {
         resetButton.style.display = 'none';
     }
-    setTimeout(() => {
+
+    // New code to handle iframe loading
+    const iframe = document.querySelector('iframe');
+    iframe.onload = function() {
+        // This function will run AFTER the iframe has fully loaded.
+        console.log('Iframe has finished loading.');
         preloader.style.display = 'none';
-      // preloader.style.transition = '2s ease-in-out';
         setupFirebaseAndNotifications();
-    }, 3750);
+    };
 });
 
 let deferredPrompt;
