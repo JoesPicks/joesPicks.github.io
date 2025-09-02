@@ -264,8 +264,13 @@
         overflow: hidden;
         color: white;
         padding: 0px;
-        transition: all 1s ease-in-out;
+/*         transition: all 1s ease-in-out; */
+        transition: opacity 1s ease-out;
       }
+      
+      .preloader-fade-out {
+  opacity: 0;
+}
 
       #preloader-text {
         padding-bottom: 1%;
@@ -1012,18 +1017,25 @@ function showSuccessMessage(message) {
 
 document.addEventListener('DOMContentLoaded', function() {
     const preloader = document.getElementById('preloader');
+    const iframe = document.querySelector('iframe');
     const resetButton = document.getElementById('resetBtn');
 
     if (!isStandalone()) {
         resetButton.style.display = 'none';
     }
 
-    // New code to handle iframe loading
-    const iframe = document.querySelector('iframe');
+    // Hide preloader when the iframe has fully loaded and its content is rendered.
     iframe.onload = function() {
         console.log('Iframe has finished loading.');
-        preloader.style.display = 'none';
-        setupFirebaseAndNotifications();
+
+        // Add the fade-out class to start the transition
+        preloader.classList.add('preloader-fade-out');
+
+        // Set display to none after the transition (e.g., 1000ms)
+        setTimeout(() => {
+            preloader.style.display = 'none';
+            setupFirebaseAndNotifications(); // Call your setup function after the preloader is hidden
+        }, 1000); // This delay should match your CSS transition duration
     };
 });
 
