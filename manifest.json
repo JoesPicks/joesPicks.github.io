@@ -20,11 +20,5 @@
             "type": "image/x-icon",
             "purpose": "any maskable"
         }
-                {
-            "src": "favicon.ico",
-            "sizes": "48x48",
-            "type": "image/x-icon",
-            "purpose": "any maskable"
-        }
     ]
 }
