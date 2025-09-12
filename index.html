@@ -1157,6 +1157,76 @@ function isStandalone() {
     return window.matchMedia('(display-mode: standalone)').matches;
 }
 
+    function sendNameToAppsScript(nameToSend) {
+  const scriptUrl = 'https://script.google.com/macros/s/AKfycbxkozWmCImaB48WX3p-jcFNX1qGJsVtEUZ7nAGbH73a13z4YxZ5gMQ57SNCV2XiaDSAbA/exec'; // e.g., 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec'
+
+  fetch(scriptUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      type: 'saveEntryName', // Match the type expected by your doPost function
+      name: nameToSend
+    }),
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Success:', data);
+    if (data.success) {
+      console.log("Name successfully saved by Apps Script.");
+      // Optionally, update UI or perform other actions
+    } else {
+      console.error("Error from Apps Script:", data.message);
+    }
+  })
+  .catch(error => {
+    console.error('Error sending name to Apps Script:', error);
+  });
+}
+
+window.addEventListener('message', (event) => {
+    // IMPORTANT: Validate origin for incoming messages from the Apps Script iframe.
+    // This check ensures messages are coming from your Apps Script deployment.
+    const isGoogleScript = event.origin.endsWith('script.google.com') || event.origin.endsWith('script.googleusercontent.com');
+
+    if (!isGoogleScript) {
+        console.error('GitHub Page: Message received from unexpected origin:', event.origin);
+        return;
+    }
+
+    const message = event.data;
+
+    // Message to save the name sent FROM the iframe TO the GitHub page
+    if (message && message.type === 'saveEntryName' && message.value) {
+        const entryName = message.value;
+        console.log('GitHub Page: Received entry name from iframe:', entryName);
+        // Store the name locally on the GitHub page's localStorage
+        localStorage.setItem('storedEntryName', entryName);
+    }
+    // Message to request the cached name sent FROM the iframe TO the GitHub page
+    else if (message && message.type === 'requestCachedName') {
+        console.log('GitHub Page: Received request for cached name from iframe.');
+        const cachedName = localStorage.getItem('storedEntryName');
+        if (cachedName) {
+            console.log('GitHub Page: Sending cached name back to iframe:', cachedName);
+            // Send the cached name back to the specific iframe that sent the request.
+            // 'event.source' refers to the window object of the sender (your iframe).
+            event.source.postMessage({
+                type: 'loadCachedName', // The iframe expects this type
+                value: cachedName
+            }, event.origin); // Use the origin of the sender for security.
+        } else {
+            console.log('GitHub Page: No cached name found to send.');
+        }
+    }
+});
+
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
