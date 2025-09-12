@@ -2,44 +2,50 @@
 <html lang="en">
 
 <head>
+  <!-- Core Meta Tags -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#000">
-  
   <meta name="apple-mobile-web-app-title" content="Pick 6">
   <meta name="application-name" content="Pick 6">
   <meta name="description" content="Pick 6">
-  
+
+  <!-- Icons and Manifest -->
   <link rel="icon" type="image/x-icon" sizes="32x32" href="favicon.ico">
   <link rel="icon" type="image/x-icon" sizes="16x16" href="favicon.ico">
-
   <link rel="apple-touch-icon" href="favicon.ico">
   <link rel="apple-touch-icon" sizes="152x152" href="favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="favicon.ico">
   <link rel="apple-touch-icon" sizes="167x167" href="favicon.ico">
   <link rel="shortcut icon" href="favicon.ico">
-  
   <link rel="manifest" href="manifest.json">
 
   <title>PICK 6</title>
+
+  <!-- =======================
+       Core Styles
+  ======================== -->
   <style>
-    html,
-    body {
+    /* ===================================
+       General / Page Layout
+    ==================================== */
+    html, body {
       background-color: #000;
       margin: 0;
       padding: 0;
       overflow: hidden;
-      left: 0;
-      right: 0;
       width: 100%;
       height: 100%;
       font-family: Arial, sans-serif;
       overscroll-behavior: none;
     }
 
+    /* ===================
+       Universal Styles
+    ==================== */
     * {
       -webkit-tap-highlight-color: transparent;
       -webkit-touch-callout: none;
@@ -50,14 +56,15 @@
       user-select: none;
       -webkit-text-size-adjust: none;
       text-size-adjust: none;
-      /*       background: #101010; */
     }
 
-    input,
-    textarea {
+    input, textarea {
       font-size: 16px;
     }
 
+    /* ===================
+       Main iframe
+    ==================== */
     iframe {
       width: 100%;
       height: 100%;
@@ -73,15 +80,19 @@
       overscroll-behavior: none;
     }
 
+    /* ===================
+       Install Banner
+    ==================== */
     #install-banner {
       display: none;
       text-align: center;
       width: 95%;
+      min-width: 95%;
+      max-width: 95%;
       margin: 0;
       position: fixed;
       bottom: 50%;
       left: 50%;
-      right: 0;
       transform: translateX(-50%);
       background: rgba(0, 0, 0, 0.85);
       color: white;
@@ -90,9 +101,6 @@
       border-radius: 24px;
       box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9) 0px 10px 13px;
       z-index: 1001;
-      width: 95%;
-      min-width: 95%;
-      max-width: 95%;
     }
 
     #install-banner button {
@@ -113,42 +121,27 @@
       width: 90px;
     }
 
-/*     #install-banner button:hover {
-      background-color: #3d79df;
-      color: white;
-      border: none;
-    } */
-
+    /* ===================
+       iOS Install Banner
+    ==================== */
     #ios-install-banner {
-    display: none;
-    margin: 0;
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    right: 0;
-    transform: translate(-50%);
-    background: rgba(0, 0, 0, 0.9);
-    color: white;
-    padding: 4px 1px 4px 4px;
-    border: 4px solid #3d79df;
-    border-radius: 24px;
-    box-shadow: inset -3px -2px 3px 1px rgba(0, 0, 0, 0.3), 5px 5px 13px 1px rgba(0, 0, 0, 1);
-    z-index: 1001;
-    text-align: left;
-    width: 96%;
-    min-width: 96%;
-    max-width: 96%;
-    }
-
-        h3 {
-    margin: 5px 0 8px 0;
-    font-size: 20px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    }
-    #install-banner h3 {
-    margin: 5px 0 -5px 0;
+      display: none;
+      margin: 0;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translate(-50%);
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 4px 1px 4px 4px;
+      border: 4px solid #3d79df;
+      border-radius: 24px;
+      box-shadow: inset -3px -2px 3px 1px rgba(0, 0, 0, 0.3), 5px 5px 13px 1px rgba(0, 0, 0, 1);
+      z-index: 1001;
+      text-align: left;
+      width: 96%;
+      min-width: 96%;
+      max-width: 96%;
     }
 
     #ios-install-banner button {
@@ -167,6 +160,19 @@
       border-radius: 8px;
     }
 
+    /* ===================
+       Banner Header/Icon
+    ==================== */
+    h3 {
+      margin: 5px 0 8px 0;
+      font-size: 20px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+    #install-banner h3 {
+      margin: 5px 0 -5px 0;
+    }
     .install-icon-header {
       padding: 0;
       width: 45px;
@@ -178,6 +184,9 @@
       box-shadow: inset -3px -2px 3px 1px rgba(0, 0, 0, 0.3);
     }
 
+    /* ===================
+      Install Details
+    ==================== */
     .install-details-header {
       margin: 0 0 7px 0;
       font-size: 16px;
@@ -185,7 +194,6 @@
       align-items: center;
       display: block;
     }
-
     .install-details {
       font-size: 15px;
       align-items: center;
@@ -196,11 +204,9 @@
       margin: 0px;
       display: block;
     }
-
     strong {
       font-size: 17px;
     }
-
     .install-icon {
       width: 22px;
       height: 22px;
@@ -209,12 +215,14 @@
       padding: 0 4px;
     }
 
+    /* ===================
+       Notification Styles
+    ==================== */
     .notification {
       margin: 0 0 15px 0;
       font-size: 18px;
       width: 350px;
     }
-
     .notification-button {
       background-color: rgba(0, 0, 0, .9);
       color: #3d79df;
@@ -228,23 +236,23 @@
       border-radius: 9px;
       box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9) 0px 3px 4px;
     }
-
     .notification-button:hover {
       background-color: #3d79df;
       color: white;
       border: none;
     }
 
+    /* ===================
+       Preloader Styles
+    ==================== */
     #preloader {
       display: none;
     }
-
 
     @media (max-width: 1100px) {
       .notification {
         width: -webkit-fill-available;
       }
-
       #preloader {
         background: linear-gradient(to top, #000 3%, rgba(0, 0, 0, 0.8) 5%, rgba(0, 0, 0, 0) 7%, rgba(18, 19, 21) 50%, rgba(0, 0, 0, 0.8) 90%, #000 101%),
           url(https://www.shutterstock.com/image-illustration/3d-render-soccer-empty-stadium-600nw-2472453011.jpg);
@@ -265,16 +273,13 @@
         overflow: hidden;
         color: white;
         padding: 0px;
-/*         transition: all 1s ease-in-out; */
         transition: opacity .9s ease-out, transform 2s ease-out;
       }
-      
       .preloader-fade-out {
         opacity: .0;
         background: #101010 !important;
         transform: scale(54) translateY(-255px);
       }
-
       #preloader-text {
         padding-bottom: 1%;
         border: none;
@@ -292,48 +297,23 @@
         letter-spacing: 4px;
         color: rgb(61, 121, 223, .3);
       }
-
       #preloader-text span {
         display: inline-block;
         opacity: 0;
         animation: fadeIn 1s ease forwards;
       }
-
       #preloader-text span.break {
         display: block;
       }
-
-      #preloader-text span:nth-child(1) {
-        animation-delay: .8s;
-      }
-
-      #preloader-text span:nth-child(2) {
-        animation-delay: .95s;
-      }
-
-      #preloader-text span:nth-child(3) {
-        animation-delay: .95s;
-      }
-
-      #preloader-text span:nth-child(4) {
-        animation-delay: .8s;
-      }
-
-      #preloader-text span:nth-child(6) {
-        animation-delay: .95s;
-      }
+      #preloader-text span:nth-child(1) { animation-delay: .8s; }
+      #preloader-text span:nth-child(2) { animation-delay: .95s; }
+      #preloader-text span:nth-child(3) { animation-delay: .95s; }
+      #preloader-text span:nth-child(4) { animation-delay: .8s; }
+      #preloader-text span:nth-child(6) { animation-delay: .95s; }
 
       @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(18px);
-          /* optional: slide up slightly */
-        }
-
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(18px); }
+        to { opacity: 1; transform: translateY(0); }
       }
 
       #preloader-text::after {
@@ -351,13 +331,11 @@
         pointer-events: none;
         transition: all 3s ease-in-out;
       }
-
       .pre-load-fade-out {
         opacity: 0;
         transition: opacity 4s ease-out;
         pointer-events: none;
       }
-
       #preloader-week {
         font-size: 70px;
         font-weight: bolder;
@@ -370,44 +348,45 @@
         line-height: 65px;
         padding-bottom: 32px;
       }
-
       #week-number {
         letter-spacing: 2px;
         -webkit-text-stroke: 4px rgb(61, 121, 223, .9);
         color: rgb(61, 121, 223,.75);
         font-weight: bolder;
       }
-
       @keyframes smoke-rise {
-        0% {
-          transform: translateX(-50%) translateY(0) scale(1);
-          opacity: 1;
-        }
-
-        25% {
-          opacity: 0.8;
-        }
-
-        50% {
-          transform: translateX(-50%) translateY(-80px) scale(1.2);
-          opacity: 0.65;
-        }
-
-        75% {
-          opacity: 0.4;
-        }
-
-        100% {
-          transform: translateX(-50%) translateY(-80px) scale(1.2);
-          opacity: 0;
-          /* Fade out the smoke effect */
-        }
+        0% { transform: translateX(-50%) translateY(0) scale(1); opacity: 1; }
+        25% { opacity: 0.8; }
+        50% { transform: translateX(-50%) translateY(-80px) scale(1.2); opacity: 0.65; }
+        75% { opacity: 0.4; }
+        100% { transform: translateX(-50%) translateY(-80px) scale(1.2); opacity: 0; }
       }
+    }
+
+    /* Inline style converted for Reset Button */
+    #resetBtn {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 12px;
+      background-color: transparent;
+      color: #3d79df;
+      border: 1px solid #3d79df;
+      padding: 7px 7px;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      z-index: 1001;
+      transition: all 0.3s ease;
     }
   </style>
 </head>
 
 <body>
+  <!-- =======================
+       Preloader Section
+  ======================== -->
   <div id="preloader">
     <div id="preloader-text">
       <span>P</span>
@@ -420,58 +399,52 @@
     <div id="preloader-week">
       <span id="week-number"></span>
     </div>
+    <button id="resetBtn" onclick="resetNotifications()" aria-label="Reset Notifications">Reset Notifications</button>
+  </div>
 
-    <button id="resetBtn" onclick="resetNotifications()" style="
-                    display: none;
-                    position: fixed;
-                    bottom: 20px;
-                    right: 12px;
-                    background-color: transparent;
-                    color: #3d79df;
-                    border: 1px solid #3d79df;
-                    padding: 7px 7px;
-                    border-radius: 4px;
-                    font-weight: bold;
-                    cursor: pointer;
-                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-                    z-index: 1001;
-                    transition: all 0.3s ease;">Reset Notifications
+  <!-- =======================
+       Install Banner Section
+  ======================== -->
+  <div id="install-banner" role="dialog" aria-labelledby="install-banner-title">
+    <h3 id="install-banner-title">
+      <img src="Pick6LogoNew.png" class="install-icon-header" alt="Pick 6 Logo">
+      Install 'Pick 6' on your device.
+    </h3>
+    <!-- <p style="margin: 5px;">Add to Home Screen for the best experience</p> -->
+    <button id="install-button" aria-label="Add app to home screen">ADD</button>
+    <button id="dismiss-button" aria-label="Dismiss install prompt">DISMISS</button>
+  </div>
+
+  <!-- =======================
+       iOS Install Banner Section
+  ======================== -->
+  <div id="ios-install-banner" role="dialog" aria-labelledby="ios-install-banner-title">
+    <button id="ios-install-close" aria-label="Close iOS install banner">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#3d79df" height="27" width="27" aria-hidden="true">
+        <path stroke="#3d79df" stroke-width="2"
+          d="M3.6466666666666665 3.6466666666666665a0.5 0.5 0 0 1 0.7066666666666667 0L8 7.293333333333333l3.6466666666666665 -3.6466666666666665a0.5 0.5 0 1 1 0.7066666666666667 0.7066666666666667L8.706666666666667 8l3.6466666666666665 3.6466666666666665a0.5 0.5 0 1 1 -0.7066666666666667 0.7066666666666667L8 8.706666666666667l-3.6466666666666665 3.6466666666666665a0.5 0.5 0 0 1 -0.7066666666666667 -0.7066666666666667L7.293333333333333 8 3.6466666666666665 4.3533333333333335a0.5 0.5 0 0 1 0 -0.7066666666666667Z">
+        </path>
+      </svg>
     </button>
-  </div>
-
-  <div id="install-banner">
-    <h3><img src="Pick6LogoNew.png" class="install-icon-header">Install 'Pick 6' on your device.</h3>
-<!--     <p style="margin: 5px;">Add to Home Screen for the best experience</p> -->
-    <button id="install-button">ADD</button>
-    <button id="dismiss-button">DISMISS</button>
-  </div>
-
-  <div id="ios-install-banner">
-    <button id="ios-install-close">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#3d79df" aria-hidden="true" id="X-Mark--Streamline-Heroicons" height="27" width="27">
-          <path stroke="#3d79df" stroke-width="2" d="M3.6466666666666665 3.6466666666666665a0.5 0.5 0 0 1 0.7066666666666667 0L8 7.293333333333333l3.6466666666666665 -3.6466666666666665a0.5 0.5 0 1 1 0.7066666666666667 0.7066666666666667L8.706666666666667 8l3.6466666666666665 3.6466666666666665a0.5 0.5 0 1 1 -0.7066666666666667 0.7066666666666667L8 8.706666666666667l-3.6466666666666665 3.6466666666666665a0.5 0.5 0 0 1 -0.7066666666666667 -0.7066666666666667L7.293333333333333 8 3.6466666666666665 4.3533333333333335a0.5 0.5 0 0 1 0 -0.7066666666666667Z"></path>
-        </svg>
-     </button>
-    <h3><img src="Pick6LogoNew.png" class="install-icon-header">Install 'Pick 6' on your device.</h3>
-    <p class="install-details">1. Tap the <strong>Share</strong> icon.<img src="https://raw.githubusercontent.com/BobcatPGAMajors/BobcatPGAMajors.github.io/refs/heads/main/shareIcon.png" alt="Share icon" class="install-icon"></p>
-    <p class="install-details">2. Select <strong>Add to Home Screen</strong>.<img src="https://raw.githubusercontent.com/joespick6/joespick6.github.io/refs/heads/main/HomeScreenIcon.png" alt="Home Screen icon" class="install-icon"></p>
-    <p class="install-details" style="margin-bottom: 8px;">3. Tap <strong>Add</strong>.</p>
-</div>
-  
-<!--  <div id="ios-install-banner">      <button id="ios-install-close">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="#000000" aria-hidden="true" id="X-Mark--Streamline-Heroicons" height="28" width="28">
-          <path fill-rule="evenodd" d="M3.6466666666666665 3.6466666666666665a0.5 0.5 0 0 1 0.7066666666666667 0L8 7.293333333333333l3.6466666666666665 -3.6466666666666665a0.5 0.5 0 1 1 0.7066666666666667 0.7066666666666667L8.706666666666667 8l3.6466666666666665 3.6466666666666665a0.5 0.5 0 1 1 -0.7066666666666667 0.7066666666666667L8 8.706666666666667l-3.6466666666666665 3.6466666666666665a0.5 0.5 0 0 1 -0.7066666666666667 -0.7066666666666667L7.293333333333333 8 3.6466666666666665 4.3533333333333335a0.5 0.5 0 0 1 0 -0.7066666666666667Z" clip-rule="evenodd" stroke-width="0.6667"></path></svg>
-        </svg>
-        </button>
-    <h3><img src="Pick6LogoNew.png" class="install-icon-header">Install 'Pick 6' on Your Device</h3>
-    <p class="install-details">1. Tap the <strong>Share</strong> icon.<img src="https://raw.githubusercontent.com/BobcatPGAMajors/BobcatPGAMajors.github.io/refs/heads/main/shareIcon.png" alt="Share icon" class="install-icon">
+    <h3 id="ios-install-banner-title">
+      <img src="Pick6LogoNew.png" class="install-icon-header" alt="Pick 6 Logo">
+      Install 'Pick 6' on your device.
+    </h3>
+    <p class="install-details">
+      1. Tap the <strong>Share</strong> icon.
+      <img src="https://raw.githubusercontent.com/BobcatPGAMajors/BobcatPGAMajors.github.io/refs/heads/main/shareIcon.png" alt="Share icon" class="install-icon">
     </p>
-    <p class="install-details">2. Select <strong>Add to Home Screen</strong>.<img src="https://raw.githubusercontent.com/joespick6/joespick6.github.io/refs/heads/main/HomeScreenIcon.png" alt="Home Screen icon" class="install-icon">
+    <p class="install-details">
+      2. Select <strong>Add to Home Screen</strong>.
+      <img src="https://raw.githubusercontent.com/joespick6/joespick6.github.io/refs/heads/main/HomeScreenIcon.png" alt="Home Screen icon" class="install-icon">
     </p>
     <p class="install-details" style="margin-bottom: 8px;">3. Tap <strong>Add</strong>.</p>
-  </div> -->
+  </div>
 
-<iframe
+  <!-- =======================
+       Main App iframe
+  ======================== -->
+  <iframe
     id="sandboxFrame"
     title="PICK 6"
     src="https://script.google.com/macros/s/AKfycbzYjC9jw47tifM3cHv8UH41v5En1Tap7iEY2n6sOSGwqhgFjBD8LjLcugIzlqM12jQL/exec"
@@ -480,78 +453,73 @@
     allow="accelerometer *; ambient-light-sensor *; autoplay *; camera *; clipboard-read *; clipboard-write *; encrypted-media *; fullscreen *; geolocation *; gyroscope *; magnetometer *; microphone *; midi *; payment *; picture-in-picture *; screen-wake-lock *; speaker *; sync-xhr *; usb *; web-share *; vibrate *; vr *"
     sandbox="allow-downloads allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation allow-storage-access-by-user-activation"
     loading="eager">
-</iframe>
+  </iframe>
 
+  <!-- =======================
+       External Scripts
+  ======================== -->
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-J8ZSHET5RJ"></script>
 
+  <!-- =======================
+       Main App Script
+  ======================== -->
   <script>
+    // --- Firebase and Notification Globals ---
     let messaging;
     let db;
 
-async function resetNotifications() {
-    const button = document.getElementById('resetBtn');
+    // ==========================
+    // Notification Reset Handler
+    // ==========================
+    async function resetNotifications() {
+      const button = document.getElementById('resetBtn');
+      button.style.backgroundColor = '#3d79df';
+      button.style.color = 'white';
+      button.textContent = 'Resetting...';
 
-    button.style.backgroundColor = '#3d79df';
-    button.style.color = 'white';
-    button.textContent = 'Resetting...';
-
-    if (!checkStorageAvailability()) {
+      if (!checkStorageAvailability()) {
         showSuccessMessage('Storage unavailable. Please check browser settings.');
-
         button.style.backgroundColor = '#ff4d4d';
         button.textContent = 'Reset Failed';
         return;
-    }
+      }
 
-    // console.log('Resetting notifications...');
-    try {
+      try {
         const registrations = await navigator.serviceWorker.getRegistrations();
         for (let registration of registrations) {
-            await registration.unregister();
-            // console.log('Service worker unregistered');
+          await registration.unregister();
         }
         await new Promise(resolve => setTimeout(resolve, 1000));
         if (messaging) {
-            try {
-                const token = await messaging.getToken().catch(err => {
-                    // console.log('No current token found:', err);
-                    return null;
-                });
-                if (token) {
-                    await messaging.deleteToken().catch(err => {
-                        console.warn('Token deletion failed:', err);
-                    });
-                    // console.log('Token deleted from FCM');
-                } else {
-                    // console.log('No token to delete');
-                }
-                const deviceId = localStorage.getItem('deviceId');
-                if (deviceId) {
-                    const snapshot = await db.collection('devices')
-                        .where('deviceId', '==', deviceId)
-                        .get();
-                    if (!snapshot.empty) {
-                        const batch = db.batch();
-                        snapshot.forEach(doc => {
-                            const data = doc.data();
-                            const updates = {};
-                            if (data.activeTokens) {
-                                Object.keys(data.activeTokens).forEach(t => {
-                                    updates[`activeTokens.${t}`] = false;
-                                });
-                                batch.update(doc.ref, updates);
-                            }
-                        });
-                        await batch.commit();
-                        // console.log('All tokens marked inactive in Firestore');
-                    }
-                }
-            } catch (err) {
-                console.error('Error processing token:', err);
+          try {
+            const token = await messaging.getToken().catch(err => { return null; });
+            if (token) {
+              await messaging.deleteToken().catch(err => { console.warn('Token deletion failed:', err); });
             }
+            const deviceId = localStorage.getItem('deviceId');
+            if (deviceId) {
+              const snapshot = await db.collection('devices').where('deviceId', '==', deviceId).get();
+              if (!snapshot.empty) {
+                const batch = db.batch();
+                snapshot.forEach(doc => {
+                  const data = doc.data();
+                  const updates = {};
+                  if (data.activeTokens) {
+                    Object.keys(data.activeTokens).forEach(t => {
+                      updates[`activeTokens.${t}`] = false;
+                    });
+                    batch.update(doc.ref, updates);
+                  }
+                });
+                await batch.commit();
+              }
+            }
+          } catch (err) {
+            console.error('Error processing token:', err);
+          }
         }
         localStorage.removeItem('fcmToken');
         localStorage.removeItem('notificationPromptDismissed');
@@ -561,47 +529,43 @@ async function resetNotifications() {
         button.textContent = 'Reset Complete';
 
         if (Notification.permission === 'denied') {
-            showSuccessMessage('Notifications blocked. Enable in browser settings.');
+          showSuccessMessage('Notifications blocked. Enable in browser settings.');
         } else if (Notification.permission === 'granted') {
-            showSuccessMessage('Notifications reset. Please reauthorize.');
-            setTimeout(() => {
-                // console.log('Forcing reauthorization...');
-                forceNotificationRePrompt();
-            }, 1500);
+          showSuccessMessage('Notifications reset. Please reauthorize.');
+          setTimeout(() => { forceNotificationRePrompt(); }, 1500);
         } else {
-            showSuccessMessage('Notifications reset. You will be prompted again.');
-            setTimeout(() => {
-                // console.log('Reinitializing Firebase...');
-                setupFirebaseAndNotifications();
-            }, 1500);
+          showSuccessMessage('Notifications reset. You will be prompted again.');
+          setTimeout(() => { setupFirebaseAndNotifications(); }, 1500);
         }
 
-        setTimeout(function() {
-            button.style.opacity = '0';
-            setTimeout(function() {
-                button.style.display = 'none';
-            }, 300);
+        setTimeout(function () {
+          button.style.opacity = '0';
+          setTimeout(function () {
+            button.style.display = 'none';
+          }, 300);
         }, 2500);
 
-    } catch (err) {
+      } catch (err) {
         console.error('Reset failed:', err);
         showSuccessMessage('Failed to reset notifications. Try again.');
-
         button.style.backgroundColor = '#ff4d4d';
         button.textContent = 'Reset Failed';
+      }
     }
-}
 
-function forceNotificationRePrompt() {
-    setupFirebaseAndNotifications();
-}
+    function forceNotificationRePrompt() {
+      setupFirebaseAndNotifications();
+    }
 
-function checkStorageAvailability() {
-    return !!(navigator.storage && window.indexedDB);
-}
+    function checkStorageAvailability() {
+      return !!(navigator.storage && window.indexedDB);
+    }
 
-function setupFirebaseAndNotifications() {
-    const firebaseConfig = {
+    // ==========================
+    // Firebase Initialization
+    // ==========================
+    function setupFirebaseAndNotifications() {
+      const firebaseConfig = {
         apiKey: "AIzaSyB5r_KL2eKVFd66VQU_5pznKrVHa9xzCfc",
         authDomain: "joespick5push.firebaseapp.com",
         projectId: "joespick5push",
@@ -609,406 +573,299 @@ function setupFirebaseAndNotifications() {
         messagingSenderId: "783669343677",
         appId: "1:783669343677:web:d3a43a1a58b920ba9a4ed4",
         measurementId: "G-HNPLN4XZ44"
-    };
-
-    if (!firebase.apps || !firebase.apps.length) {
+      };
+      if (!firebase.apps || !firebase.apps.length) {
         firebase.initializeApp(firebaseConfig);
-    }
+      }
+      messaging = firebase.messaging();
+      db = firebase.firestore();
 
-    messaging = firebase.messaging();
-    db = firebase.firestore();
-
-if ('serviceWorker' in navigator) {
-    const swPath = '/firebase-messaging-sw.js';
-    console.log('Service worker path:', swPath);
-
-    console.log('Attempting to register service worker at:', swPath);
-
-    navigator.serviceWorker.register(swPath)
-        .then(registration => {
-            console.log('Service Worker registered with scope:', registration.scope);
+      // Service Worker Registration
+      if ('serviceWorker' in navigator) {
+        const swPath = '/firebase-messaging-sw.js';
+        navigator.serviceWorker.register(swPath)
+          .then(registration => {
             initializeNotifications(registration);
-        })
-        .catch(error => {
+          })
+          .catch(error => {
             console.error('Service Worker registration failed:', error.message);
-        });
-} else {
-    console.log('Service workers not supported');
-}
+          });
+      }
 
-    function initializeNotifications(registration) {
+      // Notification Initialization
+      function initializeNotifications(registration) {
         navigator.serviceWorker.addEventListener('message', event => {
-            if (event.data && event.data.type === 'tokenRefresh') {
-                console.log('Token refresh detected');
-                refreshToken();
-            }
+          if (event.data && event.data.type === 'tokenRefresh') {
+            refreshToken();
+          }
         });
-
         function requestPermission() {
-            return new Promise((resolve, reject) => {
-                Notification.requestPermission()
-                    .then(permission => {
-                        if (permission === 'granted') {
-                            console.log('Notification permission granted.');
-                            messaging.getToken({
-                                vapidKey: 'BOM3KFfemC5lGnsF28N-_UGA7H9esoOm5gp0_Eg45HMqaMqviLx_bcAonVaZe-c0GwSFwfwe7-fJVP1n8h1iAAU',
-                                serviceWorkerRegistration: registration
-                            })
-                            .then(token => {
-                                console.log('Device token:', token);
-                                saveTokenToFirestore(token);
-                                resolve(token);
-                            })
-                            .catch(error => {
-                                console.error('Error getting token:', error);
-                                reject(error);
-                            });
-                        } else {
-                            console.log('Notification permission denied.');
-                            localStorage.setItem('notificationPermissionDenied', 'true');
-                            reject(new Error('Permission denied'));
-                        }
+          return new Promise((resolve, reject) => {
+            Notification.requestPermission()
+              .then(permission => {
+                if (permission === 'granted') {
+                  messaging.getToken({ vapidKey: 'BOM3KFfemC5lGnsF28N-_UGA7H9esoOm5gp0_Eg45HMqaMqviLx_bcAonVaZe-c0GwSFwfwe7-fJVP1n8h1iAAU', serviceWorkerRegistration: registration })
+                    .then(token => {
+                      saveTokenToFirestore(token);
+                      resolve(token);
                     })
                     .catch(error => {
-                        console.error('Error requesting permission:', error);
-                        reject(error);
+                      reject(error);
                     });
-            });
+                } else {
+                  localStorage.setItem('notificationPermissionDenied', 'true');
+                  reject(new Error('Permission denied'));
+                }
+              })
+              .catch(error => {
+                reject(error);
+              });
+          });
         }
-
         function refreshToken() {
-            messaging.getToken({
-                vapidKey: 'BOM3KFfemC5lGnsF28N-_UGA7H9esoOm5gp0_Eg45HMqaMqviLx_bcAonVaZe-c0GwSFwfwe7-fJVP1n8h1iAAU',
-                serviceWorkerRegistration: registration
-            }).then(refreshedToken => {
-                console.log('Token refreshed:', refreshedToken);
-                saveTokenToFirestore(refreshedToken);
+          messaging.getToken({ vapidKey: 'BOM3KFfemC5lGnsF28N-_UGA7H9esoOm5gp0_Eg45HMqaMqviLx_bcAonVaZe-c0GwSFwfwe7-fJVP1n8h1iAAU', serviceWorkerRegistration: registration })
+            .then(refreshedToken => {
+              saveTokenToFirestore(refreshedToken);
             }).catch(err => {
-                console.error('Unable to refresh token:', err);
+              console.error('Unable to refresh token:', err);
             });
         }
-
         function createNotificationPrompt() {
-            if (document.getElementById('notification-prompt')) {
-                return;
-            }
-
-            const promptDiv = document.createElement('div');
-            promptDiv.id = 'notification-prompt';
-            promptDiv.style.cssText =  `position: fixed;
-                                        bottom: 50%;
-                                        left: 50%;
-                                        transform: translate(-50%, 50%);
-                                        background: rgba(0, 0, 0, 0.85);
-                                        color: white;
-                                        padding: 8px 1px;
-                                        border-radius: 10px;
-                                        box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9) 0px 10px 13px;
-                                        text-align: center;
-                                        z-index: 1001;
-                                        font-family: Arial, sans-serif;
-                                        max-width: 95%;
-                                        width: max-content;
-                                        border: 4px solid #3d79df;
-                                        animation: fade-in 0.3s ease-in-out;
-                                      `;
-
-            promptDiv.innerHTML = `
-                <p class="notification">You’ll get weekly push alerts when picks and entry forms are available.</p>
-                <div style="display: flex; justify-content: space-between; gap: 10px;width: 104px;margin: 0 auto;">
-                    <button id="enable-notifications" class="notification-button">OKAY</button>
-                    <button id="decline-notifications" style="display: none;">Not Now</button>
-                </div>
-            `;
-            document.body.appendChild(promptDiv);
-
-document.getElementById('enable-notifications').addEventListener('click', () => {
-    promptDiv.remove();
-    requestPermission()
-        .then(() => {
-            showSuccessMessage('Notifications enabled successfully!');
-        })
-        .catch(error => {
-            console.error('Error enabling notifications:', error);
-        });
-});
-
-            document.getElementById('decline-notifications').addEventListener('click', () => {
-                promptDiv.remove();
-                localStorage.setItem('notificationPromptDismissed', Date.now());
-            });
+          if (document.getElementById('notification-prompt')) {
+            return;
+          }
+          const promptDiv = document.createElement('div');
+          promptDiv.id = 'notification-prompt';
+          promptDiv.style.cssText = ` position: fixed;
+                                      bottom: 50%;
+                                      left: 50%;
+                                      transform: translate(-50%, 50%);
+                                      background: rgba(0, 0, 0, 0.85);
+                                      color: white;
+                                      padding: 8px 1px;
+                                      border-radius: 10px;
+                                      box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9) 0px 10px 13px;
+                                      text-align: center;
+                                      z-index: 1001;
+                                      font-family: Arial, sans-serif;
+                                      max-width: 95%;
+                                      width: max-content;
+                                      border: 4px solid #3d79df;
+                                      animation: fade-in 0.3s ease-in-out;
+          `;
+          promptDiv.innerHTML = `
+            <p class="notification">You’ll get weekly push alerts when picks and entry forms are available.</p>
+            <div style="display: flex; justify-content: space-between; gap: 10px;width: 104px;margin: 0 auto;">
+                <button id="enable-notifications" class="notification-button">OKAY</button>
+                <button id="decline-notifications" style="display: none;">Not Now</button>
+            </div>
+          `;
+          document.body.appendChild(promptDiv);
+          document.getElementById('enable-notifications').addEventListener('click', () => {
+            promptDiv.remove();
+            requestPermission()
+              .then(() => {
+                showSuccessMessage('Notifications enabled successfully!');
+              })
+              .catch(error => {
+                console.error('Error enabling notifications:', error);
+              });
+          });
+          document.getElementById('decline-notifications').addEventListener('click', () => {
+            promptDiv.remove();
+            localStorage.setItem('notificationPromptDismissed', Date.now());
+          });
         }
 
-async function saveTokenToFirestore(token, retries = 3) {
-    if (!token) {
-        console.error('No token provided to saveTokenToFirestore');
-        return;
-    }
+        async function saveTokenToFirestore(token, retries = 3) {
+          if (!token) { return; }
+          const deviceId = localStorage.getItem('deviceId') || generateDeviceId();
+          localStorage.setItem('deviceId', deviceId);
+          const browserInfo = {
+            name: /Chrome/i.test(navigator.userAgent) ? 'Chrome' :
+              /Safari/i.test(navigator.userAgent) ? 'Safari' :
+                /Firefox/i.test(navigator.userAgent) ? 'Firefox' :
+                  /Edge/i.test(navigator.userAgent) ? 'Edge' : 'Other',
+            userAgent: navigator.userAgent,
+          };
 
-    const deviceId = localStorage.getItem('deviceId') || generateDeviceId();
-    localStorage.setItem('deviceId', deviceId);
-
-    const browserInfo = {
-        name: /Chrome/i.test(navigator.userAgent) ? 'Chrome' : 
-            /Safari/i.test(navigator.userAgent) ? 'Safari' : 
-            /Firefox/i.test(navigator.userAgent) ? 'Firefox' : 
-            /Edge/i.test(navigator.userAgent) ? 'Edge' : 'Other',
-        userAgent: navigator.userAgent,
-    };
-
-const attemptSave = async (attempt) => {
-    try {
-        const deviceQuery = await db.collection('devices')
-            .where('deviceId', '==', deviceId)
-            .get();
-
-        if (!deviceQuery.empty) {
-            const deviceDoc = deviceQuery.docs[0];
-            const oldData = deviceDoc.data();
-
-            let updateData = {
-                lastActive: firebase.firestore.FieldValue.serverTimestamp(),
-                userAgent: browserInfo.userAgent,
-                forceUpdate: Date.now()
-            };
-
-            if (oldData.tokens) {
-                Object.keys(oldData.tokens).forEach(oldTokenKey => {
+          const attemptSave = async (attempt) => {
+            try {
+              const deviceQuery = await db.collection('devices').where('deviceId', '==', deviceId).get();
+              if (!deviceQuery.empty) {
+                const deviceDoc = deviceQuery.docs[0];
+                const oldData = deviceDoc.data();
+                let updateData = {
+                  lastActive: firebase.firestore.FieldValue.serverTimestamp(),
+                  userAgent: browserInfo.userAgent,
+                  forceUpdate: Date.now()
+                };
+                if (oldData.tokens) {
+                  Object.keys(oldData.tokens).forEach(oldTokenKey => {
                     updateData[`tokens.${oldTokenKey}`] = firebase.firestore.FieldValue.delete();
-                });
-            }
-            if (oldData.activeTokens) {
-                Object.keys(oldData.activeTokens).forEach(oldToken => {
+                  });
+                }
+                if (oldData.activeTokens) {
+                  Object.keys(oldData.activeTokens).forEach(oldToken => {
                     updateData[`activeTokens.${oldToken}`] = firebase.firestore.FieldValue.delete();
+                  });
+                }
+                updateData[`tokens.${browserInfo.name}`] = token;
+                updateData[`activeTokens.${token}`] = true;
+                await db.collection('devices').doc(deviceDoc.id).update(updateData);
+                const updatedDoc = await db.collection('devices').doc(deviceDoc.id).get({ source: 'server' });
+              } else {
+                await db.collection('devices').add({
+                  deviceId: deviceId,
+                  platform: navigator.platform,
+                  tokens: { [browserInfo.name]: token },
+                  activeTokens: { [token]: true },
+                  createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                  lastActive: firebase.firestore.FieldValue.serverTimestamp(),
+                  userAgent: browserInfo.userAgent
                 });
+              }
+              localStorage.setItem('fcmToken', token);
+              await cleanupDuplicateTokens(token, deviceId);
+            } catch (error) {
+              if (attempt < retries) {
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                await attemptSave(attempt + 1);
+              }
             }
-
-            updateData[`tokens.${browserInfo.name}`] = token;
-            updateData[`activeTokens.${token}`] = true;
-
-            console.log('Updating document:', deviceDoc.id);
-            console.log('Update data:', updateData);
-
-            await db.collection('devices').doc(deviceDoc.id).update(updateData);
-            console.log('Device token updated successfully, old tokens deleted');
-
-            const updatedDoc = await db.collection('devices').doc(deviceDoc.id).get({ source: 'server' });
-            console.log('Updated lastActive:', updatedDoc.data().lastActive);
-
-        } else {
-            await db.collection('devices').add({
-                deviceId: deviceId,
-                platform: navigator.platform,
-                tokens: { [browserInfo.name]: token },
-                activeTokens: { [token]: true },
-                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                lastActive: firebase.firestore.FieldValue.serverTimestamp(),
-                userAgent: browserInfo.userAgent
-            });
-            console.log('New device record created successfully');
+          };
+          await attemptSave(1);
         }
 
-        localStorage.setItem('fcmToken', token);
-        await cleanupDuplicateTokens(token, deviceId);
-
-    } catch (error) {
-        console.error(`Attempt ${attempt} failed:`, error.message);
-        if (attempt < retries) {
-            // console.log(`Retrying... (${attempt + 1}/${retries})`);
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            await attemptSave(attempt + 1);
-        } else {
-            console.error('Max retries reached. Device save failed.');
-        }
-    }
-};
-    await attemptSave(1);
-}
-
-async function cleanupDuplicateTokens(currentToken, deviceId) {
-    try {
-        const deviceQuery = await db.collection('devices')
-            .where('deviceId', '==', deviceId)
-            .get();
-
-        if (deviceQuery.size > 1) {
-            const sortedDocs = deviceQuery.docs.sort((a, b) => {
+        async function cleanupDuplicateTokens(currentToken, deviceId) {
+          try {
+            const deviceQuery = await db.collection('devices').where('deviceId', '==', deviceId).get();
+            if (deviceQuery.size > 1) {
+              const sortedDocs = deviceQuery.docs.sort((a, b) => {
                 const timeA = a.data().lastActive ? a.data().lastActive.toMillis() : 0;
                 const timeB = b.data().lastActive ? b.data().lastActive.toMillis() : 0;
                 return timeB - timeA;
-            });
-
-            const batch = db.batch();
-            for (let i = 1; i < sortedDocs.length; i++) {
+              });
+              const batch = db.batch();
+              for (let i = 1; i < sortedDocs.length; i++) {
                 batch.delete(sortedDocs[i].ref);
+              }
+              await batch.commit();
             }
-            await batch.commit();
-            console.log(`Cleaned up ${sortedDocs.length - 1} duplicate device records`);
-        }
-
-        const allDevicesWithToken = await db.collection('devices')
-            .where(`activeTokens.${currentToken}`, '==', true)
-            .get();
-
-        if (!allDevicesWithToken.empty) {
-            const batch = db.batch();
-            let updateCount = 0;
-
-            allDevicesWithToken.forEach(doc => {
+            const allDevicesWithToken = await db.collection('devices').where(`activeTokens.${currentToken}`, '==', true).get();
+            if (!allDevicesWithToken.empty) {
+              const batch = db.batch();
+              allDevicesWithToken.forEach(doc => {
                 const data = doc.data();
                 if (data.deviceId !== deviceId) {
-                    batch.update(doc.ref, {
-                        [`activeTokens.${currentToken}`]: firebase.firestore.FieldValue.delete(),
-                        [`tokens.${Object.keys(data.tokens).find(key => data.tokens[key] === currentToken)}`]: firebase.firestore.FieldValue.delete()
-                    });
-                    updateCount++;
+                  batch.update(doc.ref, {
+                    [`activeTokens.${currentToken}`]: firebase.firestore.FieldValue.delete(),
+                    [`tokens.${Object.keys(data.tokens).find(key => data.tokens[key] === currentToken)}`]: firebase.firestore.FieldValue.delete()
+                  });
                 }
-            });
-
-            if (updateCount > 0) {
-                await batch.commit();
-                console.log(`Deleted current token from ${updateCount} other devices`);
+              });
+              await batch.commit();
             }
+          } catch (error) {
+            console.error('Error cleaning up tokens:', error);
+          }
         }
-    } catch (error) {
-        console.error('Error cleaning up tokens:', error);
-    }
-}
 
         function generateDeviceId() {
-            const deviceData = [
-                navigator.userAgent,
-                navigator.language,
-                screen.width,
-                screen.height,
-                new Date().getTimezoneOffset()
-            ].join('|');
-
-            let hash = 0;
-            for (let i = 0; i < deviceData.length; i++) {
-                const char = deviceData.charCodeAt(i);
-                hash = ((hash << 5) - hash) + char;
-                hash = hash & hash;
-            }
-            return 'device_' + Math.abs(hash);
+          const deviceData = [
+            navigator.userAgent,
+            navigator.language,
+            screen.width,
+            screen.height,
+            new Date().getTimezoneOffset()
+          ].join('|');
+          let hash = 0;
+          for (let i = 0; i < deviceData.length; i++) {
+            const char = deviceData.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
+            hash = hash & hash;
+          }
+          return 'device_' + Math.abs(hash);
         }
 
         function checkAndShowNotifications() {
-    console.log('Checking notification state...');
-    console.log('Current permission:', Notification.permission);
-if (isDesktop()) {
-        console.log('Desktop detected, skipping notification setup.');
-        return;
-    }
-                  
-    const wasReset = !localStorage.getItem('fcmToken') && !localStorage.getItem('notificationPromptDismissed');
-
-    if (Notification.permission === 'granted' && !wasReset) {
-        const storedToken = localStorage.getItem('fcmToken');
-        const storedDeviceId = localStorage.getItem('deviceId');
-
-        if (storedToken) {
-            messaging.getToken().then(currentToken => {
+          if (isDesktop()) { return; }
+          const wasReset = !localStorage.getItem('fcmToken') && !localStorage.getItem('notificationPromptDismissed');
+          if (Notification.permission === 'granted' && !wasReset) {
+            const storedToken = localStorage.getItem('fcmToken');
+            const storedDeviceId = localStorage.getItem('deviceId');
+            if (storedToken) {
+              messaging.getToken().then(currentToken => {
                 if (currentToken !== storedToken) {
-                    console.log('Token has changed, updating...');
-                    saveTokenToFirestore(currentToken);
+                  saveTokenToFirestore(currentToken);
                 } else {
-                    console.log('Token still valid');
-                    if (storedDeviceId) {
-                        db.collection('devices')
-                            .where('deviceId', '==', storedDeviceId)
-                            .get()
-                            .then(snapshot => {
-                                if (!snapshot.empty) {
-                                    const doc = snapshot.docs[0];
-                                    const data = doc.data();
-                                    if (!data.activeTokens || !data.activeTokens[currentToken]) {
-                                        console.log('Token exists but not active, reactivating...');
-                                        saveTokenToFirestore(currentToken);
-                                    }
-                                }
-                            })
-                            .catch(err => console.error('Error checking token status:', err));
-                    }
+                  if (storedDeviceId) {
+                    db.collection('devices').where('deviceId', '==', storedDeviceId).get().then(snapshot => {
+                      if (!snapshot.empty) {
+                        const doc = snapshot.docs[0];
+                        const data = doc.data();
+                        if (!data.activeTokens || !data.activeTokens[currentToken]) {
+                          saveTokenToFirestore(currentToken);
+                        }
+                      }
+                    }).catch(err => console.error('Error checking token status:', err));
+                  }
                 }
-            }).catch(error => {
+              }).catch(error => {
                 requestPermission();
-            });
-        } else {
-            requestPermission();
+              });
+            } else {
+              requestPermission();
+            }
+          } else {
+            promptForPermission();
+          }
         }
-    } else {
-        promptForPermission();
-    }
-}
 
-function promptForPermission() {
-    console.log('Prompting for permission...');
-  if (isDesktop()) {
-        console.log('Desktop detected, skipping notification prompt.');
-        return;
-    }
-  
-    if (Notification.permission === 'denied') {
-        console.log('Notifications already denied');
-    } else {
-        const lastDismissed = localStorage.getItem('notificationPromptDismissed');
-        const ONE_WEEK = 7 * 24 * 60 * 60 * 1000;
-
-        if (!lastDismissed || (Date.now() - parseInt(lastDismissed)) > ONE_WEEK || !localStorage.getItem('fcmToken')) {
-            const triggerPrompt = () => {
+        function promptForPermission() {
+          if (isDesktop()) { return; }
+          if (Notification.permission === 'denied') {
+            return;
+          } else {
+            const lastDismissed = localStorage.getItem('notificationPromptDismissed');
+            const ONE_WEEK = 7 * 24 * 60 * 60 * 1000;
+            if (!lastDismissed || (Date.now() - parseInt(lastDismissed)) > ONE_WEEK || !localStorage.getItem('fcmToken')) {
+              const triggerPrompt = () => {
                 clearTimeout(promptTimeout);
                 document.removeEventListener('click', userInteracted);
                 setTimeout(createNotificationPrompt, 1000);
-            };
-
-            const userInteracted = () => {
-                console.log('User clicked, triggering prompt early');
-                triggerPrompt();
-            };
-
-            document.addEventListener('click', userInteracted, { once: true });
-            const promptTimeout = setTimeout(() => {
-                console.log('10 seconds elapsed, triggering prompt');
+              };
+              const userInteracted = () => { triggerPrompt(); };
+              document.addEventListener('click', userInteracted, { once: true });
+              const promptTimeout = setTimeout(() => {
                 document.removeEventListener('click', userInteracted);
                 triggerPrompt();
-            }, 4500);
-
-            setTimeout(() => {
-                console.log('Starting prompt wait period (click or 10 seconds)');
-            }, 2000);
+              }, 4500);
+              setTimeout(() => { }, 2000);
+            }
+          }
         }
-    }
-}
 
+        // Add keyframes for fade-in/out/slide-in/out
         const styleSheet = document.createElement("style");
         styleSheet.textContent = `
-            @keyframes fade-in {
-                from { opacity: 0; }
-                to { opacity: 1; }
-            }
-            @keyframes fade-out {
-                from { opacity: 1; }
-                to { opacity: 0; }
-            }
-            @keyframes slide-in {
-                from { transform: translateX(100%); }
-                to { transform: translateX(0); }
-            }
-            @keyframes slide-out {
-                from { transform: translateX(0); }
-                to { transform: translateX(100%); }
-            }
+          @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+          @keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
+          @keyframes slide-in { from { transform: translateX(100%); } to { transform: translateX(0); } }
+          @keyframes slide-out { from { transform: translateX(0); } to { transform: translateX(100%); } }
         `;
         document.head.appendChild(styleSheet);
 
         checkAndShowNotifications();
+      }
     }
-}
 
-function showSuccessMessage(message) {
-    const successDiv = document.createElement('div');
-    successDiv.style.cssText = `
+    // ==========================
+    // Success Message Utility
+    // ==========================
+    function showSuccessMessage(message) {
+      const successDiv = document.createElement('div');
+      successDiv.style.cssText = `
         position: fixed;
         bottom: 50%;
         left: 50%;
@@ -1028,217 +885,161 @@ function showSuccessMessage(message) {
         width: max-content;
         border: 2px solid rgb(71, 143, 223);
         animation: fade-in 0.5s ease-in-out;
-    `;
-    successDiv.textContent = message;
-    document.body.appendChild(successDiv);
-    setTimeout(() => {
+      `;
+      successDiv.textContent = message;
+      document.body.appendChild(successDiv);
+      setTimeout(() => {
         successDiv.style.animation = 'fade-out 0.3s ease-in-out';
         setTimeout(() => successDiv.remove(), 500);
-    }, 5000);
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    const preloader = document.getElementById('preloader');
-    const iframe = document.querySelector('iframe');
-    const resetButton = document.getElementById('resetBtn');
-
-    if (!isStandalone()) {
-        resetButton.style.display = 'none';
+      }, 5000);
     }
 
-    // Hide preloader when the iframe has fully loaded and its content is rendered.
- iframe.onload = function() {
-        // console.log('Iframe has finished loading.');
-
-        // Add a delay (e.g., 1000ms or 1.5s) to allow the iframe content to render.
+    // ==========================
+    // DOMContentLoaded Handler
+    // ==========================
+    document.addEventListener('DOMContentLoaded', function () {
+      const preloader = document.getElementById('preloader');
+      const iframe = document.querySelector('iframe');
+      const resetButton = document.getElementById('resetBtn');
+      if (!isStandalone()) { resetButton.style.display = 'none'; }
+      iframe.onload = function () {
         setTimeout(() => {
-            // Add the fade-out class to start the transition
-            preloader.classList.add('preloader-fade-out');
+          preloader.classList.add('preloader-fade-out');
+          setTimeout(() => {
+            preloader.style.display = 'none';
+          }, 2000);
+        }, 1500);
+      };
+    });
 
-            // Set display to 'none' after the transition is complete (e.g., 1000ms)
-            setTimeout(() => {
-                preloader.style.display = 'none';
-            }, 2000); // This delay should match your CSS transition duration
-        }, 1500); // 1.5 seconds delay to allow for rendering
-    };
-});
+    // ==========================
+    // Device and Platform Utilities
+    // ==========================
+    function isDesktop() {
+      const userAgent = navigator.userAgent.toLowerCase();
+      const isDesktopUA = /windows nt|macintosh|linux/i.test(userAgent) && !/mobile|android|iphone|ipad|ipod/i.test(userAgent);
+      const isLargeScreen = window.innerWidth > 1024;
+      return isDesktopUA && isLargeScreen;
+    }
+    function isAndroid() { return /Android/i.test(navigator.userAgent); }
+    function isIOS() { return /iPhone|iPad|iPod/i.test(navigator.userAgent); }
+    function isStandalone() { return window.matchMedia('(display-mode: standalone)').matches; }
 
-let deferredPrompt;
+    // ==========================
+    // Install Prompt Handler
+    // ==========================
+    function setupInstallPrompt() {
+      const installBanner = document.getElementById('install-banner');
+      const iosInstallBanner = document.getElementById('ios-install-banner');
+      const installButton = document.getElementById('install-button');
+      const dismissButton = document.getElementById('dismiss-button');
+      const iosCloseButton = document.getElementById('ios-install-close');
 
-function isDesktop() {
-    const userAgent = navigator.userAgent.toLowerCase();
-    const isDesktopUA = /windows nt|macintosh|linux/i.test(userAgent) && !/mobile|android|iphone|ipad|ipod/i.test(userAgent);
-    const isLargeScreen = window.innerWidth > 1024;
-    return isDesktopUA && isLargeScreen;
-}
-
-function isAndroid() {
-    return /Android/i.test(navigator.userAgent);
-}
-
-function setupInstallPrompt() {
-    const installBanner = document.getElementById('install-banner');
-    const iosInstallBanner = document.getElementById('ios-install-banner');
-    const installButton = document.getElementById('install-button');
-    const dismissButton = document.getElementById('dismiss-button');
-    const iosCloseButton = document.getElementById('ios-install-close');
-
-    if (isDesktop()) {
+      if (isDesktop() || isStandalone()) {
         installBanner.style.display = 'none';
         iosInstallBanner.style.display = 'none';
         return;
-    }
+      }
 
-    if (isStandalone()) {
-        installBanner.style.display = 'none';
-        iosInstallBanner.style.display = 'none';
-        return;
-    }
-
-    if (isIOS()) {
+      if (isIOS()) {
         iosInstallBanner.style.display = 'block';
         iosCloseButton.addEventListener('click', () => {
-            iosInstallBanner.style.display = 'none';
+          iosInstallBanner.style.display = 'none';
         });
-    } else {
+      } else {
         window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            installBanner.style.display = 'block';
+          e.preventDefault();
+          deferredPrompt = e;
+          installBanner.style.display = 'block';
         });
+      }
+
+      installButton.addEventListener('click', () => {
+        if (deferredPrompt) {
+          installBanner.style.display = 'none';
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then((choiceResult) => {
+            deferredPrompt = null;
+          });
+        }
+      });
+
+      dismissButton.addEventListener('click', () => {
+        installBanner.style.display = 'none';
+      });
     }
 
-    installButton.addEventListener('click', () => {
-        if (deferredPrompt) {
-            installBanner.style.display = 'none';
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('User accepted the install prompt');
-                } else {
-                    console.log('User dismissed the install prompt');
-                }
-                deferredPrompt = null;
-            });
-        }
-    });
+    document.addEventListener('DOMContentLoaded', () => {
+      setupInstallPrompt();
 
-    dismissButton.addEventListener('click', () => {
-        installBanner.style.display = 'none';
-    });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    setupInstallPrompt();
-
-    // Start of new code for week number
-    const startDate = new Date('September 3, 2025'); // Set your start date
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); // Normalize today's date to midnight
-
-    // Calculate the difference in time
-    const differenceInTime = today.getTime() - startDate.getTime();
-
-    // Calculate the difference in days
-    const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
-
-    // Calculate the week number (integer division)
-    const weekNumber = Math.floor(differenceInDays / 7) + 1;
-
-    // Find the week number element
-    const weekNumberElement = document.getElementById('week-number');
-
-    // Display the week number
-    if (weekNumber >= 1 && weekNumber <= 18) {
+      // Week Number Calculation and Display
+      const startDate = new Date('September 3, 2025');
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const differenceInTime = today.getTime() - startDate.getTime();
+      const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
+      const weekNumber = Math.floor(differenceInDays / 7) + 1;
+      const weekNumberElement = document.getElementById('week-number');
+      if (weekNumber >= 1 && weekNumber <= 18) {
         weekNumberElement.textContent = `WEEK ${weekNumber}`;
         document.getElementById('preloader-week').style.display = 'block';
-    } else {
-        // Optional: Hide the element if it's not within the 18 weeks
+      } else {
         document.getElementById('preloader-week').style.display = 'none';
-    }
-    // End of new code
+      }
 
-    gtag('event', 'app_mode', {
+      // Google Analytics event for app mode
+      gtag('event', 'app_mode', {
         'event_category': 'User Engagement',
         'event_label': isStandalone() ? 'Standalone App' : 'Browser',
         'value': isStandalone() ? 1 : 0
+      });
     });
-});
 
-function isIOS() {
-    return /iPhone|iPad|iPod/i.test(navigator.userAgent);
-}
-
-function isStandalone() {
-    return window.matchMedia('(display-mode: standalone)').matches;
-}
-
+    // ==========================
+    // Apps Script Communication
+    // ==========================
     function sendNameToAppsScript(nameToSend) {
-  const scriptUrl = 'https://script.google.com/macros/s/AKfycbzYjC9jw47tifM3cHv8UH41v5En1Tap7iEY2n6sOSGwqhgFjBD8LjLcugIzlqM12jQL/exec'; // e.g., 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec'
-
-  fetch(scriptUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      type: 'saveEntryName', // Match the type expected by your doPost function
-      name: nameToSend
-    }),
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    return response.json();
-  })
-  .then(data => {
-    // console.log('Success:', data);
-    if (data.success) {
-      // console.log("Name successfully saved by Apps Script.");
-    } else {
-      console.error("Error from Apps Script:", data.message);
-    }
-  })
-  .catch(error => {
-    console.error('Error sending name to Apps Script:', error);
-  });
-}
-
-window.addEventListener('message', (event) => {
-    const isGoogleScript = event.origin.endsWith('script.google.com') || event.origin.endsWith('script.googleusercontent.com');
-
-    if (!isGoogleScript) {
-        console.error('GitHub Page: Message received from unexpected origin:', event.origin);
-        return;
+      const scriptUrl = 'https://script.google.com/macros/s/AKfycbzYjC9jw47tifM3cHv8UH41v5En1Tap7iEY2n6sOSGwqhgFjBD8LjLcugIzlqM12jQL/exec';
+      fetch(scriptUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'saveEntryName', name: nameToSend }),
+      })
+        .then(response => {
+          if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+          return response.json();
+        })
+        .then(data => {
+          if (!data.success) { console.error("Error from Apps Script:", data.message); }
+        })
+        .catch(error => { console.error('Error sending name to Apps Script:', error); });
     }
 
-    const message = event.data;
-    if (message && message.type === 'saveEntryName' && message.value) {
+    window.addEventListener('message', (event) => {
+      const isGoogleScript = event.origin.endsWith('script.google.com') || event.origin.endsWith('script.googleusercontent.com');
+      if (!isGoogleScript) { return; }
+      const message = event.data;
+      if (message && message.type === 'saveEntryName' && message.value) {
         const entryName = message.value;
-        // console.log('GitHub Page: Received entry name from iframe:', entryName);
         localStorage.setItem('storedEntryName', entryName);
-    }
-    else if (message && message.type === 'requestCachedName') {
-        // console.log('GitHub Page: Received request for cached name from iframe.');
+      } else if (message && message.type === 'requestCachedName') {
         const cachedName = localStorage.getItem('storedEntryName');
         if (cachedName) {
-            // console.log('GitHub Page: Sending cached name back to iframe:', cachedName);
-            event.source.postMessage({
-                type: 'loadCachedName', // The iframe expects this type
-                value: cachedName
-            }, event.origin); // Use the origin of the sender for security.
-        } else {
-            // console.log('GitHub Page: No cached name found to send.');
+          event.source.postMessage({
+            type: 'loadCachedName',
+            value: cachedName
+          }, event.origin);
         }
-    }
-});
+      }
+    });
 
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-J8ZSHET5RJ');
-   
+    // ==========================
+    // Google Analytics
+    // ==========================
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-J8ZSHET5RJ');
   </script>
 </body>
 </html>
