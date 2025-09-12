@@ -17,13 +17,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
-// REMOVE the onBackgroundMessage handler entirely
-// messaging.onBackgroundMessage(function(payload) {
-//     console.log('[firebase-messaging-sw.js] Received background message ', payload);
-//
-//     // ... removed ...
-// });
-
 // Handle notification click
 self.addEventListener('notificationclick', function(event) {
     console.log('Notification clicked:', event.notification);
