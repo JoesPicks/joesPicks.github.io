@@ -607,26 +607,26 @@ function setupFirebaseAndNotifications() {
 
 if ('serviceWorker' in navigator) {
     const swPath = '/firebase-messaging-sw.js';
-    // console.log('Service worker path:', swPath);
+    console.log('Service worker path:', swPath);
 
-    // console.log('Attempting to register service worker at:', swPath);
+    console.log('Attempting to register service worker at:', swPath);
 
     navigator.serviceWorker.register(swPath)
         .then(registration => {
-            // console.log('Service Worker registered with scope:', registration.scope);
+            console.log('Service Worker registered with scope:', registration.scope);
             initializeNotifications(registration);
         })
         .catch(error => {
             console.error('Service Worker registration failed:', error.message);
         });
 } else {
-    // console.log('Service workers not supported');
+    console.log('Service workers not supported');
 }
 
     function initializeNotifications(registration) {
         navigator.serviceWorker.addEventListener('message', event => {
             if (event.data && event.data.type === 'tokenRefresh') {
-                // console.log('Token refresh detected');
+                console.log('Token refresh detected');
                 refreshToken();
             }
         });
@@ -636,13 +636,13 @@ if ('serviceWorker' in navigator) {
                 Notification.requestPermission()
                     .then(permission => {
                         if (permission === 'granted') {
-                            // console.log('Notification permission granted.');
+                            console.log('Notification permission granted.');
                             messaging.getToken({
                                 vapidKey: 'BOM3KFfemC5lGnsF28N-_UGA7H9esoOm5gp0_Eg45HMqaMqviLx_bcAonVaZe-c0GwSFwfwe7-fJVP1n8h1iAAU',
                                 serviceWorkerRegistration: registration
                             })
                             .then(token => {
-                                // console.log('Device token:', token);
+                                console.log('Device token:', token);
                                 saveTokenToFirestore(token);
                                 resolve(token);
                             })
@@ -651,7 +651,7 @@ if ('serviceWorker' in navigator) {
                                 reject(error);
                             });
                         } else {
-                            // console.log('Notification permission denied.');
+                            console.log('Notification permission denied.');
                             localStorage.setItem('notificationPermissionDenied', 'true');
                             reject(new Error('Permission denied'));
                         }
@@ -668,7 +668,7 @@ if ('serviceWorker' in navigator) {
                 vapidKey: 'BOM3KFfemC5lGnsF28N-_UGA7H9esoOm5gp0_Eg45HMqaMqviLx_bcAonVaZe-c0GwSFwfwe7-fJVP1n8h1iAAU',
                 serviceWorkerRegistration: registration
             }).then(refreshedToken => {
-                // console.log('Token refreshed:', refreshedToken);
+                console.log('Token refreshed:', refreshedToken);
                 saveTokenToFirestore(refreshedToken);
             }).catch(err => {
                 console.error('Unable to refresh token:', err);
@@ -773,14 +773,14 @@ const attemptSave = async (attempt) => {
             updateData[`tokens.${browserInfo.name}`] = token;
             updateData[`activeTokens.${token}`] = true;
 
-            // console.log('Updating document:', deviceDoc.id);
-            // console.log('Update data:', updateData);
+            console.log('Updating document:', deviceDoc.id);
+            console.log('Update data:', updateData);
 
             await db.collection('devices').doc(deviceDoc.id).update(updateData);
-            // console.log('Device token updated successfully, old tokens deleted');
+            console.log('Device token updated successfully, old tokens deleted');
 
             const updatedDoc = await db.collection('devices').doc(deviceDoc.id).get({ source: 'server' });
-            // console.log('Updated lastActive:', updatedDoc.data().lastActive);
+            console.log('Updated lastActive:', updatedDoc.data().lastActive);
 
         } else {
             await db.collection('devices').add({
@@ -792,7 +792,7 @@ const attemptSave = async (attempt) => {
                 lastActive: firebase.firestore.FieldValue.serverTimestamp(),
                 userAgent: browserInfo.userAgent
             });
-            // console.log('New device record created successfully');
+            console.log('New device record created successfully');
         }
 
         localStorage.setItem('fcmToken', token);
@@ -830,7 +830,7 @@ async function cleanupDuplicateTokens(currentToken, deviceId) {
                 batch.delete(sortedDocs[i].ref);
             }
             await batch.commit();
-            // console.log(`Cleaned up ${sortedDocs.length - 1} duplicate device records`);
+            console.log(`Cleaned up ${sortedDocs.length - 1} duplicate device records`);
         }
 
         const allDevicesWithToken = await db.collection('devices')
@@ -854,7 +854,7 @@ async function cleanupDuplicateTokens(currentToken, deviceId) {
 
             if (updateCount > 0) {
                 await batch.commit();
-                // console.log(`Deleted current token from ${updateCount} other devices`);
+                console.log(`Deleted current token from ${updateCount} other devices`);
             }
         }
     } catch (error) {
@@ -881,10 +881,10 @@ async function cleanupDuplicateTokens(currentToken, deviceId) {
         }
 
         function checkAndShowNotifications() {
-    // console.log('Checking notification state...');
-    // console.log('Current permission:', Notification.permission);
+    console.log('Checking notification state...');
+    console.log('Current permission:', Notification.permission);
 if (isDesktop()) {
-        // console.log('Desktop detected, skipping notification setup.');
+        console.log('Desktop detected, skipping notification setup.');
         return;
     }
                   
@@ -897,10 +897,10 @@ if (isDesktop()) {
         if (storedToken) {
             messaging.getToken().then(currentToken => {
                 if (currentToken !== storedToken) {
-                    // console.log('Token has changed, updating...');
+                    console.log('Token has changed, updating...');
                     saveTokenToFirestore(currentToken);
                 } else {
-                    // console.log('Token still valid');
+                    console.log('Token still valid');
                     if (storedDeviceId) {
                         db.collection('devices')
                             .where('deviceId', '==', storedDeviceId)
@@ -910,7 +910,7 @@ if (isDesktop()) {
                                     const doc = snapshot.docs[0];
                                     const data = doc.data();
                                     if (!data.activeTokens || !data.activeTokens[currentToken]) {
-                                        // console.log('Token exists but not active, reactivating...');
+                                        console.log('Token exists but not active, reactivating...');
                                         saveTokenToFirestore(currentToken);
                                     }
                                 }
@@ -930,14 +930,14 @@ if (isDesktop()) {
 }
 
 function promptForPermission() {
-    // console.log('Prompting for permission...');
+    console.log('Prompting for permission...');
   if (isDesktop()) {
-        // console.log('Desktop detected, skipping notification prompt.');
+        console.log('Desktop detected, skipping notification prompt.');
         return;
     }
   
     if (Notification.permission === 'denied') {
-        // console.log('Notifications already denied');
+        console.log('Notifications already denied');
     } else {
         const lastDismissed = localStorage.getItem('notificationPromptDismissed');
         const ONE_WEEK = 7 * 24 * 60 * 60 * 1000;
@@ -950,19 +950,19 @@ function promptForPermission() {
             };
 
             const userInteracted = () => {
-                // console.log('User clicked, triggering prompt early');
+                console.log('User clicked, triggering prompt early');
                 triggerPrompt();
             };
 
             document.addEventListener('click', userInteracted, { once: true });
             const promptTimeout = setTimeout(() => {
-                // console.log('10 seconds elapsed, triggering prompt');
+                console.log('10 seconds elapsed, triggering prompt');
                 document.removeEventListener('click', userInteracted);
                 triggerPrompt();
             }, 4500);
 
             setTimeout(() => {
-                // console.log('Starting prompt wait period (click or 10 seconds)');
+                console.log('Starting prompt wait period (click or 10 seconds)');
             }, 2000);
         }
     }
@@ -1101,9 +1101,9 @@ function setupInstallPrompt() {
             deferredPrompt.prompt();
             deferredPrompt.userChoice.then((choiceResult) => {
                 if (choiceResult.outcome === 'accepted') {
-                    // console.log('User accepted the install prompt');
+                    console.log('User accepted the install prompt');
                 } else {
-                    // console.log('User dismissed the install prompt');
+                    console.log('User dismissed the install prompt');
                 }
                 deferredPrompt = null;
             });
