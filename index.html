@@ -315,26 +315,22 @@
         letter-spacing: 4px;
         color: transparent;
         animation-name: increaseStroke;
-        animation-duration: 2s;
+        animation-duration: 3s;
         /* Adjust duration as needed */
-        animation-delay: .5s;
-        animation-timing-function: linear;
-        animation-fill-mode: forwards;
+        /* animation-delay: .5s; */
+        /* animation-timing-function: linear; */
+        /* animation-fill-mode: forwards; */
         -webkit-text-stroke-color: #3d79df;
       }
 
       @keyframes increaseStroke {
-        0% {-webkit-text-stroke-width: 0px;
+          from {
+            -webkit-text-stroke-width: 0px;
+          }
+          to {
+            -webkit-text-stroke-width: 8px;
+          }
         }
-        10% {-webkit-text-stroke-width: 1px;
-        }
-        40% {-webkit-text-stroke-width: 3px;
-        }
-        80% {-webkit-text-stroke-width: 6px;
-        }
-        100% {-webkit-text-stroke-width: 9px;
-        }
-      }
 
       #preloader-text span {
         display: inline-block;
@@ -419,7 +415,7 @@
         -webkit-text-stroke: 4px #3d79df;
         font-weight: bolder;
         /* Apply the flicker animation */
-        animation: flicker 1s infinite;
+        animation: flicker 1s ease-in-out forwards;
       }
 
       @keyframes smoke-rise {
@@ -427,20 +423,16 @@
           transform: translateX(-50%) translateY(0) scale(1);
           opacity: 1;
         }
-
         25% {
           opacity: 0.9;
         }
-
         50% {
           transform: translateX(-50%) translateY(-80px) scale(1.2);
           opacity: 0.75;
         }
-
         75% {
           opacity: 0.6;
         }
-
         100% {
           transform: translateX(-50%) translateY(-80px) scale(1.2);
           opacity: 0.3;
@@ -448,44 +440,28 @@
       }
 
       @keyframes flicker {
-
-        0%,
-        19.9% {
+        0%,19.9% {
           opacity: 1;
         }
-
-        20%,
-        20.9% {
+        20%,20.9% {
           opacity: 1;
         }
-
-        21%,
-        29.9% {
+        21%,29.9% {
           opacity: 0.75;
         }
-
-        30%,
-        30.9% {
+        30%,30.9% {
           opacity: .5;
         }
-
-        31%,
-        36.9% {
+        31%,36.9% {
           opacity: 0;
         }
-
-        37%,
-        38.9% {
+        37%,38.9% {
           opacity: 0.9;
         }
-
-        39%,
-        40.9% {
+        39%,40.9% {
           opacity: .75;
         }
-
-        41%,
-        100% {
+        41%,100% {
           opacity: 1;
         }
       }
