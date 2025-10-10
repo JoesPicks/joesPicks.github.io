@@ -305,6 +305,7 @@
         color: transparent;
         animation-name: increaseStroke;
         animation-duration: 2s; /* Adjust duration as needed */
+        animation-delay: .5s;
         animation-timing-function: linear;
         animation-fill-mode: forwards;
         -webkit-text-stroke-color: #3d79df;
@@ -322,7 +323,7 @@
       #preloader-text span {
         display: inline-block;
         opacity: 0;
-        animation: fadeIn 1s ease forwards;
+        /* animation: fadeIn 1s ease forwards; */
       }
       #preloader-text span.break {
         display: block;
@@ -333,10 +334,10 @@
       #preloader-text span:nth-child(4) { animation-delay: .8s; }
       #preloader-text span:nth-child(6) { animation-delay: .95s; }
 
-      @keyframes fadeIn {
+      /* @keyframes fadeIn {
         from { opacity: 0; transform: translateY(18px); }
         to { opacity: 1; transform: translateY(0); }
-      }
+      } */
 
       #preloader-text::after {
         content: "";
@@ -350,6 +351,7 @@
         opacity: 0.9;
         transform: translateX(-50%) scale(1);
         animation: smoke-rise 6s ease-in-out forwards;
+        animation-delay: 2s;
         pointer-events: none;
         transition: all 3s ease-in-out;
       }
@@ -379,20 +381,20 @@
 }
       @keyframes smoke-rise {
         0% { transform: translateX(-50%) translateY(0) scale(1); opacity: 1; }
-        25% { opacity: 0.8; }
-        50% { transform: translateX(-50%) translateY(-80px) scale(1.2); opacity: 0.65; }
-        75% { opacity: 0.4; }
-        100% { transform: translateX(-50%) translateY(-80px) scale(1.2); opacity: 0; }
+        25% { opacity: 0.9; }
+        50% { transform: translateX(-50%) translateY(-80px) scale(1.2); opacity: 0.75; }
+        75% { opacity: 0.6; }
+        100% { transform: translateX(-50%) translateY(-80px) scale(1.2); opacity: 0.3; }
       }
     }
     @keyframes flicker {
   0%, 19.9% { opacity: 1; }
-  20%, 20.9% { opacity: 0; }
-  21%, 29.9% { opacity: 1; }
-  30%, 30.9% { opacity: 0; }
-  31%, 36.9% { opacity: 1; }
-  37%, 38.9% { opacity: 0.5; }
-  39%, 40.9% { opacity: 0; }
+  20%, 20.9% { opacity: 1; }
+  21%, 29.9% { opacity: 0.75; }
+  30%, 30.9% { opacity: .5; }
+  31%, 36.9% { opacity: 0; }
+  37%, 38.9% { opacity: 0.9; }
+  39%, 40.9% { opacity: .75; }
   41%, 100% { opacity: 1; }
 }
 
