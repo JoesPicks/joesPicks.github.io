@@ -314,12 +314,10 @@
         transition: all 1s ease-in-out;
         letter-spacing: 4px;
         color: transparent;
-        animation-name: increaseStroke;
+        /* animation-name: increaseStroke;
         animation-duration: 3s;
-        /* Adjust duration as needed */
-        /* animation-delay: .5s; */
-        /* animation-timing-function: linear; */
-        /* animation-fill-mode: forwards; */
+        animation-timing-function: linear;
+        animation-fill-mode: forwards; */
         -webkit-text-stroke-color: #3d79df;
       }
 
@@ -335,6 +333,11 @@
       #preloader-text span {
         display: inline-block;
         opacity: 1;
+        animation-name: increaseStroke;
+        animation-duration: 3s;
+        animation-timing-function: linear;
+        animation-fill-mode: forwards;
+        -webkit-text-stroke-color: #3d79df;
         /* animation: fadeIn 1s ease forwards; */
       }
 
