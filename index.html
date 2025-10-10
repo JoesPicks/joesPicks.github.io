@@ -266,12 +266,12 @@
   
   @keyframes flicker {
     0%, 19.9% { opacity: 1; }
-    20%, 20.9% { opacity: 0; }
+    20%, 20.9% { opacity: 0.5; }
     21%, 29.9% { opacity: 1; }
-    30%, 30.9% { opacity: 0; }
-    31%, 36.9% { opacity: 1; }
+    30%, 30.9% { opacity: 0.2; }
+    31%, 36.9% { opacity: .9; }
     37%, 38.9% { opacity: 0.5; }
-    39%, 40.9% { opacity: 0; }
+    39%, 40.9% { opacity: .75; }
     41%, 100% { opacity: 1; }
   }
   
@@ -436,8 +436,13 @@
         -webkit-text-stroke: 4px #3d79df;
         font-weight: bolder;
         /* Apply the flicker animation */
-        animation: flicker 2s infinite; 
+        /* animation: flicker 2s infinite;  */
+        /* animation-delay: 1.5s; */
       }
+      #week-number span {
+  display: inline-block;
+  animation: flicker 2s infinite; 
+}
 
       /* Inline style converted for Reset Button */
       #resetBtn {
@@ -1046,31 +1051,53 @@
       });
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      setupInstallPrompt();
+document.addEventListener('DOMContentLoaded', () => {
+  setupInstallPrompt();
 
-      // Week Number Calculation and Display
-      const startDate = new Date('September 3, 2025');
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      const differenceInTime = today.getTime() - startDate.getTime();
-      const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
-      const weekNumber = Math.floor(differenceInDays / 7) + 1;
-      const weekNumberElement = document.getElementById('week-number');
-      if (weekNumber >= 1 && weekNumber <= 18) {
-        weekNumberElement.textContent = `WEEK ${weekNumber}`;
-        document.getElementById('preloader-week').style.display = 'block';
-      } else {
-        document.getElementById('preloader-week').style.display = 'none';
+  // Week Number Calculation and Display
+  const startDate = new Date('September 3, 2025');
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const differenceInTime = today.getTime() - startDate.getTime();
+  const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
+  const weekNumber = Math.floor(differenceInDays / 7) + 1;
+  const weekNumberContainer = document.getElementById('week-number');
+  
+  if (weekNumber >= 1 && weekNumber <= 18) {
+    // Clear any previous content and show the container
+    weekNumberContainer.innerHTML = '';
+    document.getElementById('preloader-week').style.display = 'block';
+
+    // Split the text into individual characters and create spans
+    const weekText = `WEEK ${weekNumber}`;
+    const chars = weekText.split('');
+
+    chars.forEach((char, index) => {
+      const span = document.createElement('span');
+      span.textContent = char;
+      
+      // Apply a staggered animation delay
+      // The `1.5s` is your base delay, and the `0.1s` is the stagger amount
+      span.style.animationDelay = `${1.5 + (index * 0.1)}s`;
+      
+      // If the character is a space, handle it accordingly
+      if (char === ' ') {
+        span.style.margin = '0 5px'; // Adjust spacing for the gap
       }
-
-      // Google Analytics event for app mode
-      gtag('event', 'app_mode', {
-        'event_category': 'User Engagement',
-        'event_label': isStandalone() ? 'Standalone App' : 'Browser',
-        'value': isStandalone() ? 1 : 0
-      });
+      weekNumberContainer.appendChild(span);
     });
+
+  } else {
+    document.getElementById('preloader-week').style.display = 'none';
+  }
+
+  // Google Analytics event for app mode
+  gtag('event', 'app_mode', {
+    'event_category': 'User Engagement',
+    'event_label': isStandalone() ? 'Standalone App' : 'Browser',
+    'value': isStandalone() ? 1 : 0
+  });
+});
 
     // ==========================
     // Apps Script Communication
