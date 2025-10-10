@@ -25,9 +25,6 @@
 
   <title>PICK 6</title>
 
-  <!-- =======================
-       Core Styles
-  ======================== -->
   <style>
     /* ===================================
        General / Page Layout
@@ -258,6 +255,58 @@
       display: none;
     }
 
+      @keyframes increaseStroke {
+    from {
+      -webkit-text-stroke-width: 0px;
+    }
+    to {
+      -webkit-text-stroke-width: 8px;
+    }
+  }
+  
+  @keyframes flicker {
+    0%, 19.9% { opacity: 1; }
+    20%, 20.9% { opacity: 0; }
+    21%, 29.9% { opacity: 1; }
+    30%, 30.9% { opacity: 0; }
+    31%, 36.9% { opacity: 1; }
+    37%, 38.9% { opacity: 0.5; }
+    39%, 40.9% { opacity: 0; }
+    41%, 100% { opacity: 1; }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes smoke-rise {
+    0% {
+      transform: translateX(-50%) translateY(0) scale(1);
+      opacity: 1;
+    }
+    25% {
+      opacity: 0.9;
+    }
+    50% {
+      transform: translateX(-50%) translateY(-80px) scale(1.2);
+      opacity: 0.75;
+    }
+    75% {
+      opacity: 0.6;
+    }
+    100% {
+      transform: translateX(-50%) translateY(-80px) scale(1.2);
+      opacity: 0.3;
+    }
+  }
+
     @media (max-width: 1100px) {
       .notification {
         width: -webkit-fill-available;
@@ -303,7 +352,6 @@
         padding-bottom: 1%;
         border: none;
         height: 153px;
-        color: transparent;
         font-size: 130px;
         font-weight: 900;
         white-space: nowrap;
@@ -311,34 +359,19 @@
         display: inline-table;
         text-align: center;
         line-height: 95px;
-        transition: all 1s ease-in-out;
+        /* transition: all 1s ease-in-out; */
         letter-spacing: 4px;
         color: transparent;
-        /* animation-name: increaseStroke;
-        animation-duration: 3s;
+         animation-name: increaseStroke;
+        /* animation-duration: 3s;
         animation-timing-function: linear;
         animation-fill-mode: forwards; */
         -webkit-text-stroke-color: #3d79df;
       }
-
-      @keyframes increaseStroke {
-          from {
-            -webkit-text-stroke-width: 0px;
-          }
-          to {
-            -webkit-text-stroke-width: 8px;
-          }
-        }
-
       #preloader-text span {
         display: inline-block;
         opacity: 1;
-        animation-name: increaseStroke;
-        animation-duration: 3s;
-        animation-timing-function: linear;
-        animation-fill-mode: forwards;
         -webkit-text-stroke-color: #3d79df;
-        /* animation: fadeIn 1s ease forwards; */
       }
 
       #preloader-text span.break {
@@ -363,18 +396,6 @@
 
       #preloader-text span:nth-child(6) {
         animation-delay: .95s;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(18px);
-        }
-
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
       }
 
       #preloader-text::after {
@@ -418,55 +439,7 @@
         -webkit-text-stroke: 4px #3d79df;
         font-weight: bolder;
         /* Apply the flicker animation */
-        animation: flicker 1s ease-in-out forwards;
-      }
-
-      @keyframes smoke-rise {
-        0% {
-          transform: translateX(-50%) translateY(0) scale(1);
-          opacity: 1;
-        }
-        25% {
-          opacity: 0.9;
-        }
-        50% {
-          transform: translateX(-50%) translateY(-80px) scale(1.2);
-          opacity: 0.75;
-        }
-        75% {
-          opacity: 0.6;
-        }
-        100% {
-          transform: translateX(-50%) translateY(-80px) scale(1.2);
-          opacity: 0.3;
-        }
-      }
-
-      @keyframes flicker {
-        0%,19.9% {
-          opacity: 1;
-        }
-        20%,20.9% {
-          opacity: 1;
-        }
-        21%,29.9% {
-          opacity: 0.75;
-        }
-        30%,30.9% {
-          opacity: .5;
-        }
-        31%,36.9% {
-          opacity: 0;
-        }
-        37%,38.9% {
-          opacity: 0.9;
-        }
-        39%,40.9% {
-          opacity: .75;
-        }
-        41%,100% {
-          opacity: 1;
-        }
+        animation: flicker 1s infinite; 
       }
 
       /* Inline style converted for Reset Button */
