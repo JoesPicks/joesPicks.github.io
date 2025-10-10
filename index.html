@@ -282,6 +282,7 @@
         padding: 0px;
         transition: opacity .9s ease-out, transform 2s ease-out;
       }
+      
       .preloader-fade-out {
         opacity: .0;
         background: #101010 !important;
@@ -299,13 +300,25 @@
         display: inline-table;
         text-align: center;
         line-height: 95px;
-        -webkit-text-stroke: 8px #3d79df;
         transition: all 1s ease-in-out;
         letter-spacing: 4px;
-/*         color: transparent; */
-/*         color: rgb(61, 121, 223, .4); */
         color: transparent;
+        animation-name: increaseStroke;
+        animation-duration: 2s; /* Adjust duration as needed */
+        animation-timing-function: linear;
+        animation-fill-mode: forwards;
+        -webkit-text-stroke-color: #3d79df;
       }
+
+@keyframes increaseStroke {
+  from {
+    -webkit-text-stroke-width: 0px;
+  }
+  to {
+    -webkit-text-stroke-width: 8px;
+  }
+}
+      
       #preloader-text span {
         display: inline-block;
         opacity: 0;
@@ -357,14 +370,13 @@
         line-height: 65px;
         padding-bottom: 32px;
       }
-      #week-number {
-        letter-spacing: 2px;
-        -webkit-text-stroke: 4px #3d79df;
-/*         color: transparent; */
-        font-weight: bolder;
-/*         color: rgb(61, 121, 223, .6); */
-/*         color: transparent; */
-      }
+#week-number {
+  letter-spacing: 2px;
+  -webkit-text-stroke: 4px #3d79df;
+  font-weight: bolder;
+  /* Apply the flicker animation */
+  animation: flicker 1s infinite;
+}
       @keyframes smoke-rise {
         0% { transform: translateX(-50%) translateY(0) scale(1); opacity: 1; }
         25% { opacity: 0.8; }
@@ -373,6 +385,16 @@
         100% { transform: translateX(-50%) translateY(-80px) scale(1.2); opacity: 0; }
       }
     }
+    @keyframes flicker {
+  0%, 19.9% { opacity: 1; }
+  20%, 20.9% { opacity: 0; }
+  21%, 29.9% { opacity: 1; }
+  30%, 30.9% { opacity: 0; }
+  31%, 36.9% { opacity: 1; }
+  37%, 38.9% { opacity: 0.5; }
+  39%, 40.9% { opacity: 0; }
+  41%, 100% { opacity: 1; }
+}
 
     /* Inline style converted for Reset Button */
     #resetBtn {
