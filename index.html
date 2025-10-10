@@ -32,7 +32,8 @@
     /* ===================================
        General / Page Layout
     ==================================== */
-    html, body {
+    html,
+    body {
       background-color: #000;
       margin: 0;
       padding: 0;
@@ -58,7 +59,8 @@
       text-size-adjust: none;
     }
 
-    input, textarea {
+    input,
+    textarea {
       font-size: 16px;
     }
 
@@ -170,9 +172,11 @@
       display: flex;
       align-items: center;
     }
+
     #install-banner h3 {
       margin: 5px 0 -5px 0;
     }
+
     .install-icon-header {
       padding: 0;
       width: 45px;
@@ -194,6 +198,7 @@
       align-items: center;
       display: block;
     }
+
     .install-details {
       font-size: 15px;
       align-items: center;
@@ -204,9 +209,11 @@
       margin: 0px;
       display: block;
     }
+
     strong {
       font-size: 17px;
     }
+
     .install-icon {
       width: 22px;
       height: 22px;
@@ -223,6 +230,7 @@
       font-size: 18px;
       width: 350px;
     }
+
     .notification-button {
       background-color: rgba(0, 0, 0, .9);
       color: #3d79df;
@@ -236,6 +244,7 @@
       border-radius: 9px;
       box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9) 0px 3px 4px;
     }
+
     .notification-button:hover {
       background-color: #3d79df;
       color: white;
@@ -253,16 +262,17 @@
       .notification {
         width: -webkit-fill-available;
       }
+
       #preloader {
-        background: linear-gradient(to top, #000 6%, 
-                                            rgba(0, 0, 0, 0.8) 7%,
-                                            rgba(0, 0, 0, 0) 19%, 
-                                            rgba(18, 19, 21) 50%, 
-                                            rgba(0, 0, 0, 0.8) 90%, 
-                                            #000 101%),
+        background: linear-gradient(to top, #000 6%,
+            rgba(0, 0, 0, 0.8) 7%,
+            rgba(0, 0, 0, 0) 19%,
+            rgba(18, 19, 21) 50%,
+            rgba(0, 0, 0, 0.8) 90%,
+            #000 101%),
           url(https://www.shutterstock.com/image-illustration/3d-render-soccer-empty-stadium-600nw-2472453011.jpg);
-/*           background: linear-gradient(to top, #000 3%, rgba(0, 0, 0, 0.8) 5%, rgba(0, 0, 0, 0) 7%, rgba(18, 19, 21) 50%, rgba(0, 0, 0, 0.8) 90%, #000 101%), */
-/*           url(https://www.shutterstock.com/image-illustration/3d-render-soccer-empty-stadium-600nw-2472453011.jpg); */
+        /*           background: linear-gradient(to top, #000 3%, rgba(0, 0, 0, 0.8) 5%, rgba(0, 0, 0, 0) 7%, rgba(18, 19, 21) 50%, rgba(0, 0, 0, 0.8) 90%, #000 101%), */
+        /*           url(https://www.shutterstock.com/image-illustration/3d-render-soccer-empty-stadium-600nw-2472453011.jpg); */
         background-attachment: fixed;
         background-repeat: round;
         background-size: cover;
@@ -282,12 +292,13 @@
         padding: 0px;
         transition: opacity .9s ease-out, transform 2s ease-out;
       }
-      
+
       .preloader-fade-out {
         opacity: .0;
         background: #101010 !important;
         transform: scale(54) translateY(-255px);
       }
+
       #preloader-text {
         padding-bottom: 1%;
         border: none;
@@ -304,39 +315,67 @@
         letter-spacing: 4px;
         color: transparent;
         animation-name: increaseStroke;
-        animation-duration: 2s; /* Adjust duration as needed */
+        animation-duration: 2s;
+        /* Adjust duration as needed */
         animation-delay: .5s;
         animation-timing-function: linear;
         animation-fill-mode: forwards;
         -webkit-text-stroke-color: #3d79df;
       }
 
-@keyframes increaseStroke {
-  from {
-    -webkit-text-stroke-width: 0px;
-  }
-  to {
-    -webkit-text-stroke-width: 8px;
-  }
-}
-      
+      @keyframes increaseStroke {
+        0% {-webkit-text-stroke-width: 0px;
+        }
+        10% {-webkit-text-stroke-width: 1px;
+        }
+        40% {-webkit-text-stroke-width: 3px;
+        }
+        80% {-webkit-text-stroke-width: 6px;
+        }
+        100% {-webkit-text-stroke-width: 9px;
+        }
+      }
+
       #preloader-text span {
         display: inline-block;
-        opacity: 0;
-        animation: fadeIn 1s ease forwards;
+        opacity: 1;
+        /* animation: fadeIn 1s ease forwards; */
       }
+
       #preloader-text span.break {
         display: block;
       }
-      #preloader-text span:nth-child(1) { animation-delay: .8s; }
-      #preloader-text span:nth-child(2) { animation-delay: .95s; }
-      #preloader-text span:nth-child(3) { animation-delay: .95s; }
-      #preloader-text span:nth-child(4) { animation-delay: .8s; }
-      #preloader-text span:nth-child(6) { animation-delay: .95s; }
+
+      #preloader-text span:nth-child(1) {
+        animation-delay: .8s;
+      }
+
+      #preloader-text span:nth-child(2) {
+        animation-delay: .95s;
+      }
+
+      #preloader-text span:nth-child(3) {
+        animation-delay: .95s;
+      }
+
+      #preloader-text span:nth-child(4) {
+        animation-delay: .8s;
+      }
+
+      #preloader-text span:nth-child(6) {
+        animation-delay: .95s;
+      }
 
       @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(18px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       #preloader-text::after {
@@ -355,11 +394,13 @@
         pointer-events: none;
         transition: all 3s ease-in-out;
       }
+
       .pre-load-fade-out {
         opacity: 0;
         transition: opacity 4s ease-out;
         pointer-events: none;
       }
+
       #preloader-week {
         font-size: 70px;
         font-weight: bolder;
@@ -372,48 +413,100 @@
         line-height: 65px;
         padding-bottom: 32px;
       }
-#week-number {
-  letter-spacing: 2px;
-  -webkit-text-stroke: 4px #3d79df;
-  font-weight: bolder;
-  /* Apply the flicker animation */
-  animation: flicker 1s infinite;
-}
-      @keyframes smoke-rise {
-        0% { transform: translateX(-50%) translateY(0) scale(1); opacity: 1; }
-        25% { opacity: 0.9; }
-        50% { transform: translateX(-50%) translateY(-80px) scale(1.2); opacity: 0.75; }
-        75% { opacity: 0.6; }
-        100% { transform: translateX(-50%) translateY(-80px) scale(1.2); opacity: 0.3; }
-      }
-    }
-    @keyframes flicker {
-  0%, 19.9% { opacity: 1; }
-  20%, 20.9% { opacity: 1; }
-  21%, 29.9% { opacity: 0.75; }
-  30%, 30.9% { opacity: .5; }
-  31%, 36.9% { opacity: 0; }
-  37%, 38.9% { opacity: 0.9; }
-  39%, 40.9% { opacity: .75; }
-  41%, 100% { opacity: 1; }
-}
 
-    /* Inline style converted for Reset Button */
-    #resetBtn {
-      display: none;
-      position: fixed;
-      bottom: 20px;
-      right: 12px;
-      background-color: transparent;
-      color: #3d79df;
-      border: 1px solid #3d79df;
-      padding: 7px 7px;
-      border-radius: 4px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      z-index: 1001;
-      transition: all 0.3s ease;
+      #week-number {
+        letter-spacing: 2px;
+        -webkit-text-stroke: 4px #3d79df;
+        font-weight: bolder;
+        /* Apply the flicker animation */
+        animation: flicker 1s infinite;
+      }
+
+      @keyframes smoke-rise {
+        0% {
+          transform: translateX(-50%) translateY(0) scale(1);
+          opacity: 1;
+        }
+
+        25% {
+          opacity: 0.9;
+        }
+
+        50% {
+          transform: translateX(-50%) translateY(-80px) scale(1.2);
+          opacity: 0.75;
+        }
+
+        75% {
+          opacity: 0.6;
+        }
+
+        100% {
+          transform: translateX(-50%) translateY(-80px) scale(1.2);
+          opacity: 0.3;
+        }
+      }
+
+      @keyframes flicker {
+
+        0%,
+        19.9% {
+          opacity: 1;
+        }
+
+        20%,
+        20.9% {
+          opacity: 1;
+        }
+
+        21%,
+        29.9% {
+          opacity: 0.75;
+        }
+
+        30%,
+        30.9% {
+          opacity: .5;
+        }
+
+        31%,
+        36.9% {
+          opacity: 0;
+        }
+
+        37%,
+        38.9% {
+          opacity: 0.9;
+        }
+
+        39%,
+        40.9% {
+          opacity: .75;
+        }
+
+        41%,
+        100% {
+          opacity: 1;
+        }
+      }
+
+      /* Inline style converted for Reset Button */
+      #resetBtn {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        right: 12px;
+        background-color: transparent;
+        color: #3d79df;
+        border: 1px solid #3d79df;
+        padding: 7px 7px;
+        border-radius: 4px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        z-index: 1001;
+        transition: all 0.3s ease;
+      }
     }
   </style>
 </head>
