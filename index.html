@@ -265,14 +265,11 @@
   }
   
   @keyframes flicker {
-    0%, 19.9% { opacity: 1; }
-    20%, 20.9% { opacity: 0.5; }
-    21%, 29.9% { opacity: 1; }
-    30%, 30.9% { opacity: 0.2; }
-    31%, 36.9% { opacity: .9; }
-    37%, 38.9% { opacity: 0.5; }
-    39%, 40.9% { opacity: .75; }
-    41%, 100% { opacity: 1; }
+    0%, 19.9%, 21%, 29.9%, 41%, 100% { opacity: 1; color: #3d79df; }
+    20%, 20.9%, 37%, 38.9% { opacity: 0.5; color: #3d79df;}
+    30%, 30.9% { opacity: 0.2; color: #3d79df;}
+    31%, 36.9% { opacity: .9; color: #3d79df;}
+    39%, 40.9% { opacity: .75; color: #3d79df;}
   }
   
   @keyframes fadeIn {
@@ -318,13 +315,10 @@
             rgba(0, 0, 0, 0) 19%,
             rgba(18, 19, 21) 50%,
             rgba(0, 0, 0, 0.8) 90%,
-            #000 101%),
+            #000 100%),
           url(https://www.shutterstock.com/image-illustration/3d-render-soccer-empty-stadium-600nw-2472453011.jpg);
-        /*           background: linear-gradient(to top, #000 3%, rgba(0, 0, 0, 0.8) 5%, rgba(0, 0, 0, 0) 7%, rgba(18, 19, 21) 50%, rgba(0, 0, 0, 0.8) 90%, #000 101%), */
-        /*           url(https://www.shutterstock.com/image-illustration/3d-render-soccer-empty-stadium-600nw-2472453011.jpg); */
-        background-attachment: fixed;
-        background-repeat: round;
         background-size: cover;
+        background-position: center calc(50% - 10px);
         position: fixed;
         top: 0;
         left: 0;
@@ -332,9 +326,9 @@
         height: 100%;
         background-color: #101010;
         display: flex;
-        justify-content: center;
         align-items: center;
         flex-direction: column;
+        justify-content: center;
         z-index: 9999;
         overflow: hidden;
         color: white;
@@ -421,7 +415,8 @@
       #preloader-week {
         font-size: 70px;
         font-weight: bolder;
-        color: #3d79df;
+        /* color: #3d79df; */
+        color: transparent;
         text-align: center;
         margin-top: 2px;
         opacity: 1;
