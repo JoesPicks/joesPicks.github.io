@@ -265,11 +265,16 @@
   }
   
   @keyframes flicker {
-    0%, 19.9%, 21%, 29.9%, 41%, 100% { opacity: 1; color: rgba(61, 121, 223,1);}
+    /* 0%, 19.9%, 21%, 29.9%, 41%, 100% { opacity: 1; color: rgba(61, 121, 223,1);}
     20%, 20.9%, 37%, 38.9% { opacity: 0.5; color: rgba(61, 121, 223,.5);}
     30%, 30.9% { opacity: 0.2; color: rgba(61, 121, 223,.2);}
     31%, 36.9% { opacity: .9; color: rgba(61, 121, 223,.9);}
-    39%, 40.9% { opacity: .75; color: rgba(61, 121, 223,.75);}
+    39%, 40.9% { opacity: .75; color: rgba(61, 121, 223,.75);} */
+    0%, 19.9%, 21%, 29.9%, 41%, 100% { opacity: 1; color: rgba(189, 81, 27, 1);}
+    20%, 20.9%, 37%, 38.9% { opacity: 0.5; color: rgba(189, 81, 27,.5);}
+    30%, 30.9% { opacity: 0.2; color: rgba(189, 81, 27,.2);}
+    31%, 36.9% { opacity: .9; color: rgba(189, 81, 27,.9);}
+    39%, 40.9% { opacity: .75; color: rgba(189, 81, 27,.75);}
   }
   
   @keyframes fadeIn {
@@ -317,7 +322,8 @@
             rgba(0, 0, 0, 0) 60%,
             rgba(0, 0, 0, 0.8) 90%,
             #000 100%),
-          url(https://raw.githubusercontent.com/6630180REM/Images/refs/heads/main/Background.jpeg);
+          /* url(https://raw.githubusercontent.com/6630180REM/Images/refs/heads/main/Background.jpeg); */
+        url(https://raw.githubusercontent.com/6630180REM/Images/refs/heads/main/Halloween2.jpeg);
         background-size: cover;
         /* background-position: center calc(50% - 10px); */
         background-position: center;
@@ -336,6 +342,8 @@
         color: white;
         padding: 0px;
         transition: opacity .9s ease-out, transform 2s ease-out;
+                background-blend-mode: difference;
+        background-repeat: no-repeat;
       }
 
       .preloader-fade-out {
@@ -358,8 +366,10 @@
         transition: all 1s ease-in-out;
         letter-spacing: 4px;
         color: transparent;
-        -webkit-text-stroke: 5px #3d79df;
-        color: #3d79df;
+        /* -webkit-text-stroke: 5px #3d79df; */
+        /* color: #3d79df; */
+        -webkit-text-stroke: 5px #bd511b;
+        color: #bd511b;
           text-shadow: 4px 4px 8px rgba(0, 0, 0, .7);
         /* animation: increaseStroke 3s linear forwards; */
       }
@@ -421,7 +431,8 @@
       #preloader-week {
         font-size: 70px;
         font-weight: bolder;
-        color: #3d79df;
+        /* color: #3d79df; */
+        color: #bd511b;
         /* color: transparent; */
         text-align: center;
         margin-top: 2px;
@@ -436,6 +447,7 @@
       #week-number {
         letter-spacing: 2px;
         -webkit-text-stroke: 3px #3d79df;
+        -webkit-text-stroke: 3px #bd511b;
         font-weight: bolder;
         /* Apply the flicker animation */
         /* animation: flicker 2s infinite;  */
