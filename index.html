@@ -1235,20 +1235,29 @@
     // ==========================
     // DOMContentLoaded Handler
     // ==========================
-document.addEventListener('DOMContentLoaded', function () {
-      const preloader = document.getElementById('preloader');
-      const iframe = document.querySelector('iframe');
-      const resetButton = document.getElementById('resetBtn');
-      if (!isStandalone()) { resetButton.style.display = 'none'; }
-      iframe.onload = function () {
-        setTimeout(() => {
-          preloader.classList.add('preloader-fade-out');
-          setTimeout(() => {
-            preloader.style.display = 'none';
-          }, 4500);
-        }, 1000);
-      };
-    });
+document.addEventListener('DOMContentLoaded', function () { 
+  const preloader = document.getElementById('preloader');
+  const iframe = document.querySelector('iframe');
+  const resetButton = document.getElementById('resetBtn');
+
+  if (!isStandalone()) {
+    resetButton.style.display = 'none';
+  }
+
+  iframe.onload = function () {
+    // SHOW PRELOADER FOR 4.5 SEC TOTAL
+    setTimeout(() => {
+      preloader.classList.add('preloader-fade-out');
+
+      // Remove exactly when the transition ends
+      preloader.addEventListener('transitionend', () => {
+        preloader.style.display = 'none';
+      }, { once: true });
+
+    }, 4500); // keep visible 4.5 sec before fade starts
+  };
+});
+
 
     // ==========================
     // Device and Platform Utilities
