@@ -1236,24 +1236,19 @@
     // DOMContentLoaded Handler
     // ==========================
 document.addEventListener('DOMContentLoaded', function () {
-  const preloader = document.getElementById('preloader');
-  const iframe = document.querySelector('iframe');
-  const resetButton = document.getElementById('resetBtn');
-  if (!isStandalone()) {
-    resetButton.style.display = 'none';
-  }
-  iframe.onload = function () {
-    setTimeout(() => {
-      preloader.classList.add('preloader-fade-out');
-      preloader.addEventListener('transitionend', function(event) {
-        if (event.propertyName === 'opacity') { =
-          preloader.style.display = 'none';
-        }
-      }, { once: true });=
-      
-    }, 4500);
-  };
-});
+      const preloader = document.getElementById('preloader');
+      const iframe = document.querySelector('iframe');
+      const resetButton = document.getElementById('resetBtn');
+      if (!isStandalone()) { resetButton.style.display = 'none'; }
+      iframe.onload = function () {
+        setTimeout(() => {
+          preloader.classList.add('preloader-fade-out');
+          setTimeout(() => {
+            preloader.style.display = 'none';
+          }, 4500);
+        }, 1000);
+      };
+    });
 
     // ==========================
     // Device and Platform Utilities
