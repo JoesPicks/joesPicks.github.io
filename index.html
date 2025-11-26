@@ -277,9 +277,9 @@
   }
   
   @keyframes flicker {
-    /* 0%, 19.9%, 21%, 29.9%, 41%, 100% { opacity: 1; color: rgba(61, 121, 223,1);}
-    20%, 20.9%, 37%, 38.9% { opacity: 0.5; color: rgba(61, 121, 223,.5);}
-    30%, 30.9% { opacity: 0.2; color: rgba(61, 121, 223,.2);}
+    /* 0%, 19.9%, 21%, 29.9%, 41%, 100% {  1; color: rgba(61, 121, 223,1);}
+    20%, 20.9%, 37%, 38.9% {  0.5; color: rgba(61, 121, 223,.5);}
+    30%, 30.9% {  0.2; color: rgba(61, 121, 223,.2);}
     31%, 36.9% { opacity: .9; color: rgba(61, 121, 223,.9);}
     39%, 40.9% { opacity: .75; color: rgba(61, 121, 223,.75);} */
     /* 0%, 19.9%, 21%, 29.9%, 41%, 100% { opacity: 1; color: rgba(189, 81, 27, 1);}
@@ -363,10 +363,12 @@
         transition: opacity .9s ease-out, transform 2s ease-out;
         /* background-blend-mode: difference; */
         background-repeat: no-repeat;
+        opacity: 1;
+         transition: opacity 0.5s ease-out; 
       }
 
       .preloader-fade-out {
-        opacity: .0;
+        opacity: 0;
         background: #0c1016 !important;
         transform: scale(54) translateY(-255px);
       }
@@ -1233,20 +1235,25 @@
     // ==========================
     // DOMContentLoaded Handler
     // ==========================
-    document.addEventListener('DOMContentLoaded', function () {
-      const preloader = document.getElementById('preloader');
-      const iframe = document.querySelector('iframe');
-      const resetButton = document.getElementById('resetBtn');
-      if (!isStandalone()) { resetButton.style.display = 'none'; }
-      iframe.onload = function () {
-        setTimeout(() => {
-          preloader.classList.add('preloader-fade-out');
-          setTimeout(() => {
-            preloader.style.display = 'none';
-          }, 4500);
-        }, 1000);
-      };
-    });
+document.addEventListener('DOMContentLoaded', function () {
+  const preloader = document.getElementById('preloader');
+  const iframe = document.querySelector('iframe');
+  const resetButton = document.getElementById('resetBtn');
+  if (!isStandalone()) {
+    resetButton.style.display = 'none';
+  }
+  iframe.onload = function () {
+    setTimeout(() => {
+      preloader.classList.add('preloader-fade-out');
+      preloader.addEventListener('transitionend', function(event) {
+        if (event.propertyName === 'opacity') { =
+          preloader.style.display = 'none';
+        }
+      }, { once: true });=
+      
+    }, 4500);
+  };
+});
 
     // ==========================
     // Device and Platform Utilities
