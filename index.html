@@ -28,15 +28,15 @@
   <style>
     :root {
       --header-color: #0c1016;
-      /* --primary-color: #3665a8; 
+      --primary-color: #3665a8; 
       --secondary-color: #587fb7;
-      --secondary-color2: #7a99c6;*/
+      --secondary-color2: #7a99c6;
       /* --primary-color: #bd511b;  --HALLOWEEN
       --secondary-color: #ff9E00;   --HALLOWEEN
       --secondary-color2: #ff8400;  --HALLOWEEN */
-      --primary-color: #a71500;     
-      --secondary-color: #d65105;   
-      --secondary-color2: #d95e06; 
+      /* --primary-color: #a71500;  --THANKSGIVING    
+      --secondary-color: #d65105;   --THANKSGIVING    
+      --secondary-color2: #d95e06;  --THANKSGIVING */
     }
     /* ===================================
        General / Page Layout
@@ -339,9 +339,9 @@
                     rgba(12, 16, 22, 0) 60%,
                     rgba(12, 16, 22, 0.8) 90%,
                     #0c1016 100%),
-        /* url(https://raw.githubusercontent.com/KSWENSON2/Images/refs/heads/main/Background.jpeg); */
+        url(https://raw.githubusercontent.com/KSWENSON2/Images/refs/heads/main/Background.jpeg);
         /* url(https://raw.githubusercontent.com/KSWENSON2/Images/refs/heads/main/Halloween2.jpeg); */
-        url(https://raw.githubusercontent.com/KSWENSON2/Images/refs/heads/main/ThanksgivingLoader.jpeg);
+        /* url(https://raw.githubusercontent.com/KSWENSON2/Images/refs/heads/main/ThanksgivingLoader.jpeg); */
         background-size: cover;
         /* background-size: inherit; */
         /* background-position: center calc(50% - 10px); */
@@ -480,12 +480,11 @@
     animation: flicker 2s infinite; 
   }
 
-    #leaves {
+    /* #leaves {
       position: fixed;
       top: -70px;
       width: 100%;
       text-align: center;
-      /* z-index: 9999; */
       height: 100%;
 }
 
@@ -496,8 +495,6 @@
     background: linear-gradient(to bottom right, #a71500, #d95e06);
     transform: skew(20deg);
     border-radius: 5% 40% 70%;
-    /* box-shadow: inset 0px 0px 1px #222; */
-    /* border: 1px solid #333; */
     z-index: 1;
     -webkit-animation: falling 5s 0s infinite;
 }
@@ -676,6 +673,154 @@
         -webkit-transform: translate3d(0px,680px,0) rotate(0deg);
         opacity: 0;
     }
+} */
+
+          #snow {
+      position: fixed;
+      top: -70px;
+      width: 100%;
+      text-align: center;
+      /* z-index: 9999; */
+      height: 100%;
+      /* Changed from 'snow' to 'snowflakes' for clarity */
+}
+
+/* Base styles for the snowflakes */
+#snow i {
+    display: inline-block;
+    /* Simplified shape to a small, white circle (snowflake) */
+    width: 15px;
+    height: 15px;
+    background: #fff; /* White color */
+    border-radius: 50%; /* Makes it a circle */
+    z-index: 1;
+    /* Adjusted animation name and duration for a gentle fall */
+    -webkit-animation: falling-snow 10s 0s infinite linear;
+    animation: falling-snow 10s 0s infinite linear;
+}
+
+/* Remove all complex pseudo-elements used to shape the snow */
+#snow i:before,
+#snow i:after {
+  display: none;
+}
+
+/* Remove all specific nth-of-type overrides that shaped the snow */
+#snow i:nth-of-type(n),
+#snow i:nth-of-type(2n+1),
+#snow i:nth-of-type(3n+2),
+#snow i:nth-of-type(2n+2),
+#snow i:nth-of-type(4n+1) {
+    /* Reset these to the base styles above */
+    background: #fff;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    transform: none;
+    opacity: 0.8;
+}
+
+/* Adjust sizes randomly for a more natural look */
+#snow i:nth-of-type(2n) {
+  width: 10px;
+  height: 10px;
+  -webkit-animation: falling-snow2 12s 0s infinite linear;
+  animation: falling-snow2 12s 0s infinite linear;
+}
+#snow i:nth-of-type(3n) {
+  width: 18px;
+  height: 18px;
+  -webkit-animation: falling-snow3 8s 0s infinite linear;
+  animation: falling-snow3 8s 0s infinite linear;
+}
+
+/* Animation delays (keep these for variation) */
+#snow i:nth-of-type(n)    { -webkit-animation-delay: 1.9s; animation-delay: 1.9s;}
+#snow i:nth-of-type(2n)  { -webkit-animation-delay: 3.9s; animation-delay: 3.9s;}
+#snow i:nth-of-type(3n)  { -webkit-animation-delay: 2.3s; animation-delay: 2.3s;}
+/* ... (rest of the delays remain the same) ... */
+#snow i:nth-of-type(4n)  { -webkit-animation-delay: 4.4s; animation-delay: 4.4s;}
+#snow i:nth-of-type(5n)  { -webkit-animation-delay: 3s; animation-delay: 3s;  }
+#snow i:nth-of-type(6n)  { -webkit-animation-delay: 3.5s; animation-delay: 3.5s;}
+#snow i:nth-of-type(7n)  { -webkit-animation-delay: 2.8s; animation-delay: 2.8s;}
+#snow i:nth-of-type(8n)  { -webkit-animation-delay: 1.5s; animation-delay: 1.5s;}
+#snow i:nth-of-type(9n)  { -webkit-animation-delay: 3.3s; animation-delay: 3.3s;}
+#snow i:nth-of-type(10n) { -webkit-animation-delay: 2.5s; animation-delay: 2.5s;}
+#snow i:nth-of-type(11n) { -webkit-animation-delay: .3s; animation-delay: .3s;}
+#snow i:nth-of-type(12n) { -webkit-animation-delay: 4.1s; animation-delay: 4.1s;}
+#snow i:nth-of-type(13n) { -webkit-animation-delay: 1s; animation-delay: 1s;  }
+#snow i:nth-of-type(14n) { -webkit-animation-delay: 4.7s; animation-delay: 4.7s;}
+#snow i:nth-of-type(15n) { -webkit-animation-delay: 3s; animation-delay: 3s;  }
+#snow i:nth-of-type(16n) { -webkit-animation-delay: .75s; animation-delay: .75s;}
+#snow i:nth-of-type(17n) { -webkit-animation-delay: .2s; animation-delay: .2s;}
+#snow i:nth-of-type(18n) { -webkit-animation-delay: 1.9s; animation-delay: 1.9s;}
+#snow i:nth-of-type(19n) { -webkit-animation-delay: .5s; animation-delay: .5s;  }
+#snow i:nth-of-type(20n) { -webkit-animation-delay: 2.7s; animation-delay: 2.7s;}
+
+
+/* Keyframe animations for falling snow (smoother movement, no rotation) */
+@-webkit-keyframes falling-snow {
+    0% {
+        -webkit-transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+    100% {
+        /* Fall further down the screen (assuming typical screen height) */
+        -webkit-transform: translate3d(50px, 100vh, 0);
+        opacity: 0.1;
+    }
+}
+@keyframes falling-snow {
+    0% {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate3d(50px, 100vh, 0);
+        opacity: 0.1;
+    }
+}
+
+@-webkit-keyframes falling-snow2 {
+     0% {
+        -webkit-transform: translate3d(0, 0, 0);
+        opacity: 0.9;
+    }
+    100% {
+        -webkit-transform: translate3d(-30px, 100vh, 0);
+        opacity: 0.1;
+    }
+}
+@keyframes falling-snow2 {
+     0% {
+        transform: translate3d(0, 0, 0);
+        opacity: 0.9;
+    }
+    100% {
+        transform: translate3d(-30px, 100vh, 0);
+        opacity: 0.1;
+    }
+}
+
+@-webkit-keyframes falling-snow3 {
+     0% {
+        -webkit-transform: translate3d(0, 0, 0);
+         opacity: 0.8;
+    }
+    100% {
+        -webkit-transform: translate3d(20px, 100vh, 0);
+        opacity: 0.1;
+    }
+}
+@keyframes falling-snow3 {
+     0% {
+        transform: translate3d(0, 0, 0);
+         opacity: 0.8;
+    }
+    100% {
+        transform: translate3d(20px, 100vh, 0);
+        opacity: 0.1;
+    }
 }
         .preloader-details {
         margin-top: 15px;
@@ -731,27 +876,13 @@
     <div class="preloader-details">
       <span class="preloader-details-text">HAPPY<br>THANKSGIVING</span>
     </div>
-    <div id="leaves">
-      <i></i>
-      <i></i>
-      <i></i>
-      <i></i>
-      <i></i>
-      <i></i>
-      <i></i>
-      <i></i>
-      <i></i>
-      <i></i>
-      <i></i>
-      <i></i>
-      <i></i>
-      <i></i>
-      <i></i> 
-      <i></i>
-      <i></i>
-      <i></i>
-      <i></i>
-      <i></i> 
+    <!-- <div id="leaves"> -->
+    <div id="snow">
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
     </div>
     <button id="resetBtn" onclick="resetNotifications()" aria-label="Reset Notifications">Reset Notifications</button>
   </div>
