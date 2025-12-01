@@ -277,21 +277,21 @@
   }
   
   @keyframes flicker {
-    /* 0%, 19.9%, 21%, 29.9%, 41%, 100% {  1; color: rgba(61, 121, 223,1);}
+    0%, 19.9%, 21%, 29.9%, 41%, 100% {  1; color: rgba(61, 121, 223,1);}
     20%, 20.9%, 37%, 38.9% {  0.5; color: rgba(61, 121, 223,.5);}
     30%, 30.9% {  0.2; color: rgba(61, 121, 223,.2);}
     31%, 36.9% { opacity: .9; color: rgba(61, 121, 223,.9);}
-    39%, 40.9% { opacity: .75; color: rgba(61, 121, 223,.75);} */
-    /* 0%, 19.9%, 21%, 29.9%, 41%, 100% { opacity: 1; color: rgba(189, 81, 27, 1);}
+    39%, 40.9% { opacity: .75; color: rgba(61, 121, 223,.75);}
+    /* 0%, 19.9%, 21%, 29.9%, 41%, 100% { opacity: 1; color: rgba(189, 81, 27, 1);}  --HALLOWEEN
     20%, 20.9%, 37%, 38.9% { opacity: 0.5; color: rgba(189, 81, 27,.5);}
     30%, 30.9% { opacity: 0.2; color: rgba(189, 81, 27,.2);}
     31%, 36.9% { opacity: .9; color: rgba(189, 81, 27,.9);}
     39%, 40.9% { opacity: .75; color: rgba(189, 81, 27,.75);} */
-    0%, 19.9%, 21%, 29.9%, 41%, 100% { opacity: 1; color: rgba(167, 21, 0, 1);}
+    /* 0%, 19.9%, 21%, 29.9%, 41%, 100% { opacity: 1; color: rgba(167, 21, 0, 1);} --THANKSGIVING
     20%, 20.9%, 37%, 38.9% { opacity: 0.5; color: rgba(167, 21, 0, .5);}
     30%, 30.9% { opacity: 0.2; color: rgba(167, 21, 0, .2);}
     31%, 36.9% { opacity: .9; color: rgba(167, 21, 0, .9);}
-    39%, 40.9% { opacity: .75; color: rgba(167, 21, 0, .75);}
+    39%, 40.9% { opacity: .75; color: rgba(167, 21, 0, .75);} */
   }
   
   @keyframes fadeIn {
@@ -689,8 +689,8 @@
 #snow i {
     display: inline-block;
     /* Simplified shape to a small, white circle (snowflake) */
-    width: 15px;
-    height: 15px;
+    width: 8px;
+    height: 8px;
     background: #fff; /* White color */
     border-radius: 50%; /* Makes it a circle */
     z-index: 1;
@@ -713,8 +713,8 @@
 #snow i:nth-of-type(4n+1) {
     /* Reset these to the base styles above */
     background: #fff;
-    width: 15px;
-    height: 15px;
+    width: 11px;
+    height: 11px;
     border-radius: 50%;
     transform: none;
     opacity: 0.8;
@@ -722,14 +722,14 @@
 
 /* Adjust sizes randomly for a more natural look */
 #snow i:nth-of-type(2n) {
-  width: 10px;
-  height: 10px;
+  width: 6px;
+  height: 6px;
   -webkit-animation: falling-snow2 12s 0s infinite linear;
   animation: falling-snow2 12s 0s infinite linear;
 }
 #snow i:nth-of-type(3n) {
-  width: 18px;
-  height: 18px;
+  width: 5px;
+  height: 5px;
   -webkit-animation: falling-snow3 8s 0s infinite linear;
   animation: falling-snow3 8s 0s infinite linear;
 }
@@ -873,9 +873,9 @@
     <div id="preloader-week">
       <span id="week-number"></span>
     </div>
-    <div class="preloader-details">
+    <!-- <div class="preloader-details">
       <span class="preloader-details-text">HAPPY<br>THANKSGIVING</span>
-    </div>
+    </div> -->
     <!-- <div id="leaves"> -->
     <div id="snow">
       <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
