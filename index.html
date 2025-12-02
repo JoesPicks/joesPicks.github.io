@@ -676,43 +676,35 @@
     }
 } */
 
-          #snow {
+          /* #snow {
       position: fixed;
       top: -70px;
       width: 100%;
       text-align: center;
-      /* z-index: 9999; */
       height: 100%;
-      /* Changed from 'snow' to 'snowflakes' for clarity */
 }
 
-/* Base styles for the snowflakes */
 #snow i {
     display: inline-block;
-    /* Simplified shape to a small, white circle (snowflake) */
     width: 8px;
     height: 8px;
-    background: #fff; /* White color */
-    border-radius: 50%; /* Makes it a circle */
+    background: #fff; 
+    border-radius: 50%;
     z-index: 1;
-    /* Adjusted animation name and duration for a gentle fall */
     -webkit-animation: falling-snow 10s 0s infinite linear;
     animation: falling-snow 10s 0s infinite linear;
 }
 
-/* Remove all complex pseudo-elements used to shape the snow */
 #snow i:before,
 #snow i:after {
   display: none;
 }
 
-/* Remove all specific nth-of-type overrides that shaped the snow */
 #snow i:nth-of-type(n),
 #snow i:nth-of-type(2n+1),
 #snow i:nth-of-type(3n+2),
 #snow i:nth-of-type(2n+2),
 #snow i:nth-of-type(4n+1) {
-    /* Reset these to the base styles above */
     background: #fff;
     width: 9px;
     height: 9px;
@@ -721,7 +713,6 @@
     opacity: 0.8;
 }
 
-/* Adjust sizes randomly for a more natural look */
 #snow i:nth-of-type(2n) {
   width: 6px;
   height: 6px;
@@ -735,11 +726,9 @@
   animation: falling-snow3 8s 0s infinite linear;
 }
 
-/* Animation delays (keep these for variation) */
 #snow i:nth-of-type(n)    { -webkit-animation-delay: 1.9s; animation-delay: 1.9s;}
 #snow i:nth-of-type(2n)  { -webkit-animation-delay: 3.9s; animation-delay: 3.9s;}
 #snow i:nth-of-type(3n)  { -webkit-animation-delay: 2.3s; animation-delay: 2.3s;}
-/* ... (rest of the delays remain the same) ... */
 #snow i:nth-of-type(4n)  { -webkit-animation-delay: 4.4s; animation-delay: 4.4s;}
 #snow i:nth-of-type(5n)  { -webkit-animation-delay: 3s; animation-delay: 3s;  }
 #snow i:nth-of-type(6n)  { -webkit-animation-delay: 3.5s; animation-delay: 3.5s;}
@@ -759,14 +748,12 @@
 #snow i:nth-of-type(20n) { -webkit-animation-delay: 2.7s; animation-delay: 2.7s;}
 
 
-/* Keyframe animations for falling snow (smoother movement, no rotation) */
 @-webkit-keyframes falling-snow {
     0% {
         -webkit-transform: translate3d(0, 0, 0);
         opacity: 1;
     }
     100% {
-        /* Fall further down the screen (assuming typical screen height) */
         -webkit-transform: translate3d(50px, 100vh, 0);
         opacity: 0.1;
     }
@@ -822,7 +809,57 @@
         transform: translate3d(20px, 100vh, 0);
         opacity: 0.1;
     }
+} */
+
+$d: 20;      // density
+$w: 300;     // grid size
+$s: 6s;       // speed
+
+
+$grad: ();
+@for $i from 0 to $d {
+  $v: random(4) + 2;
+  $a: random(5) * .1 + .5;
+  $grad: $grad, radial-gradient(
+      $v+px $v+px at
+      (random($w - $v * 2) + $v)+px
+      (random($w - $v * 2) + $v)+px, 
+      rgba(255,255,255,$a) 50%,
+      rgba(0,0,0,0)
+  ) !global;
 }
+
+.snow, .snow:before, .snow:after {
+  position: absolute;
+  top: -$w + px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-image: $grad;
+  background-size: $w + px $w + px;
+  animation: snow $s linear infinite;
+  content: "";
+}
+.snow:after {
+  margin-left: -$w/3 + px;
+  opacity: .4;
+  animation-duration: $s*2;
+  animation-direction: reverse;
+  filter: blur(3px);
+}
+.snow:before {
+  animation-duration: $s*3;
+  animation-direction: reverse;
+  margin-left: -$w/2 + px;
+  opacity: .65;
+  filter: blur(1.5px);
+}
+@keyframes snow {
+  to {
+    transform: translateY($w + px);
+  }
+}
+
         .preloader-details {
         margin-top: 15px;
           margin-bottom: 20px;
@@ -878,13 +915,14 @@
       <span class="preloader-details-text">HAPPY<br>THANKSGIVING</span>
     </div> -->
     <!-- <div id="leaves"> -->
-    <div id="snow">
+    <!-- <div id="snow">
       <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
       <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
       <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
       <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
       <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-    </div>
+    </div> -->
+    <div class="snow"></div>
     <button id="resetBtn" onclick="resetNotifications()" aria-label="Reset Notifications">Reset Notifications</button>
   </div>
 
@@ -953,6 +991,7 @@
        Main App Script
   ======================== -->
   <script>
+    
     // --- Firebase and Notification Globals ---
     let messaging;
     let db;
