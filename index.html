@@ -1067,7 +1067,9 @@ db = firebase.firestore();
 
 // Service Worker Registration
 if ('serviceWorker' in navigator) {
-  const swPath = '/firebase-messaging-sw.js';
+
+const swVersion = "v2";  // ← change this whenever you publish new code
+const swPath = `/firebase-messaging-sw.js?${swVersion}`;
 
   navigator.serviceWorker.register(swPath)
     .then(async registration => {
