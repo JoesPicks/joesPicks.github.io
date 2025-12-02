@@ -1063,19 +1063,56 @@
         firebase.initializeApp(firebaseConfig);
       }
       messaging = firebase.messaging();
-      db = firebase.firestore();
+db = firebase.firestore();
 
-      // Service Worker Registration
-      if ('serviceWorker' in navigator) {
-        const swPath = '/firebase-messaging-sw.js';
-        navigator.serviceWorker.register(swPath)
-          .then(registration => {
-            initializeNotifications(registration);
-          })
-          .catch(error => {
-            console.error('Service Worker registration failed:', error.message);
-          });
+// Service Worker Registration
+if ('serviceWorker' in navigator) {
+  const swPath = '/firebase-messaging-sw.js';
+
+  navigator.serviceWorker.register(swPath)
+    .then(async registration => {
+
+      // --- (1) Force the browser to check for a new service worker immediately
+      try {
+        await registration.update();
+      } catch (e) {
+        console.warn("SW update check failed:", e);
       }
+
+      // --- (2) NEW: If a new service worker is waiting, tell it to activate now
+      if (registration.waiting) {
+        console.log("Sending SKIP_WAITING to waiting service worker");
+        registration.waiting.postMessage({ type: "SKIP_WAITING" });
+      }
+
+      // --- (3) If a new service worker appears, reload the page once it's installed
+      registration.addEventListener("updatefound", () => {
+        const newWorker = registration.installing;
+        newWorker.addEventListener("statechange", () => {
+          if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
+            console.log("New service worker installed — reloading to apply update");
+            window.location.reload();
+          }
+        });
+      });
+
+      // --- (4) Continue with your existing Firebase initialization
+      initializeNotifications(registration);
+
+    })
+    .catch(error => {
+      console.error('Service Worker registration failed:', error.message);
+    });
+}
+
+// Notification Initialization
+function initializeNotifications(registration) {
+  navigator.serviceWorker.addEventListener('message', event => {
+    if (event.data && event.data.type === 'tokenRefresh') {
+      refreshToken();
+    }
+  });
+}
 
       // Notification Initialization
       function initializeNotifications(registration) {
