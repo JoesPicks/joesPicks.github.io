@@ -691,8 +691,8 @@
     background: #fff; 
     border-radius: 50%;
     z-index: 1;
-    -webkit-animation: falling-snow 10s 0s infinite linear;
-    animation: falling-snow 10s 0s infinite linear;
+    -webkit-animation: falling-snow 6s 0s infinite linear;
+    animation: falling-snow 6s 0s infinite linear;
 }
 
 #snow i:before,
@@ -716,8 +716,8 @@
 #snow i:nth-of-type(2n) {
   width: 6px;
   height: 6px;
-  -webkit-animation: falling-snow2 12s 0s infinite linear;
-  animation: falling-snow2 12s 0s infinite linear;
+  -webkit-animation: falling-snow2 4s 0s infinite linear;
+  animation: falling-snow2 4s 0s infinite linear;
 }
 #snow i:nth-of-type(3n) {
   width: 5px;
@@ -729,7 +729,7 @@
 #snow i:nth-of-type(n)   { -webkit-animation-delay: .9s; animation-delay: .9s;}
 #snow i:nth-of-type(2n)  { -webkit-animation-delay: 3.9s; animation-delay: 3.9s;}
 #snow i:nth-of-type(3n)  { -webkit-animation-delay: 2.3s; animation-delay: 2.3s;}
-#snow i:nth-of-type(4n)  { -webkit-animation-delay: 4.4s; animation-delay: 4.4s;}
+#snow i:nth-of-type(4n)  { -webkit-animation-delay: 0s; animation-delay: 0s;}
 #snow i:nth-of-type(5n)  { -webkit-animation-delay: .3s; animation-delay: .3s;}
 #snow i:nth-of-type(6n)  { -webkit-animation-delay: 3.5s; animation-delay: 3.5s;}
 #snow i:nth-of-type(7n)  { -webkit-animation-delay: 2.8s; animation-delay: 2.8s;}
@@ -737,9 +737,9 @@
 #snow i:nth-of-type(9n)  { -webkit-animation-delay: 3.3s; animation-delay: 3.3s;}
 #snow i:nth-of-type(10n) { -webkit-animation-delay: 2.5s; animation-delay: 2.5s;}
 #snow i:nth-of-type(11n) { -webkit-animation-delay: .3s; animation-delay: .3s;}
-#snow i:nth-of-type(12n) { -webkit-animation-delay: 4.1s; animation-delay: 4.1s;}
+#snow i:nth-of-type(12n) { -webkit-animation-delay: .1s; animation-delay: .1s;}
 #snow i:nth-of-type(13n) { -webkit-animation-delay: .1s; animation-delay: .1s;}
-#snow i:nth-of-type(14n) { -webkit-animation-delay: 4.7s; animation-delay: 4.7s;}
+#snow i:nth-of-type(14n) { -webkit-animation-delay: 0s; animation-delay: 0s;}
 #snow i:nth-of-type(15n) { -webkit-animation-delay: 3s; animation-delay: 3s;}
 #snow i:nth-of-type(16n) { -webkit-animation-delay: .75s; animation-delay: .75s;}
 #snow i:nth-of-type(17n) { -webkit-animation-delay: .2s; animation-delay: .2s;}
@@ -755,7 +755,7 @@
     }
     100% {
         -webkit-transform: translate3d(50px, 100vh, 0);
-        opacity: 0.1;
+        opacity: 0.5;
     }
 }
 @keyframes falling-snow {
@@ -807,7 +807,7 @@
     }
     100% {
         transform: translate3d(20px, 100vh, 0);
-        opacity: 0.1;
+        opacity: 0.5;
     }
 } 
 
