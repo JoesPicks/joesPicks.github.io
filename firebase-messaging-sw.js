@@ -17,6 +17,13 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
+// in firebase-messaging-sw.js
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
+
 // Handle notification click
 self.addEventListener('notificationclick', function(event) {
     console.log('Notification clicked:', event.notification);
