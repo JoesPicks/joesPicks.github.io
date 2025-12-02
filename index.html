@@ -713,8 +713,8 @@
 #snow i:nth-of-type(4n+1) {
     /* Reset these to the base styles above */
     background: #fff;
-    width: 11px;
-    height: 11px;
+    width: 9px;
+    height: 9px;
     border-radius: 50%;
     transform: none;
     opacity: 0.8;
@@ -1068,7 +1068,7 @@ db = firebase.firestore();
 // Service Worker Registration
 if ('serviceWorker' in navigator) {
 
-const swVersion = "v2";  // ← change this whenever you publish new code
+const swVersion = "v3";  // ← change this whenever you publish new code
 const swPath = `/firebase-messaging-sw.js?${swVersion}`;
 
   navigator.serviceWorker.register(swPath)
