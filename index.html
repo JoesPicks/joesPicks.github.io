@@ -676,7 +676,7 @@
     }
 } */
 
-          /* #snow {
+    #snow {
       position: fixed;
       top: -70px;
       width: 100%;
@@ -726,25 +726,25 @@
   animation: falling-snow3 8s 0s infinite linear;
 }
 
-#snow i:nth-of-type(n)    { -webkit-animation-delay: 1.9s; animation-delay: 1.9s;}
+#snow i:nth-of-type(n)   { -webkit-animation-delay: .9s; animation-delay: .9s;}
 #snow i:nth-of-type(2n)  { -webkit-animation-delay: 3.9s; animation-delay: 3.9s;}
 #snow i:nth-of-type(3n)  { -webkit-animation-delay: 2.3s; animation-delay: 2.3s;}
 #snow i:nth-of-type(4n)  { -webkit-animation-delay: 4.4s; animation-delay: 4.4s;}
-#snow i:nth-of-type(5n)  { -webkit-animation-delay: 3s; animation-delay: 3s;  }
+#snow i:nth-of-type(5n)  { -webkit-animation-delay: .3s; animation-delay: .3s;}
 #snow i:nth-of-type(6n)  { -webkit-animation-delay: 3.5s; animation-delay: 3.5s;}
 #snow i:nth-of-type(7n)  { -webkit-animation-delay: 2.8s; animation-delay: 2.8s;}
-#snow i:nth-of-type(8n)  { -webkit-animation-delay: 1.5s; animation-delay: 1.5s;}
+#snow i:nth-of-type(8n)  { -webkit-animation-delay: .15s; animation-delay: .15s;}
 #snow i:nth-of-type(9n)  { -webkit-animation-delay: 3.3s; animation-delay: 3.3s;}
 #snow i:nth-of-type(10n) { -webkit-animation-delay: 2.5s; animation-delay: 2.5s;}
 #snow i:nth-of-type(11n) { -webkit-animation-delay: .3s; animation-delay: .3s;}
 #snow i:nth-of-type(12n) { -webkit-animation-delay: 4.1s; animation-delay: 4.1s;}
-#snow i:nth-of-type(13n) { -webkit-animation-delay: 1s; animation-delay: 1s;  }
+#snow i:nth-of-type(13n) { -webkit-animation-delay: .1s; animation-delay: .1s;}
 #snow i:nth-of-type(14n) { -webkit-animation-delay: 4.7s; animation-delay: 4.7s;}
-#snow i:nth-of-type(15n) { -webkit-animation-delay: 3s; animation-delay: 3s;  }
+#snow i:nth-of-type(15n) { -webkit-animation-delay: 3s; animation-delay: 3s;}
 #snow i:nth-of-type(16n) { -webkit-animation-delay: .75s; animation-delay: .75s;}
 #snow i:nth-of-type(17n) { -webkit-animation-delay: .2s; animation-delay: .2s;}
 #snow i:nth-of-type(18n) { -webkit-animation-delay: 1.9s; animation-delay: 1.9s;}
-#snow i:nth-of-type(19n) { -webkit-animation-delay: .5s; animation-delay: .5s;  }
+#snow i:nth-of-type(19n) { -webkit-animation-delay: .25s; animation-delay: .25s;}
 #snow i:nth-of-type(20n) { -webkit-animation-delay: 2.7s; animation-delay: 2.7s;}
 
 
@@ -809,50 +809,8 @@
         transform: translate3d(20px, 100vh, 0);
         opacity: 0.1;
     }
-} */
+} 
 
-@function random_range($min, $max) {
-  $rand: random();
-  $random_range: $min + floor($rand * (($max - $min) + 1));
-  @return $random_range;
-}
-
-.snow {
-  $total: 200;
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background: white;
-  border-radius: 50%;
-
-  @for $i from 1 through $total {
-    $random-x: random(1000000) * 0.0001vw;
-    $random-offset: random_range(-100000, 100000) * 0.0001vw;
-    $random-x-end: $random-x + $random-offset;
-    $random-x-end-yoyo: $random-x + ($random-offset / 2);
-    $random-yoyo-time: random_range(30000, 80000) / 100000;
-    $random-yoyo-y: $random-yoyo-time * 100vh;
-    $random-scale: random(10000) * 0.0001;
-    $fall-duration: random_range(10, 30) * 1s;
-    $fall-delay: random(30) * -1s;
-
-    &:nth-child(#{$i}) {
-      opacity: random(10000) * 0.0001;
-      transform: translate($random-x, -10px) scale($random-scale);
-      animation: fall-#{$i} $fall-duration $fall-delay linear infinite;
-    }
-
-    @keyframes fall-#{$i} {
-      #{percentage($random-yoyo-time)} {
-        transform: translate($random-x-end, $random-yoyo-y) scale($random-scale);
-      }
-
-      to {
-        transform: translate($random-x-end-yoyo, 100vh) scale($random-scale);
-      }
-    }
-  }
-}
 
         .preloader-details {
         margin-top: 15px;
@@ -909,26 +867,11 @@
       <span class="preloader-details-text">HAPPY<br>THANKSGIVING</span>
     </div> -->
     <!-- <div id="leaves"> -->
-    <!-- <div id="snow">
-      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-    </div> -->
-<div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div>
-<div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div>
-<div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div>
-<div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div>
-<div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div>
-<div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div>
-<div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div>
-<div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div>
-<div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div>
-<div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div>
-<div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div>
-<div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div>
-<div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div><div class="snow"></div>
+    <div id="snow">
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+    </div>
     <button id="resetBtn" onclick="resetNotifications()" aria-label="Reset Notifications">Reset Notifications</button>
   </div>
 
