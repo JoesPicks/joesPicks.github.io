@@ -694,10 +694,11 @@
       background: white;
       border-radius: 50%;
       opacity: 0.9;
+      will-change: transform;
       animation:
-        fall linear infinite,
-        sway var(--sway-duration) ease-in-out infinite;
-      offset-path: path("M0,0 C20,25 -20,40 0,60");
+        fall linear infinite;
+        /* sway var(--sway-duration) ease-in-out infinite; */
+      offset-path: path("M0,0 C0,20 -27,64 0,60");
     }
     
     
@@ -706,22 +707,19 @@
     .snowflake.small {
       width: 4px;
       height: 4px;
-      opacity: 1;
-      animation-duration: 10s;
+      opacity: .9;
     }
     
     .snowflake.medium {
       width: 6px;
       height: 6px;
       opacity: .8;
-      animation-duration: 7s;
     }
     
     .snowflake.large {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       opacity: 1;
-      animation-duration: 5s;
     }
     
     @keyframes fall {
@@ -733,11 +731,11 @@
       }
     }
     
-    @keyframes sway {
-      0%   { offset-distance: 30%; }
+    /* @keyframes sway {
+      0%   { offset-distance: 0%; }
       50%  { offset-distance: 25%; }
-      100% { offset-distance: 20%; }
-    }
+      100% { offset-distance: 25%; }
+    } */
 
         .preloader-details {
         margin-top: 15px;
@@ -1516,7 +1514,7 @@ document.addEventListener("DOMContentLoaded", () => {
     flake.style.left = Math.random() * 100 + "vw";
     flake.style.animationDelay = Math.random() * 10 + "s";
     flake.style.animationDuration = (5 + Math.random() * 10) + "s";
-    flake.style.setProperty("--sway-duration", (3 + Math.random() * 5) + "s");
+    // flake.style.setProperty("--sway-duration", (3 + Math.random() * 5) + "s");
 
     snowContainer.appendChild(flake);
   }
