@@ -677,150 +677,62 @@
 } */
 
     #snow {
-      position: fixed;
-      top: -70px;
-      width: 100%;
-      text-align: center;
-      height: 100%;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 9999;
 }
 
-#snow i {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    background: #fff; 
-    border-radius: 50%;
-    z-index: 1;
-    -webkit-animation: falling-snow 6s 0s infinite linear;
-    animation: falling-snow 6s 0s infinite linear;
+.snowflake {
+  position: absolute;
+  top: -10px;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.9;
+  animation: fall linear infinite, sway ease-in-out infinite;
 }
 
-#snow i:before,
-#snow i:after {
-  display: none;
+/* Different depths */
+.snowflake.small {
+  width: 4px;
+  height: 4px;
+  opacity: 0.6;
+  animation-duration: 10s;
 }
 
-#snow i:nth-of-type(n),
-#snow i:nth-of-type(2n+1),
-#snow i:nth-of-type(3n+2),
-#snow i:nth-of-type(2n+2),
-#snow i:nth-of-type(4n+1) {
-    background: #fff;
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    transform: none;
-    opacity: 0.8;
-}
-
-#snow i:nth-of-type(2n) {
+.snowflake.medium {
   width: 6px;
   height: 6px;
-  -webkit-animation: falling-snow2 4s 0s infinite linear;
-  animation: falling-snow2 4s 0s infinite linear;
-}
-#snow i:nth-of-type(3n) {
-  width: 5px;
-  height: 5px;
-  -webkit-animation: falling-snow3 8s 0s infinite linear;
-  animation: falling-snow3 8s 0s infinite linear;
+  opacity: 0.75;
+  animation-duration: 7s;
 }
 
-#snow i:nth-of-type(n)   { -webkit-animation-delay: .9s; animation-delay: .9s;}
-#snow i:nth-of-type(2n)  { -webkit-animation-delay: 3.9s; animation-delay: 3.9s;}
-#snow i:nth-of-type(3n)  { -webkit-animation-delay: 2.3s; animation-delay: 2.3s;}
-#snow i:nth-of-type(4n)  { -webkit-animation-delay: 0s; animation-delay: 0s;}
-#snow i:nth-of-type(5n)  { -webkit-animation-delay: .3s; animation-delay: .3s;}
-#snow i:nth-of-type(6n)  { -webkit-animation-delay: 3.5s; animation-delay: 3.5s;}
-#snow i:nth-of-type(7n)  { -webkit-animation-delay: 2.8s; animation-delay: 2.8s;}
-#snow i:nth-of-type(8n)  { -webkit-animation-delay: .15s; animation-delay: .15s;}
-#snow i:nth-of-type(9n)  { -webkit-animation-delay: 3.3s; animation-delay: 3.3s;}
-#snow i:nth-of-type(10n) { -webkit-animation-delay: 2.5s; animation-delay: 2.5s;}
-#snow i:nth-of-type(11n) { -webkit-animation-delay: .3s; animation-delay: .3s;}
-#snow i:nth-of-type(12n) { -webkit-animation-delay: .1s; animation-delay: .1s;}
-#snow i:nth-of-type(13n) { -webkit-animation-delay: .1s; animation-delay: .1s;}
-#snow i:nth-of-type(14n) { -webkit-animation-delay: 0s; animation-delay: 0s;}
-#snow i:nth-of-type(15n) { -webkit-animation-delay: 3s; animation-delay: 3s;}
-#snow i:nth-of-type(16n) { -webkit-animation-delay: .75s; animation-delay: .75s;}
-#snow i:nth-of-type(17n) { -webkit-animation-delay: .2s; animation-delay: .2s;}
-#snow i:nth-of-type(18n) { -webkit-animation-delay: 1.9s; animation-delay: 1.9s;}
-#snow i:nth-of-type(19n) { -webkit-animation-delay: .25s; animation-delay: .25s;}
-#snow i:nth-of-type(20n) { -webkit-animation-delay: 3.7s; animation-delay: 3.7s;}
-#snow i:nth-of-type(21n) { -webkit-animation-delay: 4s; animation-delay: 4s;}
-#snow i:nth-of-type(22n) { -webkit-animation-delay: 4.1s; animation-delay: 4.1s;}
-#snow i:nth-of-type(23n) { -webkit-animation-delay: 3.7s; animation-delay: 3.7s;}
-#snow i:nth-of-type(24n) { -webkit-animation-delay: 3.1s; animation-delay: 3.1s;}
-#snow i:nth-of-type(25n) { -webkit-animation-delay: 3s; animation-delay: 3s;}
-#snow i:nth-of-type(26n) { -webkit-animation-delay: 2.75s; animation-delay: 2.75s;}
-#snow i:nth-of-type(27n) { -webkit-animation-delay: 3.2s; animation-delay: 3.2s;}
-#snow i:nth-of-type(28n) { -webkit-animation-delay: 3.9s; animation-delay: 3.9s;}
-#snow i:nth-of-type(29n) { -webkit-animation-delay: 3.25s; animation-delay: 3.25s;}
-#snow i:nth-of-type(30n) { -webkit-animation-delay: 4.2s; animation-delay: 4.2s;}
-
-
-@-webkit-keyframes falling-snow {
-    0% {
-        -webkit-transform: translate3d(0, 0, 0);
-        opacity: 1;
-    }
-    100% {
-        -webkit-transform: translate3d(50px, 100vh, 0);
-        opacity: 0.5;
-    }
-}
-@keyframes falling-snow {
-    0% {
-        transform: translate3d(0, 0, 0);
-        opacity: 1;
-    }
-    100% {
-        transform: translate3d(50px, 100vh, 0);
-        opacity: 0.4;
-    }
+.snowflake.large {
+  width: 9px;
+  height: 9px;
+  opacity: 1;
+  animation-duration: 5s;
 }
 
-@-webkit-keyframes falling-snow2 {
-     0% {
-        -webkit-transform: translate3d(0, 0, 0);
-        opacity: 1;
-    }
-    100% {
-        -webkit-transform: translate3d(-30px, 100vh, 0);
-        opacity: 0.5;
-    }
-}
-@keyframes falling-snow2 {
-     0% {
-        transform: translate3d(0, 0, 0);
-        opacity: 0.9;
-    }
-    100% {
-        transform: translate3d(-30px, 100vh, 0);
-        opacity: 0.5;
-    }
+@keyframes fall {
+  from {
+    transform: translateY(-10px);
+  }
+  to {
+    transform: translateY(110vh);
+  }
 }
 
-@-webkit-keyframes falling-snow3 {
-     0% {
-        -webkit-transform: translate3d(0, 0, 0);
-         opacity: 1;
-    }
-    100% {
-        -webkit-transform: translate3d(20px, 100vh, 0);
-        opacity: 0.3;
-    }
+@keyframes sway {
+  0% { transform: translateX(0px); }
+  50% { transform: translateX(30px); }
+  100% { transform: translateX(0px); }
 }
-@keyframes falling-snow3 {
-     0% {
-        transform: translate3d(0, 0, 0);
-         opacity: 1;
-    }
-    100% {
-        transform: translate3d(20px, 100vh, 0);
-        opacity: 0.5;
-    }
-} 
-
 
         .preloader-details {
         margin-top: 15px;
@@ -878,9 +790,9 @@
     </div> -->
     <!-- <div id="leaves"> -->
     <div id="snow">
+      <!-- <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i> 
       <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i> -->
     </div>
     <button id="resetBtn" onclick="resetNotifications()" aria-label="Reset Notifications">Reset Notifications</button>
   </div>
@@ -1587,6 +1499,22 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    const snowContainer = document.getElementById("snow");
+const numFlakes = 80;
+
+for (let i = 0; i < numFlakes; i++) {
+  const flake = document.createElement("div");
+  const sizeClass = ["small", "medium", "large"][Math.floor(Math.random()*3)];
+  
+  flake.classList.add("snowflake", sizeClass);
+  flake.style.left = Math.random() * 100 + "vw";
+  flake.style.animationDelay = Math.random() * 10 + "s";
+  flake.style.animationDuration = (5 + Math.random() * 10) + "s";
+  flake.style.setProperty("--sway-duration", (3 + Math.random() * 5) + "s");
+
+  snowContainer.appendChild(flake);
+}
+    
     // ==========================
     // Google Analytics
     // ==========================
