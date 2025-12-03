@@ -678,7 +678,7 @@
 
     #snow {
   position: fixed;
-  top: 0;
+  top: -10px;
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -710,37 +710,37 @@
 .snowflake.small {
   width: 4px;
   height: 4px;
-  opacity: 0.6;
+  opacity: 1;
   animation-duration: 10s;
 }
 
 .snowflake.medium {
   width: 6px;
   height: 6px;
-  opacity: 0.75;
+  opacity: .8;
   animation-duration: 7s;
 }
 
 .snowflake.large {
-  width: 9px;
-  height: 9px;
+  width: 8px;
+  height: 8px;
   opacity: 1;
   animation-duration: 5s;
 }
 
 @keyframes fall {
   from {
-    transform: translateY(-10px);
+    transform: translateY(0px);
   }
   to {
-    transform: translateY(110vh);
+    transform: translateY(150vh);
   }
 }
 
 @keyframes sway {
   0%   { offset-distance: 0%; }
-  50%  { offset-distance: 50%; }
-  100% { offset-distance: 100%; }
+  50%  { offset-distance: 29%; }
+  100% { offset-distance: 30%; }
 }
 
         .preloader-details {
