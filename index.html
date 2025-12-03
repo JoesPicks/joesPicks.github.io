@@ -694,7 +694,7 @@
   background: white;
   border-radius: 50%;
   opacity: 0.9;
-  animation: fall linear infinite, sway ease-in-out infinite;
+  animation: fall linear infinite, sway var(--sway-duration) ease-in-out infinite;
 }
 
 /* Different depths */
@@ -979,7 +979,7 @@ db = firebase.firestore();
 // Service Worker Registration
 if ('serviceWorker' in navigator) {
 
-const swVersion = "v3";  // ← change this whenever you publish new code
+const swVersion = "v4";  // ← change this whenever you publish new code
 const swPath = `/firebase-messaging-sw.js?${swVersion}`;
 
   navigator.serviceWorker.register(swPath)
@@ -1499,21 +1499,24 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    const snowContainer = document.getElementById("snow");
-const numFlakes = 80;
+document.addEventListener("DOMContentLoaded", () => {
+  const snowContainer = document.getElementById("snow");
+  const numFlakes = 80;
 
-for (let i = 0; i < numFlakes; i++) {
-  const flake = document.createElement("div");
-  const sizeClass = ["small", "medium", "large"][Math.floor(Math.random()*3)];
-  
-  flake.classList.add("snowflake", sizeClass);
-  flake.style.left = Math.random() * 100 + "vw";
-  flake.style.animationDelay = Math.random() * 10 + "s";
-  flake.style.animationDuration = (5 + Math.random() * 10) + "s";
-  flake.style.setProperty("--sway-duration", (3 + Math.random() * 5) + "s");
+  for (let i = 0; i < numFlakes; i++) {
+    const flake = document.createElement("div");
+    const sizeClass = ["small", "medium", "large"][Math.floor(Math.random()*3)];
 
-  snowContainer.appendChild(flake);
-}
+    flake.classList.add("snowflake", sizeClass);
+    flake.style.left = Math.random() * 100 + "vw";
+    flake.style.animationDelay = Math.random() * 10 + "s";
+    flake.style.animationDuration = (5 + Math.random() * 10) + "s";
+    flake.style.setProperty("--sway-duration", (3 + Math.random() * 5) + "s");
+
+    snowContainer.appendChild(flake);
+  }
+});
+
     
     // ==========================
     // Google Analytics
