@@ -676,72 +676,68 @@
     }
 } */
 
-    #snow {
-  position: fixed;
-  top: -10px;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 9999;
-}
-
-.snowflake {
-  position: absolute;
-  top: -10px;
-  width: 8px;
-  height: 8px;
-  background: white;
-  border-radius: 50%;
-  opacity: 0.9;
-
-  /* Both animations running together */
-  animation:
-    fall linear infinite,
-    sway var(--sway-duration) ease-in-out infinite;
-
-  /* Path for horizontal wiggle */
-  offset-path: path("M0,0 C20,20 -20,40 0,60");
-}
-
-
-
-/* Different depths */
-.snowflake.small {
-  width: 4px;
-  height: 4px;
-  opacity: 1;
-  animation-duration: 10s;
-}
-
-.snowflake.medium {
-  width: 6px;
-  height: 6px;
-  opacity: .8;
-  animation-duration: 7s;
-}
-
-.snowflake.large {
-  width: 8px;
-  height: 8px;
-  opacity: 1;
-  animation-duration: 5s;
-}
-
-@keyframes fall {
-  from {
-    transform: translateX(0px);
-  }
-  to {
-    transform: translateX(100vh);
-  }
-}
-
-@keyframes sway {
-  0%   { offset-distance: 30%; }
-  50%  { offset-distance: 25%; }
-  100% { offset-distance: 20%; }
-}
+        #snow {
+      position: fixed;
+      top: 0px;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    
+    .snowflake {
+      position: absolute;
+      top: -10px;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.9;
+      animation:
+        fall linear infinite,
+        sway var(--sway-duration) ease-in-out infinite;
+      offset-path: path("M0,0 C20,20 -20,40 0,60");
+    }
+    
+    
+    
+    /* Different depths */
+    .snowflake.small {
+      width: 4px;
+      height: 4px;
+      opacity: 1;
+      animation-duration: 6s;
+    }
+    
+    .snowflake.medium {
+      width: 6px;
+      height: 6px;
+      opacity: .8;
+      animation-duration: 2s;
+    }
+    
+    .snowflake.large {
+      width: 8px;
+      height: 8px;
+      opacity: 1;
+      animation-duration: 3s;
+    }
+    
+    @keyframes fall {
+      from {
+        transform: translateX(-10px);
+      }
+      to {
+        transform: translateX(120vh);
+      }
+    }
+    
+    @keyframes sway {
+      0%   { offset-distance: 30%; }
+      50%  { offset-distance: 25%; }
+      100% { offset-distance: 20%; }
+    }
 
         .preloader-details {
         margin-top: 15px;
@@ -1518,8 +1514,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     flake.classList.add("snowflake", sizeClass);
     flake.style.left = Math.random() * 100 + "vw";
-    flake.style.animationDelay = Math.random() * 10 + "s";
-    flake.style.animationDuration = (5 + Math.random() * 10) + "s";
+    flake.style.animationDelay = Math.random() * 1 + "s";
+    flake.style.animationDuration = (5 + Math.random() * 5) + "s";
     flake.style.setProperty("--sway-duration", (3 + Math.random() * 5) + "s");
 
     snowContainer.appendChild(flake);
