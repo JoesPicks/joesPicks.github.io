@@ -694,8 +694,17 @@
   background: white;
   border-radius: 50%;
   opacity: 0.9;
-  animation: fall linear infinite, sway var(--sway-duration) ease-in-out infinite;
+
+  /* Both animations running together */
+  animation:
+    fall linear infinite,
+    sway var(--sway-duration) ease-in-out infinite;
+
+  /* Path for horizontal wiggle */
+  offset-path: path("M0,0 C20,20 -20,40 0,60");
 }
+
+
 
 /* Different depths */
 .snowflake.small {
@@ -729,9 +738,9 @@
 }
 
 @keyframes sway {
-  0% { transform: translateX(0px); }
-  50% { transform: translateX(30px); }
-  100% { transform: translateX(0px); }
+  0%   { offset-distance: 0%; }
+  50%  { offset-distance: 50%; }
+  100% { offset-distance: 100%; }
 }
 
         .preloader-details {
