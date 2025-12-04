@@ -965,6 +965,7 @@
     // ==========================
     // Firebase Initialization
     // ==========================
+
     function setupFirebaseAndNotifications() {
       const firebaseConfig = {
         apiKey: "AIzaSyB5r_KL2eKVFd66VQU_5pznKrVHa9xzCfc",
@@ -979,49 +980,76 @@
         firebase.initializeApp(firebaseConfig);
       }
       messaging = firebase.messaging();
-db = firebase.firestore();
+      db = firebase.firestore();
 
-// Service Worker Registration
-if ('serviceWorker' in navigator) {
-
-const swVersion = "v4";  // ← change this whenever you publish new code
-const swPath = `/firebase-messaging-sw.js?${swVersion}`;
-
-  navigator.serviceWorker.register(swPath)
-    .then(async registration => {
-
-      // --- (1) Force the browser to check for a new service worker immediately
-      try {
-        await registration.update();
-      } catch (e) {
-        console.warn("SW update check failed:", e);
+      // Service Worker Registration
+      if ('serviceWorker' in navigator) {
+        const swPath = '/firebase-messaging-sw.js';
+        navigator.serviceWorker.register(swPath)
+          .then(registration => {
+            initializeNotifications(registration);
+          })
+          .catch(error => {
+            console.error('Service Worker registration failed:', error.message);
+          });
       }
+//     function setupFirebaseAndNotifications() {
+//       const firebaseConfig = {
+//         apiKey: "AIzaSyB5r_KL2eKVFd66VQU_5pznKrVHa9xzCfc",
+//         authDomain: "joespick5push.firebaseapp.com",
+//         projectId: "joespick5push",
+//         storageBucket: "joespick5push.firebasestorage.app",
+//         messagingSenderId: "783669343677",
+//         appId: "1:783669343677:web:d3a43a1a58b920ba9a4ed4",
+//         measurementId: "G-HNPLN4XZ44"
+//       };
+//       if (!firebase.apps || !firebase.apps.length) {
+//         firebase.initializeApp(firebaseConfig);
+//       }
+//       messaging = firebase.messaging();
+// db = firebase.firestore();
 
-      // --- (2) NEW: If a new service worker is waiting, tell it to activate now
-      if (registration.waiting) {
-        console.log("Sending SKIP_WAITING to waiting service worker");
-        registration.waiting.postMessage({ type: "SKIP_WAITING" });
-      }
+// // Service Worker Registration
+// if ('serviceWorker' in navigator) {
 
-      // --- (3) If a new service worker appears, reload the page once it's installed
-      registration.addEventListener("updatefound", () => {
-        const newWorker = registration.installing;
-        newWorker.addEventListener("statechange", () => {
-          if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
-            console.log("New service worker installed — reloading to apply update");
-            window.location.reload();
-          }
-        });
-      });
+// const swVersion = "v4";  // ← change this whenever you publish new code
+// const swPath = `/firebase-messaging-sw.js?${swVersion}`;
 
-      // --- (4) Continue with your existing Firebase initialization
-      initializeNotifications(registration);
+//   navigator.serviceWorker.register(swPath)
+//     .then(async registration => {
 
-    })
-    .catch(error => {
-      console.error('Service Worker registration failed:', error.message);
-    });
-}
+//       // --- (1) Force the browser to check for a new service worker immediately
+//       try {
+//         await registration.update();
+//       } catch (e) {
+//         console.warn("SW update check failed:", e);
+//       }
+
+//       // --- (2) NEW: If a new service worker is waiting, tell it to activate now
+//       if (registration.waiting) {
+//         console.log("Sending SKIP_WAITING to waiting service worker");
+//         registration.waiting.postMessage({ type: "SKIP_WAITING" });
+//       }
+
+//       // --- (3) If a new service worker appears, reload the page once it's installed
+//       registration.addEventListener("updatefound", () => {
+//         const newWorker = registration.installing;
+//         newWorker.addEventListener("statechange", () => {
+//           if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
+//             console.log("New service worker installed — reloading to apply update");
+//             window.location.reload();
+//           }
+//         });
+//       });
+
+//       // --- (4) Continue with your existing Firebase initialization
+//       initializeNotifications(registration);
+
+//     })
+//     .catch(error => {
+//       console.error('Service Worker registration failed:', error.message);
+//     });
+// }
 
 // Notification Initialization
 function initializeNotifications(registration) {
