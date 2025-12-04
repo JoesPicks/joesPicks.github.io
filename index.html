@@ -867,7 +867,23 @@
        Main App Script
   ======================== -->
   <script>
-    
+    document.addEventListener("DOMContentLoaded", () => {
+  const snowContainer = document.getElementById("snow");
+  const numFlakes = 125;
+
+  for (let i = 0; i < numFlakes; i++) {
+    const flake = document.createElement("div");
+    const sizeClass = ["small", "medium", "large"][Math.floor(Math.random()*3)];
+
+    flake.classList.add("snowflake", sizeClass);
+    flake.style.left = Math.random() * 100 + "vw";
+    flake.style.animationDelay = Math.random() * 10 + "s";
+    flake.style.animationDuration = (5 + Math.random() * 10) + "s";
+    // flake.style.setProperty("--sway-duration", (3 + Math.random() * 5) + "s");
+
+    snowContainer.appendChild(flake);
+  }
+});
     // --- Firebase and Notification Globals ---
     let messaging;
     let db;
@@ -1532,25 +1548,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-document.addEventListener("DOMContentLoaded", () => {
-  const snowContainer = document.getElementById("snow");
-  const numFlakes = 125;
-
-  for (let i = 0; i < numFlakes; i++) {
-    const flake = document.createElement("div");
-    const sizeClass = ["small", "medium", "large"][Math.floor(Math.random()*3)];
-
-    flake.classList.add("snowflake", sizeClass);
-    flake.style.left = Math.random() * 100 + "vw";
-    flake.style.animationDelay = Math.random() * 10 + "s";
-    flake.style.animationDuration = (5 + Math.random() * 10) + "s";
-    // flake.style.setProperty("--sway-duration", (3 + Math.random() * 5) + "s");
-
-    snowContainer.appendChild(flake);
-  }
-});
-
-    
     // ==========================
     // Google Analytics
     // ==========================
