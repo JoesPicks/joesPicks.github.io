@@ -867,20 +867,16 @@
        Main App Script
   ======================== -->
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
   const snowContainer = document.getElementById("snow");
   const numFlakes = 125;
-
   for (let i = 0; i < numFlakes; i++) {
     const flake = document.createElement("div");
     const sizeClass = ["small", "medium", "large"][Math.floor(Math.random()*3)];
-
     flake.classList.add("snowflake", sizeClass);
     flake.style.left = Math.random() * 100 + "vw";
     flake.style.animationDelay = Math.random() * 10 + "s";
     flake.style.animationDuration = (5 + Math.random() * 10) + "s";
-    // flake.style.setProperty("--sway-duration", (3 + Math.random() * 5) + "s");
-
     snowContainer.appendChild(flake);
   }
 });
@@ -890,498 +886,482 @@
 
     // ==========================
     // Notification Reset Handler
-    // ==========================
-    async function resetNotifications() {
-      const button = document.getElementById('resetBtn');
-      button.style.backgroundColor = 'var(--primary-color)';
-      button.style.color = 'white';
-      button.textContent = 'Resetting...';
+async function resetNotifications() {
+  const button = document.getElementById('resetBtn');
+  button.style.backgroundColor = 'var(--primary-color)';
+  button.style.color = 'white';
+  button.textContent = 'Resetting...';
 
-      if (!checkStorageAvailability()) {
-        showSuccessMessage('Storage unavailable. Please check browser settings.');
-        button.style.backgroundColor = '#ff4d4d';
-        button.textContent = 'Reset Failed';
-        return;
-      }
+  if (!checkStorageAvailability()) {
+    showSuccessMessage('Storage unavailable. Please check browser settings.');
+    button.style.backgroundColor = '#ff4d4d';
+    button.textContent = 'Reset Failed';
+    return;
+  }
 
+  try {
+    const registrations = await navigator.serviceWorker.getRegistrations();
+    console.log('[resetNotifications] found service worker registrations:', registrations.length);
+    for (let registration of registrations) {
+      await registration.unregister();
+    }
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    if (messaging) {
       try {
-        const registrations = await navigator.serviceWorker.getRegistrations();
-        for (let registration of registrations) {
-          await registration.unregister();
+        const token = await messaging.getToken().catch(err => { console.warn('getToken during reset failed', err); return null; });
+        console.log('[resetNotifications] token:', token);
+        if (token) {
+          await messaging.deleteToken().catch(err => { console.warn('Token deletion failed:', err); });
         }
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        if (messaging) {
-          try {
-            const token = await messaging.getToken().catch(err => { return null; });
-            if (token) {
-              await messaging.deleteToken().catch(err => { console.warn('Token deletion failed:', err); });
-            }
-            const deviceId = localStorage.getItem('deviceId');
-            if (deviceId) {
-              const snapshot = await db.collection('devices').where('deviceId', '==', deviceId).get();
-              if (!snapshot.empty) {
-                const batch = db.batch();
-                snapshot.forEach(doc => {
-                  const data = doc.data();
-                  const updates = {};
-                  if (data.activeTokens) {
-                    Object.keys(data.activeTokens).forEach(t => {
-                      updates[`activeTokens.${t}`] = false;
-                    });
-                    batch.update(doc.ref, updates);
-                  }
+        const deviceId = localStorage.getItem('deviceId');
+        console.log('[resetNotifications] deviceId:', deviceId);
+        if (deviceId && db) {
+          const snapshot = await db.collection('devices').where('deviceId', '==', deviceId).get();
+          if (!snapshot.empty) {
+            const batch = db.batch();
+            snapshot.forEach(doc => {
+              const data = doc.data();
+              const updates = {};
+              if (data.activeTokens) {
+                Object.keys(data.activeTokens).forEach(t => {
+                  updates[`activeTokens.${t}`] = false;
                 });
-                await batch.commit();
+                batch.update(doc.ref, updates);
               }
-            }
-          } catch (err) {
-            console.error('Error processing token:', err);
+            });
+            await batch.commit();
           }
         }
-        localStorage.removeItem('fcmToken');
-        localStorage.removeItem('notificationPromptDismissed');
-        localStorage.removeItem('notificationPermissionDenied');
-
-        button.style.backgroundColor = 'var(--primary-color)';
-        button.textContent = 'Reset Complete';
-
-        if (Notification.permission === 'denied') {
-          showSuccessMessage('Notifications blocked. Enable in browser settings.');
-        } else if (Notification.permission === 'granted') {
-          showSuccessMessage('Notifications reset. Please reauthorize.');
-          setTimeout(() => { forceNotificationRePrompt(); }, 1500);
-        } else {
-          showSuccessMessage('Notifications reset. You will be prompted again.');
-          setTimeout(() => { setupFirebaseAndNotifications(); }, 1500);
-        }
-
-        setTimeout(function () {
-          button.style.opacity = '0';
-          setTimeout(function () {
-            button.style.display = 'none';
-          }, 300);
-        }, 2500);
-
       } catch (err) {
-        console.error('Reset failed:', err);
-        showSuccessMessage('Failed to reset notifications. Try again.');
-        button.style.backgroundColor = '#ff4d4d';
-        button.textContent = 'Reset Failed';
+        console.error('Error processing token:', err);
       }
     }
+    localStorage.removeItem('fcmToken');
+    localStorage.removeItem('notificationPromptDismissed');
+    localStorage.removeItem('notificationPermissionDenied');
 
-    function forceNotificationRePrompt() {
-      setupFirebaseAndNotifications();
+    button.style.backgroundColor = 'var(--primary-color)';
+    button.textContent = 'Reset Complete';
+
+    if (Notification.permission === 'denied') {
+      showSuccessMessage('Notifications blocked. Enable in browser settings.');
+    } else if (Notification.permission === 'granted') {
+      showSuccessMessage('Notifications reset. Please reauthorize.');
+      setTimeout(() => { forceNotificationRePrompt(); }, 1500);
+    } else {
+      showSuccessMessage('Notifications reset. You will be prompted again.');
+      setTimeout(() => { setupFirebaseAndNotifications(); }, 1500);
     }
 
-    function checkStorageAvailability() {
-      return !!(navigator.storage && window.indexedDB);
-    }
+    setTimeout(function () {
+      button.style.opacity = '0';
+      setTimeout(function () {
+        button.style.display = 'none';
+      }, 300);
+    }, 2500);
+
+  } catch (err) {
+    console.error('Reset failed:', err);
+    showSuccessMessage('Failed to reset notifications. Try again.');
+    button.style.backgroundColor = '#ff4d4d';
+    button.textContent = 'Reset Failed';
+  }
+}
+
+function forceNotificationRePrompt() {
+  setupFirebaseAndNotifications();
+}
+
+function checkStorageAvailability() {
+  return !!(navigator.storage && window.indexedDB);
+}
 
     // ==========================
     // Firebase Initialization
     // ==========================
 
-    function setupFirebaseAndNotifications() {
-      const firebaseConfig = {
-        apiKey: "AIzaSyB5r_KL2eKVFd66VQU_5pznKrVHa9xzCfc",
-        authDomain: "joespick5push.firebaseapp.com",
-        projectId: "joespick5push",
-        storageBucket: "joespick5push.firebasestorage.app",
-        messagingSenderId: "783669343677",
-        appId: "1:783669343677:web:d3a43a1a58b920ba9a4ed4",
-        measurementId: "G-HNPLN4XZ44"
-      };
-      if (!firebase.apps || !firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
-      }
-      messaging = firebase.messaging();
-      db = firebase.firestore();
+function setupFirebaseAndNotifications() {
+  const firebaseConfig = {
+    apiKey: "AIzaSyB5r_KL2eKVFd66VQU_5pznKrVHa9xzCfc",
+    authDomain: "joespick5push.firebaseapp.com",
+    projectId: "joespick5push",
+    storageBucket: "joespick5push.firebasestorage.app",
+    messagingSenderId: "783669343677",
+    appId: "1:783669343677:web:d3a43a1a58b920ba9a4ed4",
+    measurementId: "G-HNPLN4XZ44"
+  };
+  if (!firebase.apps || !firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  console.log('[Firebase] initialized project:', firebase.app().options.projectId);
+  messaging = firebase.messaging();
+  db = firebase.firestore();
 
-      // Service Worker Registration
-      if ('serviceWorker' in navigator) {
-        const swPath = '/firebase-messaging-sw.js';
-        navigator.serviceWorker.register(swPath)
-          .then(registration => {
-            initializeNotifications(registration);
+  // Expose quick debug helper to console: test writes
+  window.testDbWrite = async function() {
+    try {
+      if (!db) { console.warn('db not initialized'); return; }
+      const r = await db.collection('devices').add({ debugWrite: true, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+      console.log('manual add ok', r.id);
+    } catch (e) {
+      console.error('manual add failed', e);
+    }
+  };
+
+  // Service Worker Registration
+  if ('serviceWorker' in navigator) {
+    const swPath = '/firebase-messaging-sw.js';
+    navigator.serviceWorker.register(swPath)
+      .then(registration => {
+        console.log('[ServiceWorker] registered at', swPath, 'scope:', registration.scope);
+        initializeNotifications(registration);
+      })
+      .catch(error => {
+        console.error('Service Worker registration failed:', error && error.message ? error.message : error);
+      });
+  } else {
+    console.warn('Service Worker not supported in this browser.');
+  }
+
+  // Notification Initialization (single definition, with logging)
+  function initializeNotifications(registration) {
+    console.log('[initializeNotifications] called, registration:', registration && registration.scope);
+    navigator.serviceWorker.addEventListener('message', event => {
+      console.log('[SW message] data=', event.data);
+      if (event.data && event.data.type === 'tokenRefresh') {
+        refreshToken();
+      }
+    });
+
+    function requestPermission() {
+      return new Promise((resolve, reject) => {
+        Notification.requestPermission()
+          .then(permission => {
+            console.log('[requestPermission] result:', permission);
+            if (permission === 'granted') {
+              messaging.getToken({ vapidKey: 'BOM3KFfemC5lGnsF28N-_UGA7H9esoOm5gp0_Eg45HMqaMqviLx_bcAonVaZe-c0GwSFwfwe7-fJVP1n8h1iAAU', serviceWorkerRegistration: registration })
+                .then(token => {
+                  console.log('[requestPermission] got token:', token);
+                  saveTokenToFirestore(token);
+                  resolve(token);
+                })
+                .catch(error => {
+                  console.error('[requestPermission] getToken error:', error);
+                  reject(error);
+                });
+            } else {
+              localStorage.setItem('notificationPermissionDenied', 'true');
+              reject(new Error('Permission denied'));
+            }
           })
           .catch(error => {
-            console.error('Service Worker registration failed:', error.message);
+            console.error('[requestPermission] error:', error);
+            reject(error);
           });
-      }
-//     function setupFirebaseAndNotifications() {
-//       const firebaseConfig = {
-//         apiKey: "AIzaSyB5r_KL2eKVFd66VQU_5pznKrVHa9xzCfc",
-//         authDomain: "joespick5push.firebaseapp.com",
-//         projectId: "joespick5push",
-//         storageBucket: "joespick5push.firebasestorage.app",
-//         messagingSenderId: "783669343677",
-//         appId: "1:783669343677:web:d3a43a1a58b920ba9a4ed4",
-//         measurementId: "G-HNPLN4XZ44"
-//       };
-//       if (!firebase.apps || !firebase.apps.length) {
-//         firebase.initializeApp(firebaseConfig);
-//       }
-//       messaging = firebase.messaging();
-// db = firebase.firestore();
-
-// // Service Worker Registration
-// if ('serviceWorker' in navigator) {
-
-// const swVersion = "v4";  // ← change this whenever you publish new code
-// const swPath = `/firebase-messaging-sw.js?${swVersion}`;
-
-//   navigator.serviceWorker.register(swPath)
-//     .then(async registration => {
-
-//       // --- (1) Force the browser to check for a new service worker immediately
-//       try {
-//         await registration.update();
-//       } catch (e) {
-//         console.warn("SW update check failed:", e);
-//       }
-
-//       // --- (2) NEW: If a new service worker is waiting, tell it to activate now
-//       if (registration.waiting) {
-//         console.log("Sending SKIP_WAITING to waiting service worker");
-//         registration.waiting.postMessage({ type: "SKIP_WAITING" });
-//       }
-
-//       // --- (3) If a new service worker appears, reload the page once it's installed
-//       registration.addEventListener("updatefound", () => {
-//         const newWorker = registration.installing;
-//         newWorker.addEventListener("statechange", () => {
-//           if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
-//             console.log("New service worker installed — reloading to apply update");
-//             window.location.reload();
-//           }
-//         });
-//       });
-
-//       // --- (4) Continue with your existing Firebase initialization
-//       initializeNotifications(registration);
-
-//     })
-//     .catch(error => {
-//       console.error('Service Worker registration failed:', error.message);
-//     });
-// }
-
-// Notification Initialization
-function initializeNotifications(registration) {
-  navigator.serviceWorker.addEventListener('message', event => {
-    if (event.data && event.data.type === 'tokenRefresh') {
-      refreshToken();
+      });
     }
-  });
+
+    function refreshToken() {
+      console.log('[refreshToken] attempting');
+      messaging.getToken({ vapidKey: 'BOM3KFfemC5lGnsF28N-_UGA7H9esoOm5gp0_Eg45HMqaMqviLx_bcAonVaZe-c0GwSFwfwe7-fJVP1n8h1iAAU', serviceWorkerRegistration: registration })
+        .then(refreshedToken => {
+          console.log('[refreshToken] refreshed token:', refreshedToken);
+          saveTokenToFirestore(refreshedToken);
+        }).catch(err => {
+          console.error('Unable to refresh token:', err);
+        });
+    }
+
+    function createNotificationPrompt() {
+      if (document.getElementById('notification-prompt')) return;
+      const promptDiv = document.createElement('div');
+      promptDiv.id = 'notification-prompt';
+      promptDiv.style.cssText = ` position: fixed;
+                                  bottom: 50%;
+                                  left: 50%;
+                                  transform: translate(-50%, 50%);
+                                  background: rgba(0, 0, 0, 0.85);
+                                  color: white;
+                                  padding: 8px 1px;
+                                  border-radius: 10px;
+                                  box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9) 0px 10px 13px;
+                                  text-align: center;
+                                  z-index: 1001;
+                                  font-family: Arial, sans-serif;
+                                  max-width: 95%;
+                                  width: max-content;
+                                  border: 4px solid var(--primary-color);
+                                  animation: fade-in 0.3s ease-in-out;
+      `;
+      promptDiv.innerHTML = `
+        <p class="notification">You’ll get weekly push alerts when picks and entry forms are available.</p>
+        <div style="display: flex; justify-content: space-between; gap: 10px;width: 104px;margin: 0 auto;">
+            <button id="enable-notifications" class="notification-button">OKAY</button>
+            <button id="decline-notifications" style="display: none;">Not Now</button>
+        </div>
+      `;
+      document.body.appendChild(promptDiv);
+      document.getElementById('enable-notifications').addEventListener('click', () => {
+        promptDiv.remove();
+        requestPermission()
+          .then(() => {
+            showSuccessMessage('Notifications enabled successfully!');
+          })
+          .catch(error => {
+            console.error('Error enabling notifications:', error);
+          });
+      });
+      document.getElementById('decline-notifications').addEventListener('click', () => {
+        promptDiv.remove();
+        localStorage.setItem('notificationPromptDismissed', Date.now());
+      });
+    }
+
+    // saveTokenToFirestore with logging + clearer retry behavior
+    async function saveTokenToFirestore(token, retries = 3) {
+      if (!token) { console.warn('[saveTokenToFirestore] no token supplied'); return; }
+      const deviceId = localStorage.getItem('deviceId') || generateDeviceId();
+      localStorage.setItem('deviceId', deviceId);
+      const browserInfo = {
+        name: /Chrome/i.test(navigator.userAgent) ? 'Chrome' :
+          /Safari/i.test(navigator.userAgent) ? 'Safari' :
+            /Firefox/i.test(navigator.userAgent) ? 'Firefox' :
+              /Edge/i.test(navigator.userAgent) ? 'Edge' : 'Other',
+        userAgent: navigator.userAgent,
+      };
+
+      console.log('[saveTokenToFirestore] deviceId=', deviceId, 'token=', token, 'browser=', browserInfo.name);
+
+      const attemptSave = async (attempt) => {
+        try {
+          if (!db) throw new Error('Firestore db is not initialized');
+          const deviceQuery = await db.collection('devices').where('deviceId', '==', deviceId).get();
+          console.log(`[saveTokenToFirestore] attempt ${attempt}: deviceQuery size=${deviceQuery.size}`);
+          if (!deviceQuery.empty) {
+            const deviceDoc = deviceQuery.docs[0];
+            const oldData = deviceDoc.data();
+            let updateData = {
+              lastActive: firebase.firestore.FieldValue.serverTimestamp(),
+              userAgent: browserInfo.userAgent,
+              forceUpdate: Date.now()
+            };
+            if (oldData.tokens) {
+              Object.keys(oldData.tokens).forEach(oldTokenKey => {
+                updateData[`tokens.${oldTokenKey}`] = firebase.firestore.FieldValue.delete();
+              });
+            }
+            if (oldData.activeTokens) {
+              Object.keys(oldData.activeTokens).forEach(oldToken => {
+                updateData[`activeTokens.${oldToken}`] = firebase.firestore.FieldValue.delete();
+              });
+            }
+            updateData[`tokens.${browserInfo.name}`] = token;
+            updateData[`activeTokens.${token}`] = true;
+            console.log('[saveTokenToFirestore] updating doc', deviceDoc.id, updateData);
+            await db.collection('devices').doc(deviceDoc.id).update(updateData);
+            console.log('[saveTokenToFirestore] update succeeded for', deviceDoc.id);
+          } else {
+            console.log('[saveTokenToFirestore] creating new device doc for', deviceId);
+            await db.collection('devices').add({
+              deviceId: deviceId,
+              platform: navigator.platform,
+              tokens: { [browserInfo.name]: token },
+              activeTokens: { [token]: true },
+              createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+              lastActive: firebase.firestore.FieldValue.serverTimestamp(),
+              userAgent: browserInfo.userAgent
+            });
+            console.log('[saveTokenToFirestore] device doc created');
+          }
+          localStorage.setItem('fcmToken', token);
+          await cleanupDuplicateTokens(token, deviceId);
+        } catch (error) {
+          console.error(`[saveTokenToFirestore] attempt ${attempt} failed`, error);
+          if (attempt < retries) {
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            await attemptSave(attempt + 1);
+          } else {
+            console.error('[saveTokenToFirestore] all retries failed for token:', token);
+            // surface to user / analytics if desired
+          }
+        }
+      };
+      await attemptSave(1);
+    }
+
+    async function cleanupDuplicateTokens(currentToken, deviceId) {
+      try {
+        if (!db) { console.warn('db not initialized in cleanupDuplicateTokens'); return; }
+        const deviceQuery = await db.collection('devices').where('deviceId', '==', deviceId).get();
+        if (deviceQuery.size > 1) {
+          const sortedDocs = deviceQuery.docs.sort((a, b) => {
+            const timeA = a.data().lastActive ? a.data().lastActive.toMillis() : 0;
+            const timeB = b.data().lastActive ? b.data().lastActive.toMillis() : 0;
+            return timeB - timeA;
+          });
+          const batch = db.batch();
+          for (let i = 1; i < sortedDocs.length; i++) {
+            batch.delete(sortedDocs[i].ref);
+          }
+          await batch.commit();
+        }
+        const allDevicesWithToken = await db.collection('devices').where(`activeTokens.${currentToken}`, '==', true).get();
+        if (!allDevicesWithToken.empty) {
+          const batch = db.batch();
+          allDevicesWithToken.forEach(doc => {
+            const data = doc.data();
+            if (data.deviceId !== deviceId) {
+              batch.update(doc.ref, {
+                [`activeTokens.${currentToken}`]: firebase.firestore.FieldValue.delete(),
+                [`tokens.${Object.keys(data.tokens).find(key => data.tokens[key] === currentToken)}`]: firebase.firestore.FieldValue.delete()
+              });
+            }
+          });
+          await batch.commit();
+        }
+      } catch (error) {
+        console.error('Error cleaning up tokens:', error);
+      }
+    }
+
+    function generateDeviceId() {
+      const deviceData = [
+        navigator.userAgent,
+        navigator.language,
+        screen.width,
+        screen.height,
+        new Date().getTimezoneOffset()
+      ].join('|');
+      let hash = 0;
+      for (let i = 0; i < deviceData.length; i++) {
+        const char = deviceData.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash;
+      }
+      return 'device_' + Math.abs(hash);
+    }
+
+    function checkAndShowNotifications() {
+      if (isDesktop()) { return; }
+      const wasReset = !localStorage.getItem('fcmToken') && !localStorage.getItem('notificationPromptDismissed');
+      if (Notification.permission === 'granted' && !wasReset) {
+        const storedToken = localStorage.getItem('fcmToken');
+        const storedDeviceId = localStorage.getItem('deviceId');
+        console.log('[checkAndShowNotifications] storedToken, storedDeviceId', storedToken, storedDeviceId);
+        if (storedToken) {
+          messaging.getToken().then(currentToken => {
+            console.log('[checkAndShowNotifications] currentToken:', currentToken);
+            if (currentToken !== storedToken) {
+              saveTokenToFirestore(currentToken);
+            } else {
+              if (storedDeviceId && db) {
+                db.collection('devices').where('deviceId', '==', storedDeviceId).get().then(snapshot => {
+                  if (!snapshot.empty) {
+                    const doc = snapshot.docs[0];
+                    const data = doc.data();
+                    if (!data.activeTokens || !data.activeTokens[currentToken]) {
+                      console.log('[checkAndShowNotifications] token not active in db, saving');
+                      saveTokenToFirestore(currentToken);
+                    } else {
+                      // update lastActive proactively in case token is already OK
+                      console.log('[checkAndShowNotifications] token active - updating lastActive for', doc.id);
+                      db.collection('devices').doc(doc.id).update({ lastActive: firebase.firestore.FieldValue.serverTimestamp() })
+                        .then(()=> console.log('[lastActive] updated for', doc.id))
+                        .catch(e => console.error('[lastActive] update failed', e));
+                    }
+                  } else {
+                    console.log('[checkAndShowNotifications] no device doc for storedDeviceId - saving token');
+                    saveTokenToFirestore(currentToken);
+                  }
+                }).catch(err => console.error('Error checking token status:', err));
+              }
+            }
+          }).catch(error => {
+            console.warn('messaging.getToken failed inside checkAndShowNotifications:', error);
+            requestPermission();
+          });
+        } else {
+          requestPermission();
+        }
+      } else {
+        promptForPermission();
+      }
+    }
+
+    function promptForPermission() {
+      if (isDesktop()) { return; }
+      if (Notification.permission === 'denied') {
+        return;
+      } else {
+        const lastDismissed = localStorage.getItem('notificationPromptDismissed');
+        const ONE_WEEK = 7 * 24 * 60 * 60 * 1000;
+        if (!lastDismissed || (Date.now() - parseInt(lastDismissed)) > ONE_WEEK || !localStorage.getItem('fcmToken')) {
+          const triggerPrompt = () => {
+            clearTimeout(promptTimeout);
+            document.removeEventListener('click', userInteracted);
+            setTimeout(createNotificationPrompt, 1000);
+          };
+          const userInteracted = () => { triggerPrompt(); };
+          document.addEventListener('click', userInteracted, { once: true });
+          const promptTimeout = setTimeout(() => {
+            document.removeEventListener('click', userInteracted);
+            triggerPrompt();
+          }, 4500);
+          setTimeout(() => { }, 2500);
+        }
+      }
+    }
+
+    // Add keyframes for fade-in/out/slide-in/out
+    const styleSheet = document.createElement("style");
+    styleSheet.textContent = `
+      @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
+      @keyframes slide-in { from { transform: translateX(100%); } to { transform: translateX(0); } }
+      @keyframes slide-out { from { transform: translateX(0); } to { transform: translateX(100%); } }
+    `;
+    document.head.appendChild(styleSheet);
+
+    checkAndShowNotifications();
+  }
 }
 
-      // Notification Initialization
-      function initializeNotifications(registration) {
-        navigator.serviceWorker.addEventListener('message', event => {
-          if (event.data && event.data.type === 'tokenRefresh') {
-            refreshToken();
-          }
-        });
-        function requestPermission() {
-          return new Promise((resolve, reject) => {
-            Notification.requestPermission()
-              .then(permission => {
-                if (permission === 'granted') {
-                  messaging.getToken({ vapidKey: 'BOM3KFfemC5lGnsF28N-_UGA7H9esoOm5gp0_Eg45HMqaMqviLx_bcAonVaZe-c0GwSFwfwe7-fJVP1n8h1iAAU', serviceWorkerRegistration: registration })
-                    .then(token => {
-                      saveTokenToFirestore(token);
-                      resolve(token);
-                    })
-                    .catch(error => {
-                      reject(error);
-                    });
-                } else {
-                  localStorage.setItem('notificationPermissionDenied', 'true');
-                  reject(new Error('Permission denied'));
-                }
-              })
-              .catch(error => {
-                reject(error);
-              });
-          });
-        }
-        function refreshToken() {
-          messaging.getToken({ vapidKey: 'BOM3KFfemC5lGnsF28N-_UGA7H9esoOm5gp0_Eg45HMqaMqviLx_bcAonVaZe-c0GwSFwfwe7-fJVP1n8h1iAAU', serviceWorkerRegistration: registration })
-            .then(refreshedToken => {
-              saveTokenToFirestore(refreshedToken);
-            }).catch(err => {
-              console.error('Unable to refresh token:', err);
-            });
-        }
-        function createNotificationPrompt() {
-          if (document.getElementById('notification-prompt')) {
-            return;
-          }
-          const promptDiv = document.createElement('div');
-          promptDiv.id = 'notification-prompt';
-          promptDiv.style.cssText = ` position: fixed;
-                                      bottom: 50%;
-                                      left: 50%;
-                                      transform: translate(-50%, 50%);
-                                      background: rgba(0, 0, 0, 0.85);
-                                      color: white;
-                                      padding: 8px 1px;
-                                      border-radius: 10px;
-                                      box-shadow: inset -3px -3px 4px 1px rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.9) 0px 10px 13px;
-                                      text-align: center;
-                                      z-index: 1001;
-                                      font-family: Arial, sans-serif;
-                                      max-width: 95%;
-                                      width: max-content;
-                                      border: 4px solid var(--primary-color);
-                                      animation: fade-in 0.3s ease-in-out;
-          `;
-          promptDiv.innerHTML = `
-            <p class="notification">You’ll get weekly push alerts when picks and entry forms are available.</p>
-            <div style="display: flex; justify-content: space-between; gap: 10px;width: 104px;margin: 0 auto;">
-                <button id="enable-notifications" class="notification-button">OKAY</button>
-                <button id="decline-notifications" style="display: none;">Not Now</button>
-            </div>
-          `;
-          document.body.appendChild(promptDiv);
-          document.getElementById('enable-notifications').addEventListener('click', () => {
-            promptDiv.remove();
-            requestPermission()
-              .then(() => {
-                showSuccessMessage('Notifications enabled successfully!');
-              })
-              .catch(error => {
-                console.error('Error enabling notifications:', error);
-              });
-          });
-          document.getElementById('decline-notifications').addEventListener('click', () => {
-            promptDiv.remove();
-            localStorage.setItem('notificationPromptDismissed', Date.now());
-          });
-        }
+// ==========================
+// Success Message Utility (unchanged)
+function showSuccessMessage(message) {
+  const successDiv = document.createElement('div');
+  successDiv.style.cssText = `
+    position: fixed;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: fit-content;
+    min-width: 200px;
+    white-space: nowrap;
+    z-index: 1010;
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 8px 8px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.9) 0px 10px 13px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    max-width: 90%;
+    width: max-content;
+    border: 2px solid rgb(71, 143, 223);
+    animation: fade-in 0.5s ease-in-out;
+  `;
+  successDiv.textContent = message;
+  document.body.appendChild(successDiv);
+  setTimeout(() => {
+    successDiv.style.animation = 'fade-out 0.3s ease-in-out';
+    setTimeout(() => successDiv.remove(), 500);
+  }, 5000);
+}
 
-        async function saveTokenToFirestore(token, retries = 3) {
-          if (!token) { return; }
-          const deviceId = localStorage.getItem('deviceId') || generateDeviceId();
-          localStorage.setItem('deviceId', deviceId);
-          const browserInfo = {
-            name: /Chrome/i.test(navigator.userAgent) ? 'Chrome' :
-              /Safari/i.test(navigator.userAgent) ? 'Safari' :
-                /Firefox/i.test(navigator.userAgent) ? 'Firefox' :
-                  /Edge/i.test(navigator.userAgent) ? 'Edge' : 'Other',
-            userAgent: navigator.userAgent,
-          };
-
-          const attemptSave = async (attempt) => {
-            try {
-              const deviceQuery = await db.collection('devices').where('deviceId', '==', deviceId).get();
-              if (!deviceQuery.empty) {
-                const deviceDoc = deviceQuery.docs[0];
-                const oldData = deviceDoc.data();
-                let updateData = {
-                  lastActive: firebase.firestore.FieldValue.serverTimestamp(),
-                  userAgent: browserInfo.userAgent,
-                  forceUpdate: Date.now()
-                };
-                if (oldData.tokens) {
-                  Object.keys(oldData.tokens).forEach(oldTokenKey => {
-                    updateData[`tokens.${oldTokenKey}`] = firebase.firestore.FieldValue.delete();
-                  });
-                }
-                if (oldData.activeTokens) {
-                  Object.keys(oldData.activeTokens).forEach(oldToken => {
-                    updateData[`activeTokens.${oldToken}`] = firebase.firestore.FieldValue.delete();
-                  });
-                }
-                updateData[`tokens.${browserInfo.name}`] = token;
-                updateData[`activeTokens.${token}`] = true;
-                await db.collection('devices').doc(deviceDoc.id).update(updateData);
-                const updatedDoc = await db.collection('devices').doc(deviceDoc.id).get({ source: 'server' });
-              } else {
-                await db.collection('devices').add({
-                  deviceId: deviceId,
-                  platform: navigator.platform,
-                  tokens: { [browserInfo.name]: token },
-                  activeTokens: { [token]: true },
-                  createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                  lastActive: firebase.firestore.FieldValue.serverTimestamp(),
-                  userAgent: browserInfo.userAgent
-                });
-              }
-              localStorage.setItem('fcmToken', token);
-              await cleanupDuplicateTokens(token, deviceId);
-            } catch (error) {
-              if (attempt < retries) {
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                await attemptSave(attempt + 1);
-              }
-            }
-          };
-          await attemptSave(1);
-        }
-
-        async function cleanupDuplicateTokens(currentToken, deviceId) {
-          try {
-            const deviceQuery = await db.collection('devices').where('deviceId', '==', deviceId).get();
-            if (deviceQuery.size > 1) {
-              const sortedDocs = deviceQuery.docs.sort((a, b) => {
-                const timeA = a.data().lastActive ? a.data().lastActive.toMillis() : 0;
-                const timeB = b.data().lastActive ? b.data().lastActive.toMillis() : 0;
-                return timeB - timeA;
-              });
-              const batch = db.batch();
-              for (let i = 1; i < sortedDocs.length; i++) {
-                batch.delete(sortedDocs[i].ref);
-              }
-              await batch.commit();
-            }
-            const allDevicesWithToken = await db.collection('devices').where(`activeTokens.${currentToken}`, '==', true).get();
-            if (!allDevicesWithToken.empty) {
-              const batch = db.batch();
-              allDevicesWithToken.forEach(doc => {
-                const data = doc.data();
-                if (data.deviceId !== deviceId) {
-                  batch.update(doc.ref, {
-                    [`activeTokens.${currentToken}`]: firebase.firestore.FieldValue.delete(),
-                    [`tokens.${Object.keys(data.tokens).find(key => data.tokens[key] === currentToken)}`]: firebase.firestore.FieldValue.delete()
-                  });
-                }
-              });
-              await batch.commit();
-            }
-          } catch (error) {
-            console.error('Error cleaning up tokens:', error);
-          }
-        }
-
-        function generateDeviceId() {
-          const deviceData = [
-            navigator.userAgent,
-            navigator.language,
-            screen.width,
-            screen.height,
-            new Date().getTimezoneOffset()
-          ].join('|');
-          let hash = 0;
-          for (let i = 0; i < deviceData.length; i++) {
-            const char = deviceData.charCodeAt(i);
-            hash = ((hash << 5) - hash) + char;
-            hash = hash & hash;
-          }
-          return 'device_' + Math.abs(hash);
-        }
-
-        function checkAndShowNotifications() {
-          if (isDesktop()) { return; }
-          const wasReset = !localStorage.getItem('fcmToken') && !localStorage.getItem('notificationPromptDismissed');
-          if (Notification.permission === 'granted' && !wasReset) {
-            const storedToken = localStorage.getItem('fcmToken');
-            const storedDeviceId = localStorage.getItem('deviceId');
-            if (storedToken) {
-              messaging.getToken().then(currentToken => {
-                if (currentToken !== storedToken) {
-                  saveTokenToFirestore(currentToken);
-                } else {
-                  if (storedDeviceId) {
-                    db.collection('devices').where('deviceId', '==', storedDeviceId).get().then(snapshot => {
-                      if (!snapshot.empty) {
-                        const doc = snapshot.docs[0];
-                        const data = doc.data();
-                        if (!data.activeTokens || !data.activeTokens[currentToken]) {
-                          saveTokenToFirestore(currentToken);
-                        }
-                      }
-                    }).catch(err => console.error('Error checking token status:', err));
-                  }
-                }
-              }).catch(error => {
-                requestPermission();
-              });
-            } else {
-              requestPermission();
-            }
-          } else {
-            promptForPermission();
-          }
-        }
-
-        function promptForPermission() {
-          if (isDesktop()) { return; }
-          if (Notification.permission === 'denied') {
-            return;
-          } else {
-            const lastDismissed = localStorage.getItem('notificationPromptDismissed');
-            const ONE_WEEK = 7 * 24 * 60 * 60 * 1000;
-            if (!lastDismissed || (Date.now() - parseInt(lastDismissed)) > ONE_WEEK || !localStorage.getItem('fcmToken')) {
-              const triggerPrompt = () => {
-                clearTimeout(promptTimeout);
-                document.removeEventListener('click', userInteracted);
-                setTimeout(createNotificationPrompt, 1000);
-              };
-              const userInteracted = () => { triggerPrompt(); };
-              document.addEventListener('click', userInteracted, { once: true });
-              const promptTimeout = setTimeout(() => {
-                document.removeEventListener('click', userInteracted);
-                triggerPrompt();
-              }, 4500);
-              setTimeout(() => { }, 2500);
-            }
-          }
-        }
-
-        // Add keyframes for fade-in/out/slide-in/out
-        const styleSheet = document.createElement("style");
-        styleSheet.textContent = `
-          @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
-          @keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
-          @keyframes slide-in { from { transform: translateX(100%); } to { transform: translateX(0); } }
-          @keyframes slide-out { from { transform: translateX(0); } to { transform: translateX(100%); } }
-        `;
-        document.head.appendChild(styleSheet);
-
-        checkAndShowNotifications();
-      }
-    }
-
-    // ==========================
-    // Success Message Utility
-    // ==========================
-    function showSuccessMessage(message) {
-      const successDiv = document.createElement('div');
-      successDiv.style.cssText = `
-        position: fixed;
-        bottom: 50%;
-        left: 50%;
-        transform: translate(-50%, 50%);
-        width: fit-content;
-        min-width: 200px;
-        white-space: nowrap;
-        z-index: 1010;
-        background: rgba(0, 0, 0, 0.85);
-        color: white;
-        padding: 8px 8px;
-        border-radius: 10px;
-        box-shadow: rgba(0, 0, 0, 0.9) 0px 10px 13px;
-        text-align: center;
-        font-family: Arial, sans-serif;
-        max-width: 90%;
-        width: max-content;
-        border: 2px solid rgb(71, 143, 223);
-        animation: fade-in 0.5s ease-in-out;
-      `;
-      successDiv.textContent = message;
-      document.body.appendChild(successDiv);
-      setTimeout(() => {
-        successDiv.style.animation = 'fade-out 0.3s ease-in-out';
-        setTimeout(() => successDiv.remove(), 500);
-      }, 5000);
-    }
-
-    // ==========================
-    // DOMContentLoaded Handler
-    // ==========================
-document.addEventListener('DOMContentLoaded', function () { 
+// ==========================
+// DOMContentLoaded Handler (preloader, unchanged)
+document.addEventListener('DOMContentLoaded', function () {
   const preloader = document.getElementById('preloader');
   const iframe = document.querySelector('iframe');
   const resetButton = document.getElementById('resetBtn');
@@ -1391,16 +1371,12 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   iframe.onload = function () {
-    // SHOW PRELOADER FOR 4.5 SEC TOTAL
     setTimeout(() => {
       preloader.classList.add('preloader-fade-out');
-
-      // Remove exactly when the transition ends
       preloader.addEventListener('transitionend', () => {
         preloader.style.display = 'none';
       }, { once: true });
-
-    }, 4500); // keep visible 4.5 sec before fade starts
+    }, 4500);
   };
 });
 
@@ -1408,59 +1384,59 @@ document.addEventListener('DOMContentLoaded', function () {
     // ==========================
     // Device and Platform Utilities
     // ==========================
-    function isDesktop() {
-      const userAgent = navigator.userAgent.toLowerCase();
-      const isDesktopUA = /windows nt|macintosh|linux/i.test(userAgent) && !/mobile|android|iphone|ipad|ipod/i.test(userAgent);
-      const isLargeScreen = window.innerWidth > 1024;
-      return isDesktopUA && isLargeScreen;
-    }
-    function isAndroid() { return /Android/i.test(navigator.userAgent); }
-    function isIOS() { return /iPhone|iPad|iPod/i.test(navigator.userAgent); }
-    function isStandalone() { return window.matchMedia('(display-mode: standalone)').matches; }
+function isDesktop() {
+  const userAgent = navigator.userAgent.toLowerCase();
+  const isDesktopUA = /windows nt|macintosh|linux/i.test(userAgent) && !/mobile|android|iphone|ipad|ipod/i.test(userAgent);
+  const isLargeScreen = window.innerWidth > 1024;
+  return isDesktopUA && isLargeScreen;
+}
+function isAndroid() { return /Android/i.test(navigator.userAgent); }
+function isIOS() { return /iPhone|iPad|iPod/i.test(navigator.userAgent); }
+function isStandalone() { return window.matchMedia('(display-mode: standalone)').matches;
 
     // ==========================
     // Install Prompt Handler
     // ==========================
-    function setupInstallPrompt() {
-      const installBanner = document.getElementById('install-banner');
-      const iosInstallBanner = document.getElementById('ios-install-banner');
-      const installButton = document.getElementById('install-button');
-      const dismissButton = document.getElementById('dismiss-button');
-      const iosCloseButton = document.getElementById('ios-install-close');
+function setupInstallPrompt() {
+  const installBanner = document.getElementById('install-banner');
+  const iosInstallBanner = document.getElementById('ios-install-banner');
+  const installButton = document.getElementById('install-button');
+  const dismissButton = document.getElementById('dismiss-button');
+  const iosCloseButton = document.getElementById('ios-install-close');
 
-      if (isDesktop() || isStandalone()) {
-        installBanner.style.display = 'none';
-        iosInstallBanner.style.display = 'none';
-        return;
-      }
+  if (isDesktop() || isStandalone()) {
+    installBanner.style.display = 'none';
+    iosInstallBanner.style.display = 'none';
+    return;
+  }
 
-      if (isIOS()) {
-        iosInstallBanner.style.display = 'block';
-        iosCloseButton.addEventListener('click', () => {
-          iosInstallBanner.style.display = 'none';
-        });
-      } else {
-        window.addEventListener('beforeinstallprompt', (e) => {
-          e.preventDefault();
-          deferredPrompt = e;
-          installBanner.style.display = 'block';
-        });
-      }
+  if (isIOS()) {
+    iosInstallBanner.style.display = 'block';
+    iosCloseButton.addEventListener('click', () => {
+      iosInstallBanner.style.display = 'none';
+    });
+  } else {
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBanner.style.display = 'block';
+    });
+  }
 
-      installButton.addEventListener('click', () => {
-        if (deferredPrompt) {
-          installBanner.style.display = 'none';
-          deferredPrompt.prompt();
-          deferredPrompt.userChoice.then((choiceResult) => {
-            deferredPrompt = null;
-          });
-        }
-      });
-
-      dismissButton.addEventListener('click', () => {
-        installBanner.style.display = 'none';
+  installButton.addEventListener('click', () => {
+    if (deferredPrompt) {
+      installBanner.style.display = 'none';
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        deferredPrompt = null;
       });
     }
+  });
+
+  dismissButton.addEventListener('click', () => {
+    installBanner.style.display = 'none';
+  });
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   setupInstallPrompt();
