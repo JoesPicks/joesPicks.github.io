@@ -40,7 +40,7 @@ self.addEventListener('notificationclick', function(event) {
   event.notification.close();
 
   // You indicated you want this URL opened when notifications are clicked:
-  const forcedUrl = 'https://joespick6.github.io/';
+  const forcedUrl = 'https://joespicks.github.io/';
 
   // If payload provided url and you later want to prefer that, you can use:
   // const payloadUrl = event.notification && event.notification.data && event.notification.data.url;
