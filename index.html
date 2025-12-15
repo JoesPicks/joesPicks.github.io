@@ -392,12 +392,20 @@
         /* color: var(--primary-color); */
         -webkit-text-stroke: 5px var(--primary-color);
         color: var(--primary-color);
-        text-shadow: 0px -3px 1px rgba(255, 255, 255, .9), -0px -4px 1px rgba(255, 255, 255, .8), 4px 6px 8px rgba(0, 0, 0, .9);
+        /* text-shadow: 0px -3px 1px rgba(255, 255, 255, .9), -0px -4px 1px rgba(255, 255, 255, .8), 4px 6px 8px rgba(0, 0, 0, .9); */
         /* animation: increaseStroke 3s linear forwards; */
       }
-      #preloader-text span::after{
-        content: "";
+      #preloader-text::after{
+        content: 'PICK 6';
+        display: flex;
+        -webkit-text-stroke: white 4px;
         position: absolute;
+        z-index: -1;
+        text-shadow: 0px -3px 7px white;
+        top: -3px;
+        color: white;
+        white-space: wrap;
+        left: 1px;
         /* left: 0;
         right: 0;
         top: 0;
