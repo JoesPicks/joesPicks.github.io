@@ -1535,31 +1535,24 @@ document.addEventListener('DOMContentLoaded', function () {
   const iframe = document.querySelector('iframe');
   const resetButton = document.getElementById('resetBtn');
 
+  // Check if the app is in standalone mode
   if (!isStandalone()) {
     resetButton.style.display = 'none';
   }
 
   iframe.onload = function () {
-    // SHOW PRELOADER FOR 4.5 SEC TOTAL
+    // SHOW PRELOADER FOR 4.5 SECONDS
     setTimeout(() => {
-      preloader.classList.add('preloader-fade-out');
+      preloader.classList.add('preloader-fade-out'); // Start fade-out animation
 
-      // Remove exactly when the transition ends
+      // Remove preloader exactly when the transition ends
       preloader.addEventListener('transitionend', () => {
-        preloader.style.display = 'none';
-      }, { once: true });
-
-    }, 4500); // keep visible 4.5 sec before fade starts
+        preloader.style.display = 'none';           // Fully remove the preloader
+        document.body.classList.add('no-animations'); // Stop animations
+      }, { once: true }); // Ensure the listener runs only once
+    }, 4500);
   };
-  hidePreloader();
 });
-    
-function hidePreloader() {
-  // Hide the preloader
-  const preloader = document.getElementById("preloader");
-  preloader.style.display = "none";
-  document.body.classList.add("no-animations");
-}
 
     // ==========================
     // Device and Platform Utilities
