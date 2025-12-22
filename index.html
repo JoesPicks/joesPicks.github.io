@@ -370,6 +370,10 @@
          /* transition: opacity 0.5s ease-out;  */
       }
 
+      body.no-animations .snowflake {
+  animation: none;
+}
+
       .preloader-fade-out {
         opacity: 0;
         background: #0c1016 !important;
@@ -1547,8 +1551,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     }, 4500); // keep visible 4.5 sec before fade starts
   };
+  hidePreloader();
 });
-
+    
+function hidePreloader() {
+  // Hide the preloader
+  const preloader = document.getElementById("preloader");
+  preloader.style.display = "none";
+  document.body.classList.add("no-animations");
+}
 
     // ==========================
     // Device and Platform Utilities
