@@ -340,11 +340,11 @@
                     rgba(12, 16, 22, 0) 60%,
                     rgba(12, 16, 22, 0.8) 90%,
                     #0c1016 100%),
-        /* url(https://raw.githubusercontent.com/KSWENSON2/Images/refs/heads/main/Background.jpeg); */
+        url(https://raw.githubusercontent.com/KSWENSON2/Images/refs/heads/main/Background.jpeg);
         /* url(https://raw.githubusercontent.com/KSWENSON2/Images/refs/heads/main/Halloween2.jpeg); */
         /* url(https://raw.githubusercontent.com/KSWENSON2/Images/refs/heads/main/ThanksgivingLoader.jpeg); */
         /* url(https://raw.githubusercontent.com/KSWENSON2/Images/refs/heads/main/Background-snow.jpeg); */
-        url(https://raw.githubusercontent.com/KSWENSON2/Images/refs/heads/main/Christmas-loader2.jpeg);
+        /* url(https://raw.githubusercontent.com/KSWENSON2/Images/refs/heads/main/Christmas-loader2.jpeg); */
         /* background-size: cover; */
          background-size: 155%;
         /* background-size: inherit; */
@@ -938,15 +938,12 @@
     <div id="preloader-week">
       <span id="week-number"></span>
     </div>
-    <div class="preloader-details">
+    <!-- <div class="preloader-details">
       <span class="preloader-details-text">HAPPY<br>HOLIDAYS</span>
-    </div>
+    </div> -->
     <!-- <div id="leaves"> -->
-    <div id="snow">
-      <!-- <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i> 
-      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
-      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i> -->
-    </div>
+    <!-- <div id="snow">
+    </div> -->
     <button id="resetBtn" onclick="resetNotifications()" aria-label="Reset Notifications">Reset Notifications</button>
   </div>
 
@@ -1021,22 +1018,22 @@
        Main App Script
   ======================== -->
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-  const snowContainer = document.getElementById("snow");
-  const numFlakes = 200;
+//     document.addEventListener("DOMContentLoaded", () => {
+//   const snowContainer = document.getElementById("snow");
+//   const numFlakes = 200;
 
-  for (let i = 0; i < numFlakes; i++) {
-    const flake = document.createElement("div");
-    const sizeClass = ["small", "medium", "large"][Math.floor(Math.random()*3)];
+//   for (let i = 0; i < numFlakes; i++) {
+//     const flake = document.createElement("div");
+//     const sizeClass = ["small", "medium", "large"][Math.floor(Math.random()*3)];
 
-    flake.classList.add("snowflake", sizeClass);
-    flake.style.left = Math.random() * 100 + "vw";
-    flake.style.animationDelay = Math.random() * 10 + "s";
-    flake.style.animationDuration = (5 + Math.random() * 10) + "s";
+//     flake.classList.add("snowflake", sizeClass);
+//     flake.style.left = Math.random() * 100 + "vw";
+//     flake.style.animationDelay = Math.random() * 10 + "s";
+//     flake.style.animationDuration = (5 + Math.random() * 10) + "s";
 
-    snowContainer.appendChild(flake);
-  }
-});
+//     snowContainer.appendChild(flake);
+//   }
+// });
     // --- Firebase and Notification Globals ---
     let messaging;
     let db;
