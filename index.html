@@ -41,9 +41,7 @@
       --secondary-color: #d65105;   --THANKSGIVING    
       --secondary-color2: #d95e06;  --THANKSGIVING */
     }
-    /* ===================================
-       General / Page Layout
-    ==================================== */
+    /* ===================General / Page Layout=================== */
     html,
     body {
       background-color: var(--header-color);
@@ -56,9 +54,7 @@
       overscroll-behavior: none;
     }
 
-    /* ===================
-       Universal Styles
-    ==================== */
+    /* ===================Universal Styles==================== */
     * {
       -webkit-tap-highlight-color: transparent;
       -webkit-touch-callout: none;
@@ -76,7 +72,7 @@
       font-size: 16px;
     }
 
-    /* ===================Main iframe==================== */
+    /* ===================Main iframe=================== */
     iframe {
       width: 100%;
       height: 100%;
@@ -84,13 +80,13 @@
       display: block;
       overflow: auto;
       position: absolute;
-      top: 0;
+      top: env(safe-area-inset-top, 0px);
       left: 0;
       right: 0;
       bottom: 0;
       background-color: var(--header-color);
       overscroll-behavior: none;
-      padding-top: env(safe-area-inset-top, 0px);
+      /* padding-top: env(safe-area-inset-top, 0px); */
       /* padding-bottom: var(--safe-bottom); */
     }
 /* #iframe-container {
@@ -110,9 +106,7 @@ iframe {
   display: block;
 } */
 
-    /* ===================
-       Install Banner
-    ==================== */
+    /* ===================Install Banner=================== */
     #install-banner {
       display: none;
       text-align: center;
@@ -151,9 +145,7 @@ iframe {
       width: 90px;
     }
 
-    /* ===================
-       iOS Install Banner
-    ==================== */
+    /* ===================iOS Install Banner=================== */
     #ios-install-banner {
       display: none;
       margin: 0;
@@ -190,9 +182,7 @@ iframe {
       border-radius: 8px;
     }
 
-    /* ===================
-       Banner Header/Icon
-    ==================== */
+    /* ===================Banner Header/Icon=================== */
     h3 {
       margin: 5px 0 8px 0;
       font-size: 20px;
@@ -216,9 +206,7 @@ iframe {
       box-shadow: inset -3px -2px 3px 1px rgba(0, 0, 0, 0.3);
     }
 
-    /* ===================
-      Install Details
-    ==================== */
+    /* ===================Install Details=================== */
     .install-details-header {
       margin: 0 0 7px 0;
       font-size: 16px;
@@ -250,9 +238,7 @@ iframe {
       padding: 0 4px;
     }
 
-    /* ===================
-       Notification Styles
-    ==================== */
+    /* ===================Notification Styles=================== */
     .notification {
       margin: 0 0 15px 0;
       font-size: 18px;
@@ -279,9 +265,7 @@ iframe {
       border: none;
     }
 
-    /* ===================
-       Preloader Styles
-    ==================== */
+    /* ===================Preloader Styles=================== */
     #preloader {
       display: none;
     }
@@ -945,9 +929,7 @@ iframe {
 </head>
 
 <body>
-  <!-- =======================
-       Preloader Section
-  ======================== -->
+  <!-- ===================Preloader Section=================== -->
   <div id="preloader">
     <div id="preloader-text">
       <span>P</span>
@@ -969,9 +951,7 @@ iframe {
     <button id="resetBtn" onclick="resetNotifications()" aria-label="Reset Notifications">Reset Notifications</button>
   </div>
 
-  <!-- =======================
-       Install Banner Section
-  ======================== -->
+  <!-- ===================Install Banner Section=================== -->
   <div id="install-banner" role="dialog" aria-labelledby="install-banner-title">
     <h3 id="install-banner-title">
       <img src="Pick6LogoNew.png" class="install-icon-header" alt="Pick 6 Logo">
@@ -982,9 +962,7 @@ iframe {
     <button id="dismiss-button" aria-label="Dismiss install prompt">DISMISS</button>
   </div>
 
-  <!-- =======================
-       iOS Install Banner Section
-  ======================== -->
+  <!-- ===================iOS Install Banner Section=================== -->
   <div id="ios-install-banner" role="dialog" aria-labelledby="ios-install-banner-title">
     <button id="ios-install-close" aria-label="Close iOS install banner">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="var(--primary-color)" height="27" width="27" aria-hidden="true">
@@ -1014,10 +992,8 @@ iframe {
     </p>
   </div>
 
-  <!-- =======================
-       Main App iframe
-  ======================== -->
-  <div id="iframe-container">
+  <!-- ===================Main App iframe=================== -->
+  <!-- <div id="iframe-container"> -->
   <iframe
     id="sandboxFrame"
     title="PICK 6"
@@ -1028,19 +1004,15 @@ iframe {
     sandbox="allow-downloads allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-top-navigation-by-user-activation allow-storage-access-by-user-activation"
     loading="eager">
   </iframe>
-    </div>
+    <!-- </div> -->
 
-  <!-- =======================
-       External Scripts
-  ======================== -->
+  <!-- ===================External Scripts=================== -->
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-J8ZSHET5RJ"></script>
 
-  <!-- =======================
-       Main App Script
-  ======================== -->
+  <!-- ===================Main App Script=================== -->
   <script>
 //     document.addEventListener("DOMContentLoaded", () => {
 //   const snowContainer = document.getElementById("snow");
@@ -1062,9 +1034,7 @@ iframe {
     let messaging;
     let db;
 
-    // ==========================
-    // Notification Reset Handler
-    // ==========================
+    // ===================Notification Reset Handler===================
     async function resetNotifications() {
       const button = document.getElementById('resetBtn');
       button.style.backgroundColor = 'var(--primary-color)';
@@ -1152,9 +1122,7 @@ iframe {
       return !!(navigator.storage && window.indexedDB);
     }
 
-    // ==========================
-    // Firebase Initialization
-    // ==========================
+    // ===================Firebase Initialization===================
 
     function setupFirebaseAndNotifications() {
       const firebaseConfig = {
@@ -1518,9 +1486,7 @@ function initializeNotifications(registration) {
       }
     }
 
-    // ==========================
-    // Success Message Utility
-    // ==========================
+    // ===================Success Message Utility===================
     function showSuccessMessage(message) {
       const successDiv = document.createElement('div');
       successDiv.style.cssText = `
@@ -1552,9 +1518,7 @@ function initializeNotifications(registration) {
       }, 5000);
     }
 
-    // ==========================
-    // DOMContentLoaded Handler
-    // ==========================
+    // ===================DOMContentLoaded Handler===================
 document.addEventListener('DOMContentLoaded', function () { 
   const preloader = document.getElementById('preloader');
   const iframe = document.querySelector('iframe');
@@ -1579,9 +1543,7 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 });
 
-    // ==========================
-    // Device and Platform Utilities
-    // ==========================
+    // ===================Device and Platform Utilities===================
     function isDesktop() {
       const userAgent = navigator.userAgent.toLowerCase();
       const isDesktopUA = /windows nt|macintosh|linux/i.test(userAgent) && !/mobile|android|iphone|ipad|ipod/i.test(userAgent);
@@ -1592,9 +1554,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function isIOS() { return /iPhone|iPad|iPod/i.test(navigator.userAgent); }
     function isStandalone() { return window.matchMedia('(display-mode: standalone)').matches; }
 
-    // ==========================
-    // Install Prompt Handler
-    // ==========================
+    // ===================Install Prompt Handler===================
     function setupInstallPrompt() {
       const installBanner = document.getElementById('install-banner');
       const iosInstallBanner = document.getElementById('ios-install-banner');
@@ -1682,9 +1642,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-    // ==========================
-    // Apps Script Communication
-    // ==========================
+    // ===================Apps Script Communication===================
     function sendNameToAppsScript(nameToSend) {
       const scriptUrl = 'https://script.google.com/macros/s/AKfycbxfy3jxE_5zmuwZ6XmqU_OrcpaIChmHZYXO9QvptCc3A9GPSHjGv81RPz-BIgeqBuJw/exec';
       fetch(scriptUrl, {
@@ -1720,9 +1678,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // ==========================
-    // Google Analytics
-    // ==========================
+    // ===================Google Analytics===================
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
