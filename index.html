@@ -90,8 +90,8 @@
       bottom: 0;
       background-color: var(--header-color);
       overscroll-behavior: none;
-      padding-top: var(--safe-top);
-      padding-bottom: var(--safe-bottom);
+      padding-top: env(safe-area-inset-top, 0px);
+      /* padding-bottom: var(--safe-bottom); */
     }
 /* #iframe-container {
   position: absolute;
