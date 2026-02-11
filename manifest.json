@@ -47,7 +47,7 @@
             "src": "Pick6LogoNew512x512.png",
             "sizes": "512x512",
             "type": "image/png",
-            "form_factor": "narrow",
+            "form_factor": "wide",
             "label": "PICK 6"
         }
     ]
