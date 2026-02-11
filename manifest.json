@@ -4,21 +4,35 @@
     "start_url": "index.html",
     "scope": "./",
     "display": "standalone",
+    "display_override": ["standalone", "fullscreen", "minimal-ui"],
     "background_color": "#0c1016",
     "theme_color": "#0c1016",
-    "orientation": "portrait",
+    "orientation": "portrait-primary",
+    "lang": "en-US",
     "icons": [
         {
             "src": "Pick6LogoNew.png",
             "sizes": "192x192",
             "type": "image/png",
-            "purpose": "any maskable"
+            "purpose": "any"
         },
         {
             "src": "Pick6LogoNew.png",
             "sizes": "512x512",
             "type": "image/png",
-            "purpose": "any maskable"
+            "purpose": "any"
+        },
+        {
+            "src": "Pick6LogoNew.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "Pick6LogoNew.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
         }
     ]
 }
