@@ -50,5 +50,6 @@
             "form_factor": "wide",
             "label": "PICK 6"
         }
-    ]
+    ],
+    "gcm_sender_id": "783669343677"
 }
