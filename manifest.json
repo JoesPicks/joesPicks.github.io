@@ -38,7 +38,7 @@
     "screenshots": [
         {
             "src": "Pick6Logo512x512.png",
-            "sizes": "192x192",
+            "sizes": "512x512",
             "type": "image/png",
             "form_factor": "narrow",
             "label": "PICK 6"
