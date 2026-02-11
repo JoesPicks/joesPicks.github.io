@@ -1033,6 +1033,73 @@ iframe {
     // --- Firebase and Notification Globals ---
     let messaging;
     let db;
+    let deferredPrompt; // ADDED: Missing global variable
+    
+    // ADDED: Track event listeners for cleanup
+    const eventListeners = {
+      serviceWorker: [],
+      document: [],
+      window: [],
+      elements: new Map()
+    };
+
+    // ADDED: Cleanup function
+    function cleanupEventListeners() {
+      console.log('Cleaning up event listeners...');
+      
+      // Remove service worker listeners
+      if ('serviceWorker' in navigator && navigator.serviceWorker) {
+        eventListeners.serviceWorker.forEach(({ type, handler }) => {
+          navigator.serviceWorker.removeEventListener(type, handler);
+        });
+        eventListeners.serviceWorker = [];
+      }
+      
+      // Remove document listeners
+      eventListeners.document.forEach(({ type, handler, options }) => {
+        document.removeEventListener(type, handler, options);
+      });
+      eventListeners.document = [];
+      
+      // Remove window listeners
+      eventListeners.window.forEach(({ type, handler, options }) => {
+        window.removeEventListener(type, handler, options);
+      });
+      eventListeners.window = [];
+      
+      // Remove element-specific listeners
+      eventListeners.elements.forEach((listeners, element) => {
+        listeners.forEach(({ type, handler, options }) => {
+          if (element && element.removeEventListener) {
+            element.removeEventListener(type, handler, options);
+          }
+        });
+      });
+      eventListeners.elements.clear();
+      
+      console.log('Event listener cleanup complete');
+    }
+
+    // ADDED: Helper to track listeners
+    function addTrackedListener(target, type, handler, options = {}) {
+      target.addEventListener(type, handler, options);
+      
+      if (target === document) {
+        eventListeners.document.push({ type, handler, options });
+      } else if (target === window) {
+        eventListeners.window.push({ type, handler, options });
+      } else if (target === navigator.serviceWorker) {
+        eventListeners.serviceWorker.push({ type, handler });
+      } else {
+        if (!eventListeners.elements.has(target)) {
+          eventListeners.elements.set(target, []);
+        }
+        eventListeners.elements.get(target).push({ type, handler, options });
+      }
+    }
+
+    // ADDED: Cleanup on page unload
+    window.addEventListener('beforeunload', cleanupEventListeners);
 
     // ===================Notification Reset Handler===================
     async function resetNotifications() {
@@ -1151,80 +1218,17 @@ iframe {
             console.error('Service Worker registration failed:', error.message);
           });
       }
-//     function setupFirebaseAndNotifications() {
-//       const firebaseConfig = {
-//         apiKey: "AIzaSyB5r_KL2eKVFd66VQU_5pznKrVHa9xzCfc",
-//         authDomain: "joespick5push.firebaseapp.com",
-//         projectId: "joespick5push",
-//         storageBucket: "joespick5push.firebasestorage.app",
-//         messagingSenderId: "783669343677",
-//         appId: "1:783669343677:web:d3a43a1a58b920ba9a4ed4",
-//         measurementId: "G-HNPLN4XZ44"
-//       };
-//       if (!firebase.apps || !firebase.apps.length) {
-//         firebase.initializeApp(firebaseConfig);
-//       }
-//       messaging = firebase.messaging();
-// db = firebase.firestore();
-
-// // Service Worker Registration
-// if ('serviceWorker' in navigator) {
-
-// const swVersion = "v4";  // ← change this whenever you publish new code
-// const swPath = `/firebase-messaging-sw.js?${swVersion}`;
-
-//   navigator.serviceWorker.register(swPath)
-//     .then(async registration => {
-
-//       // --- (1) Force the browser to check for a new service worker immediately
-//       try {
-//         await registration.update();
-//       } catch (e) {
-//         console.warn("SW update check failed:", e);
-//       }
-
-//       // --- (2) NEW: If a new service worker is waiting, tell it to activate now
-//       if (registration.waiting) {
-//         console.log("Sending SKIP_WAITING to waiting service worker");
-//         registration.waiting.postMessage({ type: "SKIP_WAITING" });
-//       }
-
-//       // --- (3) If a new service worker appears, reload the page once it's installed
-//       registration.addEventListener("updatefound", () => {
-//         const newWorker = registration.installing;
-//         newWorker.addEventListener("statechange", () => {
-//           if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
-//             console.log("New service worker installed — reloading to apply update");
-//             window.location.reload();
-//           }
-//         });
-//       });
-
-//       // --- (4) Continue with your existing Firebase initialization
-//       initializeNotifications(registration);
-
-//     })
-//     .catch(error => {
-//       console.error('Service Worker registration failed:', error.message);
-//     });
-// }
-
-// Notification Initialization
-function initializeNotifications(registration) {
-  navigator.serviceWorker.addEventListener('message', event => {
-    if (event.data && event.data.type === 'tokenRefresh') {
-      refreshToken();
-    }
-  });
-}
 
       // Notification Initialization
       function initializeNotifications(registration) {
-        navigator.serviceWorker.addEventListener('message', event => {
+        // FIXED: Track service worker listener
+        const messageHandler = (event) => {
           if (event.data && event.data.type === 'tokenRefresh') {
             refreshToken();
           }
-        });
+        };
+        addTrackedListener(navigator.serviceWorker, 'message', messageHandler);
+        
         function requestPermission() {
           return new Promise((resolve, reject) => {
             Notification.requestPermission()
@@ -1248,6 +1252,7 @@ function initializeNotifications(registration) {
               });
           });
         }
+        
         function refreshToken() {
           messaging.getToken({ vapidKey: 'BOM3KFfemC5lGnsF28N-_UGA7H9esoOm5gp0_Eg45HMqaMqviLx_bcAonVaZe-c0GwSFwfwe7-fJVP1n8h1iAAU', serviceWorkerRegistration: registration })
             .then(refreshedToken => {
@@ -1256,6 +1261,7 @@ function initializeNotifications(registration) {
               console.error('Unable to refresh token:', err);
             });
         }
+        
         function createNotificationPrompt() {
           if (document.getElementById('notification-prompt')) {
             return;
@@ -1280,14 +1286,19 @@ function initializeNotifications(registration) {
                                       animation: fade-in 0.3s ease-in-out;
           `;
           promptDiv.innerHTML = `
-            <p class="notification">You’ll get weekly push alerts when picks and entry forms are available.</p>
+            <p class="notification">You'll get weekly push alerts when picks and entry forms are available.</p>
             <div style="display: flex; justify-content: space-between; gap: 10px;width: 104px;margin: 0 auto;">
                 <button id="enable-notifications" class="notification-button">OKAY</button>
                 <button id="decline-notifications" style="display: none;">Not Now</button>
             </div>
           `;
           document.body.appendChild(promptDiv);
-          document.getElementById('enable-notifications').addEventListener('click', () => {
+          
+          // FIXED: Track button listeners
+          const enableBtn = document.getElementById('enable-notifications');
+          const declineBtn = document.getElementById('decline-notifications');
+          
+          const enableHandler = () => {
             promptDiv.remove();
             requestPermission()
               .then(() => {
@@ -1296,11 +1307,15 @@ function initializeNotifications(registration) {
               .catch(error => {
                 console.error('Error enabling notifications:', error);
               });
-          });
-          document.getElementById('decline-notifications').addEventListener('click', () => {
+          };
+          
+          const declineHandler = () => {
             promptDiv.remove();
             localStorage.setItem('notificationPromptDismissed', Date.now());
-          });
+          };
+          
+          addTrackedListener(enableBtn, 'click', enableHandler);
+          addTrackedListener(declineBtn, 'click', declineHandler);
         }
 
         async function saveTokenToFirestore(token, retries = 3) {
@@ -1456,18 +1471,23 @@ function initializeNotifications(registration) {
             const lastDismissed = localStorage.getItem('notificationPromptDismissed');
             const ONE_WEEK = 7 * 24 * 60 * 60 * 1000;
             if (!lastDismissed || (Date.now() - parseInt(lastDismissed)) > ONE_WEEK || !localStorage.getItem('fcmToken')) {
+              let promptTimeout; // ADDED: Track timeout
+              
               const triggerPrompt = () => {
                 clearTimeout(promptTimeout);
                 document.removeEventListener('click', userInteracted);
                 setTimeout(createNotificationPrompt, 1000);
               };
+              
               const userInteracted = () => { triggerPrompt(); };
-              document.addEventListener('click', userInteracted, { once: true });
-              const promptTimeout = setTimeout(() => {
+              
+              // FIXED: Track this listener
+              addTrackedListener(document, 'click', userInteracted, { once: true });
+              
+              promptTimeout = setTimeout(() => {
                 document.removeEventListener('click', userInteracted);
                 triggerPrompt();
               }, 4500);
-              setTimeout(() => { }, 2500);
             }
           }
         }
@@ -1519,29 +1539,37 @@ function initializeNotifications(registration) {
     }
 
     // ===================DOMContentLoaded Handler===================
-document.addEventListener('DOMContentLoaded', function () { 
-  const preloader = document.getElementById('preloader');
-  const iframe = document.querySelector('iframe');
-  const resetButton = document.getElementById('resetBtn');
+    // FIXED: Store handler reference
+    const domContentLoadedHandler = function () { 
+      const preloader = document.getElementById('preloader');
+      const iframe = document.querySelector('iframe');
+      const resetButton = document.getElementById('resetBtn');
 
-  // Check if the app is in standalone mode
-  if (!isStandalone()) {
-    resetButton.style.display = 'none';
-  }
+      if (!isStandalone()) {
+        resetButton.style.display = 'none';
+      }
 
-  iframe.onload = function () {
-    // SHOW PRELOADER FOR 4.5 SECONDS
-    setTimeout(() => {
-      preloader.classList.add('preloader-fade-out'); // Start fade-out animation
+      const iframeLoadHandler = function () {
+        setTimeout(() => {
+          preloader.classList.add('preloader-fade-out');
 
-      // Remove preloader exactly when the transition ends
-      preloader.addEventListener('transitionend', () => {
-        preloader.style.display = 'none';           // Fully remove the preloader
-        document.body.classList.add('no-animations'); // Stop animations
-      }, { once: true }); // Ensure the listener runs only once
-    }, 4500);
-  };
-});
+          const transitionEndHandler = () => {
+            preloader.style.display = 'none';
+            document.body.classList.add('no-animations');
+          };
+          
+          // FIXED: Track this listener
+          addTrackedListener(preloader, 'transitionend', transitionEndHandler, { once: true });
+        }, 4500);
+      };
+      
+      // FIXED: Track iframe load listener
+      if (iframe) {
+        addTrackedListener(iframe, 'load', iframeLoadHandler);
+      }
+    };
+    
+    addTrackedListener(document, 'DOMContentLoaded', domContentLoadedHandler);
 
     // ===================Device and Platform Utilities===================
     function isDesktop() {
@@ -1563,84 +1591,103 @@ document.addEventListener('DOMContentLoaded', function () {
       const iosCloseButton = document.getElementById('ios-install-close');
 
       if (isDesktop() || isStandalone()) {
-        installBanner.style.display = 'none';
-        iosInstallBanner.style.display = 'none';
+        if (installBanner) installBanner.style.display = 'none';
+        if (iosInstallBanner) iosInstallBanner.style.display = 'none';
         return;
       }
 
       if (isIOS()) {
-        iosInstallBanner.style.display = 'block';
-        iosCloseButton.addEventListener('click', () => {
-          iosInstallBanner.style.display = 'none';
-        });
+        if (iosInstallBanner) {
+          iosInstallBanner.style.display = 'block';
+          if (iosCloseButton) {
+            const iosCloseHandler = () => {
+              iosInstallBanner.style.display = 'none';
+            };
+            addTrackedListener(iosCloseButton, 'click', iosCloseHandler);
+          }
+        }
       } else {
-        window.addEventListener('beforeinstallprompt', (e) => {
+        const beforeInstallHandler = (e) => {
           e.preventDefault();
           deferredPrompt = e;
-          installBanner.style.display = 'block';
-        });
+          if (installBanner) installBanner.style.display = 'block';
+        };
+        
+        // FIXED: Track beforeinstallprompt listener
+        addTrackedListener(window, 'beforeinstallprompt', beforeInstallHandler);
       }
 
-      installButton.addEventListener('click', () => {
-        if (deferredPrompt) {
-          installBanner.style.display = 'none';
-          deferredPrompt.prompt();
-          deferredPrompt.userChoice.then((choiceResult) => {
-            deferredPrompt = null;
-          });
-        }
-      });
+      if (installButton) {
+        const installClickHandler = () => {
+          if (deferredPrompt) {
+            if (installBanner) installBanner.style.display = 'none';
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+              deferredPrompt = null;
+            });
+          }
+        };
+        addTrackedListener(installButton, 'click', installClickHandler);
+      }
 
-      dismissButton.addEventListener('click', () => {
-        installBanner.style.display = 'none';
-      });
+      if (dismissButton) {
+        const dismissClickHandler = () => {
+          if (installBanner) installBanner.style.display = 'none';
+        };
+        addTrackedListener(dismissButton, 'click', dismissClickHandler);
+      }
     }
 
-document.addEventListener('DOMContentLoaded', () => {
-  setupInstallPrompt();
+    // FIXED: Store handler reference
+    const setupDOMContentHandler = () => {
+      setupInstallPrompt();
 
-  // Week Number Calculation and Display
-  const startDate = new Date('September 3, 2025');
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const differenceInTime = today.getTime() - startDate.getTime();
-  const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
-  const weekNumber = Math.floor(differenceInDays / 7) + 1;
-  const weekNumberContainer = document.getElementById('week-number');
-  
-  if (weekNumber >= 1 && weekNumber <= 18) {
-    // Clear any previous content and show the container
-    weekNumberContainer.innerHTML = '';
-    document.getElementById('preloader-week').style.display = 'block';
-
-    // Split the text into individual characters and create spans
-    const weekText = `WEEK ${weekNumber}`;
-    const chars = weekText.split('');
-
-    chars.forEach((char, index) => {
-      const span = document.createElement('span');
-      span.textContent = char;
-      span.setAttribute('data-char', char);           // <-- add this
-      span.style.animationDelay = `${1.5 + (index * 0.1)}s`;
+      // Week Number Calculation and Display
+      const startDate = new Date('September 3, 2025');
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const differenceInTime = today.getTime() - startDate.getTime();
+      const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
+      const weekNumber = Math.floor(differenceInDays / 7) + 1;
+      const weekNumberContainer = document.getElementById('week-number');
       
-      // If the character is a space, handle it accordingly
-      if (char === ' ') {
-        span.style.margin = '0 5px'; // Adjust spacing for the gap
+      if (weekNumber >= 1 && weekNumber <= 18) {
+        if (weekNumberContainer) {
+          weekNumberContainer.innerHTML = '';
+          const preloaderWeek = document.getElementById('preloader-week');
+          if (preloaderWeek) preloaderWeek.style.display = 'block';
+
+          const weekText = `WEEK ${weekNumber}`;
+          const chars = weekText.split('');
+
+          chars.forEach((char, index) => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.setAttribute('data-char', char);
+            span.style.animationDelay = `${1.5 + (index * 0.1)}s`;
+            
+            if (char === ' ') {
+              span.style.margin = '0 5px';
+            }
+            weekNumberContainer.appendChild(span);
+          });
+        }
+      } else {
+        const preloaderWeek = document.getElementById('preloader-week');
+        if (preloaderWeek) preloaderWeek.style.display = 'none';
       }
-      weekNumberContainer.appendChild(span);
-    });
 
-  } else {
-    document.getElementById('preloader-week').style.display = 'none';
-  }
-
-  // Google Analytics event for app mode
-  gtag('event', 'app_mode', {
-    'event_category': 'User Engagement',
-    'event_label': isStandalone() ? 'Standalone App' : 'Browser',
-    'value': isStandalone() ? 1 : 0
-  });
-});
+      // Google Analytics event for app mode
+      if (typeof gtag === 'function') {
+        gtag('event', 'app_mode', {
+          'event_category': 'User Engagement',
+          'event_label': isStandalone() ? 'Standalone App' : 'Browser',
+          'value': isStandalone() ? 1 : 0
+        });
+      }
+    };
+    
+    addTrackedListener(document, 'DOMContentLoaded', setupDOMContentHandler);
 
     // ===================Apps Script Communication===================
     function sendNameToAppsScript(nameToSend) {
@@ -1660,7 +1707,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => { console.error('Error sending name to Apps Script:', error); });
     }
 
-    window.addEventListener('message', (event) => {
+    // FIXED: Store handler reference
+    const windowMessageHandler = (event) => {
       const isGoogleScript = event.origin.endsWith('script.google.com') || event.origin.endsWith('script.googleusercontent.com');
       if (!isGoogleScript) { return; }
       const message = event.data;
@@ -1676,13 +1724,19 @@ document.addEventListener('DOMContentLoaded', () => {
           }, event.origin);
         }
       }
-    });
+    };
+    
+    addTrackedListener(window, 'message', windowMessageHandler);
 
     // ===================Google Analytics===================
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-J8ZSHET5RJ');
+    
+    // ADDED: Expose cleanup function globally if needed
+    window.cleanupFirebaseListeners = cleanupEventListeners;
+    
   </script>
 </body>
 </html>
