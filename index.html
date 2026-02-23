@@ -1690,43 +1690,112 @@ iframe {
     addTrackedListener(document, 'DOMContentLoaded', setupDOMContentHandler);
 
     // ===================Apps Script Communication===================
-    function sendNameToAppsScript(nameToSend) {
-      const scriptUrl = 'https://script.google.com/macros/s/AKfycbxfy3jxE_5zmuwZ6XmqU_OrcpaIChmHZYXO9QvptCc3A9GPSHjGv81RPz-BIgeqBuJw/exec';
-      fetch(scriptUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'saveEntryName', name: nameToSend }),
-      })
-        .then(response => {
-          if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-          return response.json();
-        })
-        .then(data => {
-          if (!data.success) { console.error("Error from Apps Script:", data.message); }
-        })
-        .catch(error => { console.error('Error sending name to Apps Script:', error); });
-    }
+    // function sendNameToAppsScript(nameToSend) {
+    //   const scriptUrl = 'https://script.google.com/macros/s/AKfycbxfy3jxE_5zmuwZ6XmqU_OrcpaIChmHZYXO9QvptCc3A9GPSHjGv81RPz-BIgeqBuJw/exec';
+    //   fetch(scriptUrl, {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({ type: 'saveEntryName', name: nameToSend }),
+    //   })
+    //     .then(response => {
+    //       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    //       return response.json();
+    //     })
+    //     .then(data => {
+    //       if (!data.success) { console.error("Error from Apps Script:", data.message); }
+    //     })
+    //     .catch(error => { console.error('Error sending name to Apps Script:', error); });
+    // }
 
-    // FIXED: Store handler reference
-    const windowMessageHandler = (event) => {
-      const isGoogleScript = event.origin.endsWith('script.google.com') || event.origin.endsWith('script.googleusercontent.com');
-      if (!isGoogleScript) { return; }
-      const message = event.data;
-      if (message && message.type === 'saveEntryName' && message.value) {
-        const entryName = message.value;
-        localStorage.setItem('storedEntryName', entryName);
-      } else if (message && message.type === 'requestCachedName') {
-        const cachedName = localStorage.getItem('storedEntryName');
-        if (cachedName) {
-          event.source.postMessage({
-            type: 'loadCachedName',
-            value: cachedName
-          }, event.origin);
-        }
-      }
-    };
+    // // FIXED: Store handler reference
+    // const windowMessageHandler = (event) => {
+    //   const isGoogleScript = event.origin.endsWith('script.google.com') || event.origin.endsWith('script.googleusercontent.com');
+    //   if (!isGoogleScript) { return; }
+    //   const message = event.data;
+    //   if (message && message.type === 'saveEntryName' && message.value) {
+    //     const entryName = message.value;
+    //     localStorage.setItem('storedEntryName', entryName);
+    //   } else if (message && message.type === 'requestCachedName') {
+    //     const cachedName = localStorage.getItem('storedEntryName');
+    //     if (cachedName) {
+    //       event.source.postMessage({
+    //         type: 'loadCachedName',
+    //         value: cachedName
+    //       }, event.origin);
+    //     }
+    //   }
+    // };
     
-    addTrackedListener(window, 'message', windowMessageHandler);
+    // addTrackedListener(window, 'message', windowMessageHandler);
+
+    const CACHED_NAMES_KEY = 'storedEntryNames';
+const CACHED_NAMES_MAX = 15;
+
+function getCachedEntryNames() {
+  try {
+    const raw = localStorage.getItem(CACHED_NAMES_KEY);
+    const arr = JSON.parse(raw);
+    return Array.isArray(arr) ? arr.filter(Boolean) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function addCachedEntryName(name) {
+  const trimmed = (name || '').trim();
+  if (!trimmed) return;
+
+  const current = getCachedEntryNames();
+
+  // de-dupe case-insensitively, keep latest casing
+  const lower = trimmed.toLowerCase();
+  const deduped = current.filter(n => (n || '').trim().toLowerCase() !== lower);
+
+  const next = [trimmed, ...deduped].slice(0, CACHED_NAMES_MAX);
+  localStorage.setItem(CACHED_NAMES_KEY, JSON.stringify(next));
+
+  // optional backward-compat (if any old logic still reads it)
+  localStorage.setItem('storedEntryName', trimmed);
+}
+
+    const windowMessageHandler = (event) => {
+  const isGoogleScript =
+    event.origin.endsWith('script.google.com') ||
+    event.origin.endsWith('script.googleusercontent.com');
+  if (!isGoogleScript) return;
+
+  const message = event.data;
+
+  // When Apps Script says "saveEntryName", add it to the list
+  if (message && message.type === 'saveEntryName' && message.value) {
+    addCachedEntryName(message.value);
+    return;
+  }
+
+  // When Apps Script asks, return ALL cached names
+  if (message && message.type === 'requestCachedNames') {
+    const cachedNames = getCachedEntryNames();
+    event.source.postMessage(
+      { type: 'loadCachedNames', value: cachedNames },
+      event.origin
+    );
+    return;
+  }
+
+  // (Optional) backward compat: if Apps Script still sends requestCachedName
+  if (message && message.type === 'requestCachedName') {
+    const cachedNames = getCachedEntryNames();
+    const mostRecent = cachedNames[0];
+    if (mostRecent) {
+      event.source.postMessage(
+        { type: 'loadCachedName', value: mostRecent },
+        event.origin
+      );
+    }
+  }
+};
+
+addTrackedListener(window, 'message', windowMessageHandler);
 
     // ===================Google Analytics===================
     window.dataLayer = window.dataLayer || [];
