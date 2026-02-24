@@ -1728,7 +1728,7 @@ iframe {
     
     // addTrackedListener(window, 'message', windowMessageHandler);
 
-    const CACHED_NAMES_KEY = 'storedEntryNames';
+const CACHED_NAMES_KEY = 'storedEntryNames';
 const CACHED_NAMES_MAX = 15;
 
 function getCachedEntryNames() {
@@ -1756,6 +1756,26 @@ function addCachedEntryName(name) {
 
   // optional backward-compat (if any old logic still reads it)
   localStorage.setItem('storedEntryName', trimmed);
+}
+
+function removeCachedEntryName(name) {
+  const target = (name || '').trim().toLowerCase();
+  if (!target) return;
+
+  let arr = [];
+  try {
+    arr = JSON.parse(localStorage.getItem(CACHED_NAMES_KEY) || '[]');
+  } catch (e) {
+    arr = [];
+  }
+
+  const next = (Array.isArray(arr) ? arr : []).filter(n => (n || '').trim().toLowerCase() !== target);
+  localStorage.setItem(CACHED_NAMES_KEY, JSON.stringify(next));
+
+  // Optional: keep the old single-name key in sync (set to most recent or clear)
+  const mostRecent = next[0] || '';
+  if (mostRecent) localStorage.setItem('storedEntryName', mostRecent);
+  else localStorage.removeItem('storedEntryName');
 }
 
     const windowMessageHandler = (event) => {
@@ -1793,6 +1813,18 @@ function addCachedEntryName(name) {
       );
     }
   }
+  
+  if (message && message.type === 'deleteCachedName' && message.value) {
+  removeCachedEntryName(message.value);
+
+  // Send updated list back so the popup can update immediately
+  const cachedNames = getCachedEntryNames();
+  event.source.postMessage(
+    { type: 'loadCachedNames', value: cachedNames },
+    event.origin
+  );
+  return;
+}
 };
 
 addTrackedListener(window, 'message', windowMessageHandler);
