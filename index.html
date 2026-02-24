@@ -942,6 +942,9 @@ iframe {
     <div id="preloader-week">
       <span id="week-number"></span>
     </div>
+    <div class="preloader-details">
+      <span id="preloader-welcome" class="preloader-details-text"></span>
+    </div>
     <!-- <div class="preloader-details">
       <span class="preloader-details-text">HAPPY<br>HOLIDAYS</span>
     </div> -->
@@ -1828,6 +1831,25 @@ function removeCachedEntryName(name) {
 };
 
 addTrackedListener(window, 'message', windowMessageHandler);
+
+      function getFirstName(fullName) {
+    return String(fullName || "").trim().split(/\s+/)[0] || "";
+  }
+
+  function setPreloaderWelcome(storedEntryName) {
+    const el = document.getElementById("preloader-welcome");
+    if (!el) return;
+
+    const first = getFirstName(storedEntryName);
+    el.textContent = first ? `Welcome back ${first}` : "Welcome back";
+  }
+
+  // Call this after storedEntryName has been read/set in your code.
+  // If storedEntryName is already a global variable, this will work:
+  setPreloaderWelcome(window.storedEntryName);
+
+      const storedEntryName = localStorage.getItem("storedEntryName");
+  setPreloaderWelcome(storedEntryName);
 
     // ===================Google Analytics===================
     window.dataLayer = window.dataLayer || [];
