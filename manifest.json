@@ -9,6 +9,12 @@
     "theme_color": "#0c1016",
     "orientation": "portrait-primary",
     "lang": "en-US",
+    "capture_links": "existing_client_event",
+    "url_handlers": [
+        {
+        "origin": "https://joespicks.github.io/"
+        }
+    ],
     "icons": [
         {
             "src": "Pick6LogoNew192x192.png",
