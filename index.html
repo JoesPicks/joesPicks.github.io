@@ -382,6 +382,7 @@ iframe {
         flex-direction: column;
         z-index: 9999;
         position: relative;
+        opacity: 0; 
         transition: opacity .9s ease-out, transform 2s ease-out;
       }
 
@@ -398,13 +399,14 @@ iframe {
   animation: none;
 }
 
-      .-fade-out {
+      .preloader-fade-out {
         opacity: 0;
         /* background: var(--header-color) !important; */
         background: url(https://raw.githubusercontent.com/KSWENSON2/Images/refs/heads/main/Background.jpeg) !important;
         transform: scale(54) translateY(-255px);
       }
 
+      #preloader-text,
       .preloader-text {
             display: flex;
     justify-content: flex-end;
@@ -1017,7 +1019,7 @@ iframe {
   <!-- ===================Preloader Section=================== -->
   <div id="preloader">
     <img src="https://raw.githubusercontent.com/JoesPicks/Football-Team-Logos/refs/heads/main/BlurredField.jpeg" alt="" class="image">
-    <span class="preloader-text">PICK 6</span>
+    <span class="preloader-text" id="preloader-text">PICK 6</span>
     <!-- <div id="preloader-text">
       <span>P</span>
       <span>I</span>
