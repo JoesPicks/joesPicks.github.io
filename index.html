@@ -416,30 +416,28 @@ iframe {
     justify-content: flex-end;
     align-items: center;
     height: 50%;
-    font-size: 130px;
+    font-size: 120px;
     line-height: 1;
-    letter-spacing: .5px;
+    letter-spacing: .25px;
     white-space: nowrap;
     text-transform: uppercase;
     color: #fff;
     background-color: #000;
     mix-blend-mode: multiply;
     opacity: 0;
-    animation: fadeInText 4s 2.5s ease-out forwards;
+    animation: fadeInText 4s 1.75s ease-out forwards;
     width: 50%;
     position: fixed;
     top: 0px;
     flex-direction: column;
     transform: translateX(-50%);
-    left: 61%;
     position: fixed;
     bottom: 50%;
     left: 50%;
     transform: translateX(-50%);
     width: 101%;
-       font-size: 130px;
         font-weight: 900;
-    -webkit-text-stroke: 5px;
+    -webkit-text-stroke: 6px;
         /* padding-bottom: 1%;
         border: none;
         height: 153px;
@@ -1657,7 +1655,7 @@ iframe {
           
           // FIXED: Track this listener
           addTrackedListener(preloader, 'transitionend', transitionEndHandler, { once: true });
-        }, 4500);
+        }, 5000);
       };
       
       // FIXED: Track iframe load listener
