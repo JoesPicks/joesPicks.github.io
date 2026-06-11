@@ -335,24 +335,24 @@ iframe {
       }
 
       #preloader {
-        background: linear-gradient(to top, 
+        /* background: linear-gradient(to top,  */
                     /* var(--header-color) 0%, */
                     /* rgba(17, 18, 24, 0.8) 7%, */
                     /* rgba(17, 18, 24, 0) 40%, */
-                    rgba(17, 18, 24, 0) 60%,
+                    /* rgba(17, 18, 24, 0) 60%,
                     rgba(17, 18, 24, 0.8) 90%,
-                    var(--header-color) 100%),
+                    var(--header-color) 100%), */
         /* url(https://raw.githubusercontent.com/KSWENSON2/Images/refs/heads/main/Background.jpeg); */
-        url(https://raw.githubusercontent.com/JoesPicks/Football-Team-Logos/refs/heads/main/BlurredField.jpeg);
+        /* url(https://raw.githubusercontent.com/JoesPicks/Football-Team-Logos/refs/heads/main/BlurredField.jpeg); */
         /* url(https://raw.githubusercontent.com/KSWENSON2/Images/refs/heads/main/Halloween2.jpeg); */
         /* url(https://raw.githubusercontent.com/KSWENSON2/Images/refs/heads/main/ThanksgivingLoader.jpeg); */
         /* url(https://raw.githubusercontent.com/KSWENSON2/Images/refs/heads/main/Background-snow.jpeg); */
         /* url(https://raw.githubusercontent.com/KSWENSON2/Images/refs/heads/main/Christmas-loader2.jpeg); */
-        background-size: cover;
+        /* background-size: cover; */
          /* background-size: 155%; */
         /* background-size: inherit; */
         /* background-position: center calc(50% - 10px); */
-        background-position: center;
+        /* background-position: center;
         position: fixed;
         top: 0;
         left: 0;
@@ -368,13 +368,18 @@ iframe {
         color: white;
         padding: 0px;
         transition: opacity .9s ease-out, transform 2s ease-out;
-        /* background-blend-mode: difference; */
-        background-repeat: no-repeat;
+        background-repeat: no-repeat; */
         
         /* padding-top: var(--safe-top); */
         /* padding-bottom: var(--safe-bottom); */
         /* opacity: 1; */
          /* transition: opacity 0.5s ease-out;  */
+        /* height: 100%;
+    display: flex;
+    flex-direction: column; */
+            height: 100%;
+    display: flex;
+    flex-direction: column;
       }
 
       body.no-animations .snowflake {
@@ -389,7 +394,7 @@ iframe {
       }
 
       #preloader-text {
-        padding-bottom: 1%;
+        /* padding-bottom: 1%;
         border: none;
         height: 153px;
         font-size: 130px;
@@ -402,14 +407,31 @@ iframe {
         transition: all 1s ease-in-out;
         letter-spacing: 4px;
         color: transparent;
-        /* -webkit-text-stroke: 5px var(--primary-color); */
-        /* color: var(--primary-color); */
         -webkit-text-stroke: 5px var(--primary-color);
         color: var(--primary-color);
-        /*text-shadow: 0px -3px 1px rgba(255, 255, 255, .9), -0px -4px 1px rgba(255, 255, 255, .8), 4px 6px 8px rgba(0, 0, 0, .9); */
-        text-shadow: 4px 6px 8px rgba(0, 0, 0, .9);
+        text-shadow: 4px 6px 8px rgba(0, 0, 0, .9); */
+            display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 100%;
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: calc(50px + 8vw);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #000;
+    mix-blend-mode: multiply;
+    opacity: 0;
+    animation: fadeInText 3s 2s ease-out forwards;
+    width: 100%;
         /* animation: increaseStroke 3s linear forwards; */
-        /* transform: translateY(calc((var(--safe-top) - var(--safe-bottom)) / 2)); */
+        /* transform: translateY(calc((var(--safe-top) - var(--safe-bottom)) / 2)); */ 
+        /* -webkit-text-stroke: 5px var(--primary-color); */
+        /* color: var(--primary-color); */
+        /*text-shadow: 0px -3px 1px rgba(255, 255, 255, .9), -0px -4px 1px rgba(255, 255, 255, .8), 4px 6px 8px rgba(0, 0, 0, .9); */
       }
 
 
@@ -893,21 +915,42 @@ iframe {
     } */
 
         .preloader-details {
-        margin-top: 5px;
+        /* margin-top: 5px;
           margin-bottom: 7px;
-        text-align: center;
+        text-align: center; */
+          height: 100%;
+    bottom: 0%;
+    position: relative;
+    width: 100%;
     }
     .preloader-details-text {
-        font-size: 35px;
+        /* font-size: 35px;
         line-height: 1;
-        /* color: red !important; */
-        /* -webkit-text-stroke: 4px red; */
+    text-shadow: 4px 6px 8px rgba(0, 0, 0, .9);
         color: var(--white-color);
         text-align: center;
         font-weight: 900;
-      line-height: .85;
-        /* text-shadow: 2px 2px 4px green, 0px -4px 1px var(--white-color); */
-      text-shadow: 4px 6px 8px rgba(0, 0, 0, .9);
+      line-height: .85; */
+        /* text-shadow: 2px 2px 4px green, 0px -4px 1px var(--white-color); */  
+      /* color: red !important; */
+        /* -webkit-text-stroke: 4px red; */
+      display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: calc(50px);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: #000;
+    mix-blend-mode: multiply;
+    opacity: 0;
+    animation: fadeInText2 3s 2s ease-out forwards;
+    width: 100%;
     }
 
       /* Inline style converted for Reset Button */
@@ -927,21 +970,33 @@ iframe {
         z-index: 1001;
         transition: all 0.3s ease;
       }
+      @keyframes fadeInText {
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes fadeInText2 {
+    100% {
+        opacity: 1;
+    }
+}
     }
   </style>
 </head>
 
 <body>
   <!-- ===================Preloader Section=================== -->
+  <img src="https://raw.githubusercontent.com/JoesPicks/Football-Team-Logos/refs/heads/main/BlurredField.jpeg" alt="" class="image">
   <div id="preloader">
-    <div id="preloader-text">
+    <span class="preloader-text">PICK 6</span>
+    <!-- <div id="preloader-text">
       <span>P</span>
       <span>I</span>
       <span>C</span>
       <span>K</span>
       <span class="break"></span>
       <span>6</span>
-    </div>
+    </div> -->
     <div id="preloader-week">
       <span id="week-number"></span>
     </div>
@@ -954,6 +1009,15 @@ iframe {
     <!-- <div id="leaves"> -->
     <!-- <div id="snow">
     </div> -->
+    <img src="https://raw.githubusercontent.com/JoesPicks/Football-Team-Logos/refs/heads/main/BlurredField.jpeg" alt="" class="image">
+
+    <div class="text-container">
+    <span class="preloader-text">PICK 6</span>
+      <div class="text2">
+    <span class="preloader-details">Welcome Back</span>
+    <span class="text2">Kevin</span>
+          </div>
+    </div>
     <button id="resetBtn" onclick="resetNotifications()" aria-label="Reset Notifications">Reset Notifications</button>
   </div>
 
