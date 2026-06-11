@@ -334,7 +334,7 @@ iframe {
         width: -webkit-fill-available;
       }
 
-      #preloader {
+      # {
         /* background: linear-gradient(to top,  */
                     /* var(--header-color) 0%, */
                     /* rgba(17, 18, 24, 0.8) 7%, */
@@ -382,6 +382,7 @@ iframe {
         flex-direction: column;
         z-index: 9999;
         position: relative;
+        transition: opacity .9s ease-out, transform 2s ease-out;
       }
 
       .image {
@@ -397,7 +398,7 @@ iframe {
   animation: none;
 }
 
-      .preloader-fade-out {
+      .-fade-out {
         opacity: 0;
         /* background: var(--header-color) !important; */
         background: url(https://raw.githubusercontent.com/KSWENSON2/Images/refs/heads/main/Background.jpeg) !important;
@@ -432,6 +433,7 @@ iframe {
     left: 50%;
     transform: translateX(-50%);
     width: 101%;
+    -webkit-text-stroke: 5px var(--primary-color);
         /* padding-bottom: 1%;
         border: none;
         height: 153px;
@@ -1036,15 +1038,6 @@ iframe {
     <!-- <div id="leaves"> -->
     <!-- <div id="snow">
     </div> -->
-    <img src="https://raw.githubusercontent.com/JoesPicks/Football-Team-Logos/refs/heads/main/BlurredField.jpeg" alt="" class="image">
-
-    <div class="text-container">
-    <span class="preloader-text">PICK 6</span>
-      <div class="text2">
-    <span class="preloader-details">Welcome Back</span>
-    <span class="text2">Kevin</span>
-          </div>
-    </div>
     <button id="resetBtn" onclick="resetNotifications()" aria-label="Reset Notifications">Reset Notifications</button>
   </div>
 
