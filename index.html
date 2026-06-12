@@ -995,10 +995,10 @@ iframe {
         white-space: nowrap;
         text-transform: uppercase;
         color: var(--white-color);
-        background-color: rgba(17, 18, 24, 1);
+        background-color: var(--header-color);
         mix-blend-mode: multiply;
         opacity: 0;
-        animation: fadeInText 2.5s 2s ease-out forwards;
+        animation: fadeInText 2s 3s ease-out forwards;
         width: 50%;
         position: fixed;
         top: 0px;
@@ -1747,7 +1747,7 @@ iframe {
       setupInstallPrompt();
 
       // Week Number Calculation and Display
-      const startDate = new Date('September 3, 2025');
+      const startDate = new Date('September 8, 2026');
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       const differenceInTime = today.getTime() - startDate.getTime();
