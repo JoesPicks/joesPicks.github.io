@@ -993,7 +993,7 @@ iframe {
         white-space: nowrap;
         text-transform: uppercase;
         color: #fff;
-        background-color: #000;
+        background-color: rgba(0, 0, 0, .9);
         mix-blend-mode: multiply;
         opacity: 0;
         animation: fadeInText 2.5s 2s ease-out forwards;
@@ -1662,7 +1662,7 @@ iframe {
           
           // FIXED: Track this listener
           addTrackedListener(preloader, 'transitionend', transitionEndHandler, { once: true });
-        }, 2000);
+        }, 3500);
       };
       
       // FIXED: Track iframe load listener
