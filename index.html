@@ -1005,6 +1005,9 @@ iframe {
         z-index: 1001;
         transition: all 0.3s ease;
       }
+      .text-container {
+        
+      }
       @keyframes fadeInText {
     100% {
         opacity: 1;
@@ -1023,6 +1026,7 @@ iframe {
   <!-- ===================Preloader Section=================== -->
   <div id="preloader">
     <img src="https://raw.githubusercontent.com/JoesPicks/Football-Team-Logos/refs/heads/main/BlurredField.jpeg" alt="" class="image">
+    <div class="text-container">
     <span class="preloader-text" id="preloader-text">PICK 6</span>
     <!-- <div id="preloader-text">
       <span>P</span>
@@ -1032,12 +1036,15 @@ iframe {
       <span class="break"></span>
       <span>6</span>
     </div> -->
-    <div id="preloader-week">
       <span id="week-number"></span>
-    </div>
-    <div class="preloader-details">
       <span id="preloader-welcome" class="preloader-details-text"></span>
-    </div>
+    <!-- <div id="preloader-week">
+      <span id="week-number"></span>
+    </div> -->
+      
+    <!-- <div class="preloader-details">
+      <span id="preloader-welcome" class="preloader-details-text"></span>
+    </div> -->
     <!-- <div class="preloader-details">
       <span class="preloader-details-text">HAPPY<br>HOLIDAYS</span>
     </div> -->
@@ -1045,6 +1052,7 @@ iframe {
     <!-- <div id="snow">
     </div> -->
     <button id="resetBtn" onclick="resetNotifications()" aria-label="Reset Notifications">Reset Notifications</button>
+    </div>
   </div>
 
   <!-- ===================Install Banner Section=================== -->
