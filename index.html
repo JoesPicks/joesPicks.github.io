@@ -1968,7 +1968,7 @@ addTrackedListener(window, 'message', windowMessageHandler);
   setPreloaderWelcome(storedEntryName);
 
 
-    const THEME_KEY = "pick6-theme";
+    // const THEME_KEY = "pick6-theme";
 
 function applyTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
@@ -1984,7 +1984,7 @@ function applyTheme(theme) {
 }
 
 function saveTheme(theme) {
-  localStorage.setItem(THEME_KEY, theme);
+  localStorage.setItem(pick6-theme, theme);
   applyTheme(theme);
 }
 
@@ -2003,7 +2003,7 @@ window.addEventListener("message", (event) => {
 });
 
     (function initTheme() {
-  const saved = localStorage.getItem(THEME_KEY);
+  const saved = localStorage.getItem(pick6-theme);
   if (saved) applyTheme(saved);
 })();
     // ===================Google Analytics===================
