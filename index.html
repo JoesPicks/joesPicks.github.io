@@ -2002,10 +2002,6 @@ window.addEventListener("message", (event) => {
   }
 });
 
-    (function initTheme() {
-  const saved = localStorage.getItem(pick6-theme);
-  if (saved) applyTheme(saved);
-})();
     // ===================Google Analytics===================
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
@@ -2014,7 +2010,11 @@ window.addEventListener("message", (event) => {
     
     // ADDED: Expose cleanup function globally if needed
     window.cleanupFirebaseListeners = cleanupEventListeners;
-    
+
+        (function initTheme() {
+  const saved = localStorage.getItem(pick6-theme);
+  if (saved) applyTheme(saved);
+})();
   </script>
 </body>
 </html>
