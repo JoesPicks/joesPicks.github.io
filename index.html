@@ -2001,9 +2001,8 @@ window.addEventListener("message", (event) => {
   if (msg?.type === "setTheme" && msg.value) {
     saveTheme(msg.value);
   }
-});
 
-    if (msg?.type === "requestTheme") {
+  if (msg?.type === "requestTheme") {
   const saved = localStorage.getItem(THEME_KEY) || "light";
   event.source.postMessage(
     { type: "loadTheme", value: saved },
@@ -2011,6 +2010,7 @@ window.addEventListener("message", (event) => {
   );
   return;
 }
+});
 
     // ===================Google Analytics===================
     window.dataLayer = window.dataLayer || [];
