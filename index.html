@@ -41,6 +41,15 @@
       --secondary-color: #d65105;   --THANKSGIVING    
       --secondary-color2: #d95e06;  --THANKSGIVING */
     }
+    :root[data-theme="light"] {
+  --header-color: #dadee1;
+  --background-color: #dadee1;
+}
+
+:root[data-theme="dark"] {
+  --header-color: #111218;
+  --background-color: #111218;
+}
     /* ===================General / Page Layout=================== */
     html,
     body {
@@ -1952,6 +1961,45 @@ addTrackedListener(window, 'message', windowMessageHandler);
       const storedEntryName = localStorage.getItem("storedEntryName");
   setPreloaderWelcome(storedEntryName);
 
+
+    const THEME_KEY = "pick6-theme";
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+
+  // Update meta theme-color
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) {
+    const cssVar = getComputedStyle(document.documentElement)
+      .getPropertyValue("--header-color")
+      .trim();
+    meta.setAttribute("content", cssVar);
+  }
+}
+
+function saveTheme(theme) {
+  localStorage.setItem(THEME_KEY, theme);
+  applyTheme(theme);
+}
+
+window.addEventListener("message", (event) => {
+  const isGoogleScript =
+    event.origin.endsWith("script.google.com") ||
+    event.origin.endsWith("script.googleusercontent.com");
+
+  if (!isGoogleScript) return;
+
+  const msg = event.data;
+
+  if (msg?.type === "setTheme" && msg.value) {
+    saveTheme(msg.value);
+  }
+});
+
+    (function initTheme() {
+  const saved = localStorage.getItem(THEME_KEY);
+  if (saved) applyTheme(saved);
+})();
     // ===================Google Analytics===================
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
