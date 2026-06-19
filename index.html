@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>g
+<head>
   <!-- Core Meta Tags -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
@@ -30,6 +30,7 @@
   <link rel="manifest" href="manifest.json">
 
   <title>PICK 6</title>
+</head>
 
   <style>
     :root {
@@ -1968,12 +1969,12 @@ addTrackedListener(window, 'message', windowMessageHandler);
   setPreloaderWelcome(storedEntryName);
 
 
-    // const THEME_KEY = "pick6-theme";
+    const THEME_KEY = "pick6-theme";
 
 function applyTheme(theme) {
   document.documentElement.setAttribute("data-theme", theme);
 
-  // Update meta theme-color
+  // Update meta theme-color ONLY if it exists
   const meta = document.querySelector('meta[name="theme-color"]');
   if (meta) {
     const cssVar = getComputedStyle(document.documentElement)
@@ -1984,7 +1985,7 @@ function applyTheme(theme) {
 }
 
 function saveTheme(theme) {
-  localStorage.setItem(pick6-theme, theme);
+  localStorage.setItem(THEME_KEY, theme);
   applyTheme(theme);
 }
 
@@ -2012,7 +2013,7 @@ window.addEventListener("message", (event) => {
     window.cleanupFirebaseListeners = cleanupEventListeners;
 
         (function initTheme() {
-  const saved = localStorage.getItem(pick6-theme);
+  const saved = localStorage.getItem(THEME_KEY);
   if (saved) applyTheme(saved);
 })();
   </script>
