@@ -2003,7 +2003,7 @@ window.addEventListener("message", (event) => {
   }
 
   if (msg?.type === "requestTheme") {
-  const saved = localStorage.getItem(THEME_KEY) || "light";
+  const saved = localStorage.getItem(THEME_KEY) || "dark";
   event.source.postMessage(
     { type: "loadTheme", value: saved },
     event.origin
