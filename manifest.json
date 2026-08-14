@@ -17,25 +17,25 @@
     ],
     "icons": [
         {
-            "src": "Pick6LogoNew192x192.png",
+            "src": "PICK6_Logo_New.jpg",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any"
         },
         {
-            "src": "Pick6Logo512x512.png",
+            "src": "PICK6_Logo_New.jpg",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any"
         },
         {
-            "src": "Pick6LogoNew192x192.png",
+            "src": "PICK6_Logo_New.jpg",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "maskable"
         },
         {
-            "src": "Pick6Logo512x512.png",
+            "src": "PICK6_Logo_New.jpg",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "maskable"
@@ -43,14 +43,14 @@
     ],
     "screenshots": [
         {
-            "src": "Pick6Logo512x512.png",
+            "src": "PICK6_Logo_New.jpg",
             "sizes": "512x512",
             "type": "image/png",
             "form_factor": "narrow",
             "label": "PICK 6"
         },
         {
-            "src": "Pick6Logo512x512.png",
+            "src": "PICK6_Logo_New.jpg",
             "sizes": "512x512",
             "type": "image/png",
             "form_factor": "wide",
