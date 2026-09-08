@@ -1542,9 +1542,9 @@ iframe {
                 const data = doc.data();
                 if (data.deviceId !== deviceId) {
                   batch.update(doc.ref, {
-                    [`activeTokens.${currentToken}`]: firebase.firestore.FieldValue.delete(),
-                    [`tokens.${Object.keys(data.tokens).find(key => data.tokens[key] === currentToken)}`]: firebase.firestore.FieldValue.delete()
-                  });
+                      [`activeTokens.${currentToken}`]: firebase.firestore.FieldValue.delete(),
+                      [`tokens.${Object.keys(data.tokens).find(key => data.tokens[key] === currentToken)}`]: firebase.firestore.FieldValue.delete()
+                    });
                 }
               });
               await batch.commit();
@@ -1578,7 +1578,7 @@ iframe {
             const storedToken = localStorage.getItem('fcmToken');
             const storedDeviceId = localStorage.getItem('deviceId');
             if (storedToken) {
-              messaging.getToken().then(currentToken => {
+             messaging.getToken({vapidKey: 'BCN4s7UCjXIM05Toqu2lWNSdWVh_DeooDJ75zTNXJrIhLEHeo0S7l1DerI47b5UIFbkduqndD3xzpxQ2YJOvdiM', serviceWorkerRegistration: registration}).then(currentToken => {
                 if (currentToken !== storedToken) {
                   saveTokenToFirestore(currentToken);
                 } else {
