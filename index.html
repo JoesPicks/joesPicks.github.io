@@ -1134,6 +1134,7 @@ iframe {
 
   <!-- ===================Main App Script=================== -->
   <script>
+    const NOTIFICATION_VERSION = "2";
 //     document.addEventListener("DOMContentLoaded", () => {
 //   const snowContainer = document.getElementById("snow");
 //   const numFlakes = 200;
@@ -1163,6 +1164,8 @@ iframe {
       elements: new Map()
     };
 
+    document.addEventListener('DOMContentLoaded',setupFirebaseAndNotifications);
+    
     // ADDED: Cleanup function
     function cleanupEventListeners() {
       console.log('Cleaning up event listeners...');
@@ -1571,39 +1574,47 @@ iframe {
           return 'device_' + Math.abs(hash);
         }
 
-        function checkAndShowNotifications() {
-          if (isDesktop()) { return; }
-          const wasReset = !localStorage.getItem('fcmToken') && !localStorage.getItem('notificationPromptDismissed');
-          if (Notification.permission === 'granted' && !wasReset) {
-            const storedToken = localStorage.getItem('fcmToken');
-            const storedDeviceId = localStorage.getItem('deviceId');
-            if (storedToken) {
-             messaging.getToken({vapidKey: 'BCN4s7UCjXIM05Toqu2lWNSdWVh_DeooDJ75zTNXJrIhLEHeo0S7l1DerI47b5UIFbkduqndD3xzpxQ2YJOvdiM', serviceWorkerRegistration: registration}).then(currentToken => {
-                if (currentToken !== storedToken) {
-                  saveTokenToFirestore(currentToken);
-                } else {
-                  if (storedDeviceId) {
-                    db.collection('devices').where('deviceId', '==', storedDeviceId).get().then(snapshot => {
-                      if (!snapshot.empty) {
-                        const doc = snapshot.docs[0];
-                        const data = doc.data();
-                        if (!data.activeTokens || !data.activeTokens[currentToken]) {
-                          saveTokenToFirestore(currentToken);
-                        }
-                      }
-                    }).catch(err => console.error('Error checking token status:', err));
-                  }
-                }
-              }).catch(error => {
-                requestPermission();
-              });
-            } else {
-              requestPermission();
-            }
-          } else {
-            promptForPermission();
-          }
-        }
+function checkAndShowNotifications() {
+  if (isDesktop()) { return; }
+
+  const storedVersion = localStorage.getItem('notificationVersion');
+
+  if (storedVersion !== NOTIFICATION_VERSION) {
+    localStorage.removeItem('fcmToken');
+    localStorage.removeItem('notificationPromptDismissed');
+    localStorage.setItem('notificationVersion', NOTIFICATION_VERSION);
+  }
+
+  // User has already granted permissions
+  if (Notification.permission === 'granted') {
+
+    messaging.getToken({
+      vapidKey: 'BCN4s7UCjXIM05Toqu2lWNSdWVh_DeooDJ75zTNXJrIhLEHeo0S7l1DerI47b5UIFbkduqndD3xzpxQ2YJOvdiM',
+      serviceWorkerRegistration: registration
+    })
+    .then(token => {
+      if (token) {
+        saveTokenToFirestore(token);
+      }
+    })
+    .catch(err => {
+      console.error('Error retrieving token:', err);
+    });
+
+    return;
+  }
+
+  // User has never granted permission
+  if (Notification.permission === 'default') {
+    promptForPermission();
+    return;
+  }
+
+  // Permission denied
+  if (Notification.permission === 'denied') {
+    console.log('Notifications blocked by user');
+  }
+}
 
         function promptForPermission() {
           if (isDesktop()) { return; }
