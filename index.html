@@ -1884,38 +1884,73 @@ function checkAndShowNotifications() {
 
 const CACHED_NAMES_KEY = 'storedEntryNames';
 const CACHED_NAMES_MAX = 15;
+const PRIMARY_NAME_KEY = 'storedPrimaryEntryName';
+    
 
 function getCachedEntryNames() {
   try {
     const raw = localStorage.getItem(CACHED_NAMES_KEY);
     const arr = JSON.parse(raw);
-    return Array.isArray(arr) ? arr.filter(Boolean) : [];
+    return orderWithPrimaryFirst(Array.isArray(arr) ? arr.filter(Boolean) : []);
   } catch (e) {
     return [];
   }
 }
+function getPrimaryEntryName() {
+  return (localStorage.getItem(PRIMARY_NAME_KEY) || '').trim();
+}
 
-function addCachedEntryName(name) {
+function orderWithPrimaryFirst(arr) {
+  const list = Array.isArray(arr) ? arr.filter(Boolean) : [];
+  const primary = getPrimaryEntryName();
+  if (!primary) return list;
+  const lower = primary.toLowerCase();
+  const found = list.find(n => (n || '').trim().toLowerCase() === lower);
+  if (!found) return list;
+  return [found, ...list.filter(n => (n || '').trim().toLowerCase() !== lower)];
+}
+// function addCachedEntryName(name) {
+//   const trimmed = (name || '').trim();
+//   if (!trimmed) return;
+
+//   const current = getCachedEntryNames();
+//   const lower = trimmed.toLowerCase();
+//   const deduped = current.filter(n => (n || '').trim().toLowerCase() !== lower);
+
+//   const next = [trimmed, ...deduped].slice(0, CACHED_NAMES_MAX);
+//   localStorage.setItem(CACHED_NAMES_KEY, JSON.stringify(next));
+
+//   // optional backward-compat (if any old logic still reads it)
+//   localStorage.setItem('storedEntryName', trimmed);
+// }
+    function addCachedEntryName(name) {
   const trimmed = (name || '').trim();
   if (!trimmed) return;
 
   const current = getCachedEntryNames();
-
-  // de-dupe case-insensitively, keep latest casing
   const lower = trimmed.toLowerCase();
   const deduped = current.filter(n => (n || '').trim().toLowerCase() !== lower);
 
-  const next = [trimmed, ...deduped].slice(0, CACHED_NAMES_MAX);
+  const next = orderWithPrimaryFirst([trimmed, ...deduped]).slice(0, CACHED_NAMES_MAX);
   localStorage.setItem(CACHED_NAMES_KEY, JSON.stringify(next));
-
-  // optional backward-compat (if any old logic still reads it)
-  localStorage.setItem('storedEntryName', trimmed);
+  localStorage.setItem('storedEntryName', trimmed); 
+}
+    function setPrimaryEntryName(name) {
+  const trimmed = (name || '').trim();
+  if (!trimmed) return;
+  localStorage.setItem(PRIMARY_NAME_KEY, trimmed);
+  // persist the reordered list
+  const reordered = orderWithPrimaryFirst(getCachedEntryNames());
+  localStorage.setItem(CACHED_NAMES_KEY, JSON.stringify(reordered));
 }
 
 function removeCachedEntryName(name) {
   const target = (name || '').trim().toLowerCase();
   if (!target) return;
-
+  
+  if (getPrimaryEntryName().toLowerCase() === target) {
+    localStorage.removeItem(PRIMARY_NAME_KEY);
+  }
   let arr = [];
   try {
     arr = JSON.parse(localStorage.getItem(CACHED_NAMES_KEY) || '[]');
@@ -1947,14 +1982,14 @@ function removeCachedEntryName(name) {
   }
 
   // When Apps Script asks, return ALL cached names
-  if (message && message.type === 'requestCachedNames') {
-    const cachedNames = getCachedEntryNames();
-    event.source.postMessage(
-      { type: 'loadCachedNames', value: cachedNames },
-      event.origin
-    );
-    return;
-  }
+if (message && message.type === 'requestCachedNames') {
+  const cachedNames = getCachedEntryNames();
+  event.source.postMessage(
+    { type: 'loadCachedNames', value: cachedNames, primary: getPrimaryEntryName() },
+    event.origin
+  );
+  return;
+}
 
   // (Optional) backward compat: if Apps Script still sends requestCachedName
   if (message && message.type === 'requestCachedName') {
@@ -1962,11 +1997,20 @@ function removeCachedEntryName(name) {
     const mostRecent = cachedNames[0];
     if (mostRecent) {
       event.source.postMessage(
-        { type: 'loadCachedName', value: mostRecent },
-        event.origin
+          { type: 'loadCachedNames', value: cachedNames, primary: getPrimaryEntryName() },
+  event.origin
       );
     }
   }
+  if (message && message.type === 'setPrimaryName' && message.value) {
+  setPrimaryEntryName(message.value);
+  const cachedNames = getCachedEntryNames();
+  event.source.postMessage(
+    { type: 'loadCachedNames', value: cachedNames, primary: getPrimaryEntryName() },
+    event.origin
+  );
+  return;
+}
   
   if (message && message.type === 'deleteCachedName' && message.value) {
   removeCachedEntryName(message.value);
@@ -1974,8 +2018,8 @@ function removeCachedEntryName(name) {
   // Send updated list back so the popup can update immediately
   const cachedNames = getCachedEntryNames();
   event.source.postMessage(
-    { type: 'loadCachedNames', value: cachedNames },
-    event.origin
+  { type: 'loadCachedNames', value: cachedNames, primary: getPrimaryEntryName() },
+  event.origin
   );
   return;
 }
@@ -1997,11 +2041,16 @@ addTrackedListener(window, 'message', windowMessageHandler);
 
   // Call this after storedEntryName has been read/set in your code.
   // If storedEntryName is already a global variable, this will work:
-  setPreloaderWelcome(window.storedEntryName);
+  // setPreloaderWelcome(window.storedEntryName);
 
-      const storedEntryName = localStorage.getItem("storedEntryName");
-  setPreloaderWelcome(storedEntryName);
-
+  //     const storedEntryName = localStorage.getItem("storedEntryName");
+  // setPreloaderWelcome(storedEntryName);
+const primaryOrRecent =
+  getPrimaryEntryName() ||
+  getCachedEntryNames()[0] ||
+  localStorage.getItem("storedEntryName") ||
+  "";
+setPreloaderWelcome(primaryOrRecent);
 
     const THEME_KEY = "pick6-theme";
 
