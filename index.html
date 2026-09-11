@@ -10,7 +10,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <!-- IMPORTANT: fixed broken quote -->
-  <meta name="theme-color" content="var(--header-color)" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#111218" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#111218" media="(prefers-color-scheme: light)">
 
   <meta name="apple-mobile-web-app-title" content="Pick 6">
   <meta name="application-name" content="Pick 6">
@@ -105,7 +106,7 @@
       /* padding-top: env(safe-area-inset-top, 0px); */
       /* padding-bottom: var(--safe-bottom); */
     }
-/* #iframe-container {
+/* iframe-container {
   position: absolute;
   top: env(safe-area-inset-top, 0px);
   left: 0;
@@ -123,7 +124,7 @@ iframe {
 } */
 
     /* ===================Install Banner=================== */
-    #install-banner {
+    install-banner {
       display: none;
       text-align: center;
       width: 95%;
@@ -143,7 +144,7 @@ iframe {
       z-index: 1001;
     }
 
-    #install-banner button {
+    install-banner button {
       text-align: center;
       text-decoration: none;
       display: inline-block;
@@ -162,7 +163,7 @@ iframe {
     }
 
     /* ===================iOS Install Banner=================== */
-    #ios-install-banner {
+    ios-install-banner {
       display: none;
       margin: 0;
       position: fixed;
@@ -182,7 +183,7 @@ iframe {
       max-width: 96%;
     }
 
-    #ios-install-banner button {
+    ios-install-banner button {
       position: absolute;
       top: 7px;
       right: 6px;
@@ -207,7 +208,7 @@ iframe {
       align-items: center;
     }
 
-    #install-banner h3 {
+    install-banner h3 {
       margin: 5px 0 -5px 0;
     }
 
@@ -282,7 +283,7 @@ iframe {
     }
 
     /* ===================Preloader Styles=================== */
-    #preloader {
+    preloader {
       display: none;
     }
 
@@ -350,7 +351,7 @@ iframe {
         width: -webkit-fill-available;
       }
 
-      #preloader {
+      preloader {
         /* background: linear-gradient(to top,  */
                     /* var(--header-color) 0%, */
                     /* rgba(17, 18, 24, 0.8) 7%, */
@@ -428,7 +429,7 @@ iframe {
         
       }
 
-      #preloader-text,
+      preloader-text,
       .preloader-text {
         display: flex;
         justify-content: center;
@@ -461,7 +462,7 @@ iframe {
       }
 
 
-       /* #preloader-text span:nth-child(1)::after {
+       /* preloader-text span:nth-child(1)::after {
         content: 'P';
         display: flex;
         -webkit-text-stroke: var(--white-color) 3px;
