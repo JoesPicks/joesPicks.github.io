@@ -1047,7 +1047,19 @@ iframe {
         opacity: 1;
     }
 }
-
+@supports (padding: env(safe-area-inset-top)) {
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: env(safe-area-inset-top);
+    background: var(--header-color);
+    z-index: 2147483647;
+    pointer-events: none;
+  }
+}
     }
   </style>
 </head>
