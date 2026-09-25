@@ -348,21 +348,11 @@ iframe {
   }
   
   @keyframes flicker {
-    0%, 19.9%, 21%, 29.9%, 41%, 100% {  1; color: rgba(54, 104, 168,1);}
-    20%, 20.9%, 37%, 38.9% {  0.5; color: rgba(54, 104, 168,.5);}
-    30%, 30.9% {  0.2; color: rgba(54, 104, 168,.2);}
-    31%, 36.9% { opacity: .9; color: rgba(54, 104, 168,.9);}
-    39%, 40.9% { opacity: .75; color: rgba(54, 104, 168,.75);}
-    /* 0%, 19.9%, 21%, 29.9%, 41%, 100% { opacity: 1; color: rgba(189, 81, 27, 1);}  --HALLOWEEN
-    20%, 20.9%, 37%, 38.9% { opacity: 0.5; color: rgba(189, 81, 27,.5);}
-    30%, 30.9% { opacity: 0.2; color: rgba(189, 81, 27,.2);}
-    31%, 36.9% { opacity: .9; color: rgba(189, 81, 27,.9);}
-    39%, 40.9% { opacity: .75; color: rgba(189, 81, 27,.75);} */
-    /* 0%, 19.9%, 21%, 29.9%, 41%, 100% { opacity: 1; color: rgba(167, 21, 0, 1);} --THANKSGIVING
-    20%, 20.9%, 37%, 38.9% { opacity: 0.5; color: rgba(167, 21, 0, .5);}
-    30%, 30.9% { opacity: 0.2; color: rgba(167, 21, 0, .2);}
-    31%, 36.9% { opacity: .9; color: rgba(167, 21, 0, .9);}
-    39%, 40.9% { opacity: .75; color: rgba(167, 21, 0, .75);} */
+    0%, 19.9%, 21%, 29.9%, 41%, 100% {color: rgba(255, 255, 255,1)}
+    20%, 20.9%, 37%, 38.9% {color: rgba(255, 255, 255, .5);}
+    30%, 30.9% {color: rgba(255, 255, 255,.2);}
+    31%, 36.9% {color: rgba(255, 255, 255,.9);}
+    39%, 40.9% {color: rgba(255, 255, 255,.75);}
   }
   
   @keyframes fadeIn {
@@ -736,11 +726,12 @@ iframe {
         letter-spacing: 3px;
         -webkit-text-stroke: 2px;
         position: relative;
+        animation: flicker 2s infinite; 
       }
       
       #week-number span {
     display: inline-block;
-    animation: flicker 2s infinite; 
+    /* animation: flicker 2s infinite;  */
     position: relative;
     padding-top: 0px;
   }
