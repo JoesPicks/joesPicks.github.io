@@ -404,13 +404,13 @@ iframe {
         z-index: 9999;
         overflow: visible;
         pointer-events: none;
-        transition: all 1.5s ease-in-out;
+        /* transition: all 1.5s ease-in-out; */
         background-image: url(https://raw.githubusercontent.com/JoesPicks/Football-Team-Logos/refs/heads/main/BlurredField.jpeg);
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
         opacity: 1; 
-        transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+        transition: opacity 1s ease-out, transform .75s ease-out;
       }
 
       .image {
@@ -1316,7 +1316,7 @@ iframe {
           setTimeout(function () {
             button.style.display = 'none';
           }, 300);
-        }, 2500);
+        }, 5700);
 
       } catch (err) {
         console.error('Reset failed:', err);
@@ -1719,7 +1719,7 @@ function checkAndShowNotifications() {
           
           // FIXED: Track this listener
           addTrackedListener(preloader, 'transitionend', transitionEndHandler, { once: true });
-        }, 5000);
+        }, 2500);
       };
       
       // FIXED: Track iframe load listener
