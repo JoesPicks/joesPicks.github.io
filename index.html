@@ -430,10 +430,9 @@ iframe {
 
       .preloader-fade-out {
         opacity: 0;
-        background-color: var(--header-color);
-        background-image: url(https://raw.githubusercontent.com/JoesPicks/Football-Team-Logos/refs/heads/main/BlurredField.jpeg) !important;
-        transform: scale(54) translateY(-255px);
-        
+        /* background-color: var(--header-color); */
+        /* background-image: url(https://raw.githubusercontent.com/JoesPicks/Football-Team-Logos/refs/heads/main/BlurredField.jpeg) !important; */
+        transform: scale(54) translateY(0px);
       }
 
       #preloader-text,
@@ -1024,7 +1023,8 @@ iframe {
         background: linear-gradient(to bottom, white 0%, #000 15%, #000 85%, white 100%);
         mix-blend-mode: multiply;
         opacity: 0;
-        animation: fadeInText 2s ease-in-out forwards;
+        /* animation: fadeInText 2s ease-in-out forwards; */
+        animation: fadeInText 2s .25s ease-in-out forwards;
         width: 50%;
         position: fixed;
         top: 0px;
