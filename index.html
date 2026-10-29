@@ -8,7 +8,7 @@
       var saved = localStorage.getItem(THEME_KEY) || "dark";
       document.documentElement.setAttribute("data-theme", saved);
 
-      var color = saved === "light" ? "#EBECF0" : "#111218";
+      var color = saved === "light" ? "#EBECF0" : "#000";
       var meta = document.querySelector('meta[name="theme-color"]:not([media]), meta[name="theme-color"]');
       if (meta) meta.setAttribute("content", color);
     })();
@@ -67,8 +67,8 @@
 }
 
 :root[data-theme="dark"] {
-  --header-color: #111218;
-  --background-color: #111218;
+  --header-color: #000;
+  --background-color: #000;
 }
     /* ===================General / Page Layout=================== */
     html,
