@@ -23,7 +23,7 @@
             "purpose": "any"
         },
         {
-            "src": "Pick6LogoNew512x512.png",
+            "src": "Pick6Logo512x512.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any"
@@ -35,7 +35,7 @@
             "purpose": "maskable"
         },
         {
-            "src": "Pick6LogoNew512x512.png",
+            "src": "Pick6Logo512x512.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "maskable"
@@ -43,7 +43,7 @@
     ],
     "screenshots": [
         {
-            "src": "Pick6LogoNew512x512.png",
+            "src": "Pick6Logo512x512.png",
             "sizes": "512x512",
             "type": "image/png",
             "form_factor": "narrow",
